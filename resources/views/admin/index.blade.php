@@ -2,7 +2,8 @@
 
 {{-- Page title --}}
 @section('title')
-    Josh Admin Template
+    {{--Josh Admin Template--}}
+    SGIS IIS
     @parent
 @stop
 
