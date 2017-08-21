@@ -199,4 +199,9 @@ Route::get('blogitem/{slug?}', 'FrontendBlogController@getBlog');
 Route::post('blogitem/{blog}/comment', 'FrontendBlogController@storeComment');
 
 Route::get('{name?}', 'JoshController@showFrontEndView');
+
+
+
+//sgis front end routes
+Route::post(config('constants.menu_path.front_end.internship_create_application'), 'InternApplicationController@ajaxStore');
 # End of frontend views

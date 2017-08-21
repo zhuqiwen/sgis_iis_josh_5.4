@@ -9,8 +9,8 @@
 return [
 	'menu_path' => [
 		'front_end' => [
-			'internship_create_application' => '/internship/application/create',
-			'internship_application_status' => '/internship/application/status',
+			'internship_create_application' => '/create_internship_application',
+			'internship_application_status' => '/internship/application_status',
 			'internship_assignments' => '/internship/assignments',
 			'internship_timeline' => '/timeline',
 

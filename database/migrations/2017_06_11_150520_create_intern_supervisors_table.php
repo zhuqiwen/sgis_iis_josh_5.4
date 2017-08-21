@@ -19,6 +19,7 @@ class CreateInternSupervisorsTable extends Migration
 		    $table->string('intern_supervisor_last_name')->nullable();
 		    $table->string('intern_supervisor_prefix')->nullable();
 		    $table->string('intern_supervisor_email')->nullable();
+		    $table->string('intern_supervisor_phone_country_code')->nullable();
 		    $table->string('intern_supervisor_phone')->nullable();
 		    $table->integer('intern_organization_id')->unsigned();
 		    $table->timestamps();

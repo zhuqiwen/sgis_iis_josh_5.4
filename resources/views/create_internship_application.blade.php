@@ -82,72 +82,84 @@ Advanced Features
                                         {{--</li>--}}
                                     </ul>
                                     <div class="tab-content">
-                                        <div class="tab-pane" id="tab1">
-                                            <h2 class="hidden">&nbsp;</h2>
-                                            <div class="form-group">
-                                                <label for="userName" class="control-label">User name *</label>
-                                                <input id="userName" name="username" type="text" placeholder="Enter your name" class="form-control required">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="email" class="control-label">Email *</label>
-                                                <input id="email" name="email" placeholder="Enter your Email" type="text" class="form-control required email">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="password" class="control-label">Password *</label>
-                                                <input id="password" name="password" type="password" placeholder="Enter your password" class="form-control required">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="confirm" class="control-label">Confirm Password *</label>
-                                                <input id="confirm" name="confirm" type="password" placeholder="Confirm your password " class="form-control required">
-                                            </div>
-                                        </div>
-                                        <div class="tab-pane" id="tab2">
-                                            <h2 class="hidden">&nbsp;</h2>
-                                            <div class="form-group">
-                                                <label for="name" class="control-label">First name *</label>
-                                                <input id="name" name="fname" placeholder="Enter your First name" type="text" class="form-control required">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="surname" class="control-label">Last name *</label>
-                                                <input id="surname" name="lname" type="text" placeholder=" Enter your Last name" class="form-control required">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="email">Gender</label>
-                                                <select class="form-control" name="gender" id="gender"
-                                                        title="Select an account type...">
-                                                    <option disabled="" selected="">Select</option>
-                                                    <option>MALE</option>
-                                                    <option>FEMALE</option>
-                                                </select>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="address" class="control-label">Address</label>
-                                                <input id="address" name="address" type="text" class="form-control">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="age" class="control-label">Age *</label>
-                                                <input id="age" name="age" type="text" maxlength="3" class="form-control required number" min="17" data-bv-greaterthan-inclusive="false" data-bv-greaterthan-message="The input must be greater than or equal to 18" max="100" data-bv-lessthan-inclusive="true" data-bv-lessthan-message="The input must be less than 100">                                    </div>
-                                        </div>
-                                        <div class="tab-pane" id="tab3">
-                                            <div class="form-group">
-                                                <label for="phone1" class="control-label">Home number *</label>
-                                                <input type="text" class="form-control" id="phone1" name="phone1" placeholder="(999)999-9999">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="phone2" class="control-label">Personal number *</label>
-                                                <input type="text" class="form-control" id="phone2" name="phone2" placeholder="(999)999-9999">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="phone3" class="control-label">Alternate number *</label>
-                                                <input type="text" class="form-control" id="phone3" name="phone3" placeholder="(999)999-9999">
-                                            </div>
-                                            <h2 class="hidden">&nbsp;</h2>
-                                            <div class="form-group">
-                                                <label>
-                                                    <input id="acceptTerms" name="acceptTerms" type="checkbox" class="custom-checkbox"> *I agree with the Terms and Conditions.
-                                                </label>
-                                            </div>
-                                        </div>
+                                        {!! Form::open(['action' => 'InternApplicationController@ajaxStore', 'id' => 'create_application_organization_form']) !!}
+                                        {{--<div class="tab-pane" id="tab1">--}}
+                                            {{--<h2 class="hidden">&nbsp;</h2>--}}
+                                            {{--<div class="form-group">--}}
+                                                {{--<label for="userName" class="control-label">User name *</label>--}}
+                                                {{--<input id="userName" name="username" type="text" placeholder="Enter your name" class="form-control required">--}}
+                                            {{--</div>--}}
+                                            {{--<div class="form-group">--}}
+                                                {{--<label for="email" class="control-label">Email *</label>--}}
+                                                {{--<input id="email" name="email" placeholder="Enter your Email" type="text" class="form-control required email">--}}
+                                            {{--</div>--}}
+                                            {{--<div class="form-group">--}}
+                                                {{--<label for="password" class="control-label">Password *</label>--}}
+                                                {{--<input id="password" name="password" type="password" placeholder="Enter your password" class="form-control required">--}}
+                                            {{--</div>--}}
+                                            {{--<div class="form-group">--}}
+                                                {{--<label for="confirm" class="control-label">Confirm Password *</label>--}}
+                                                {{--<input id="confirm" name="confirm" type="password" placeholder="Confirm your password " class="form-control required">--}}
+                                            {{--</div>--}}
+                                        {{--</div>--}}
+
+                                        @include('frontend.partials.internship_application_form.guide')
+                                        @include('frontend.partials.internship_application_form.organization')
+                                        @include('frontend.partials.internship_application_form.supervisor')
+                                        @include('frontend.partials.internship_application_form.basic_details')
+                                        @include('frontend.partials.internship_application_form.location')
+                                        @include('frontend.partials.internship_application_form.dates')
+                                        @include('frontend.partials.internship_application_form.budget')
+                                        @include('frontend.partials.internship_application_form.work_schedule')
+                                        @include('frontend.partials.internship_application_form.value')
+
+                                        {{--<div class="tab-pane" id="tab2">--}}
+                                            {{--<h2 class="hidden">&nbsp;</h2>--}}
+                                            {{--<div class="form-group">--}}
+                                                {{--<label for="name" class="control-label">First name *</label>--}}
+                                                {{--<input id="name" name="fname" placeholder="Enter your First name" type="text" class="form-control required">--}}
+                                            {{--</div>--}}
+                                            {{--<div class="form-group">--}}
+                                                {{--<label for="surname" class="control-label">Last name *</label>--}}
+                                                {{--<input id="surname" name="lname" type="text" placeholder=" Enter your Last name" class="form-control required">--}}
+                                            {{--</div>--}}
+                                            {{--<div class="form-group">--}}
+                                                {{--<label for="email">Gender</label>--}}
+                                                {{--<select class="form-control" name="gender" id="gender"--}}
+                                                        {{--title="Select an account type...">--}}
+                                                    {{--<option disabled="" selected="">Select</option>--}}
+                                                    {{--<option>MALE</option>--}}
+                                                    {{--<option>FEMALE</option>--}}
+                                                {{--</select>--}}
+                                            {{--</div>--}}
+                                            {{--<div class="form-group">--}}
+                                                {{--<label for="address" class="control-label">Address</label>--}}
+                                                {{--<input id="address" name="address" type="text" class="form-control">--}}
+                                            {{--</div>--}}
+                                            {{--<div class="form-group">--}}
+                                                {{--<label for="age" class="control-label">Age *</label>--}}
+                                                {{--<input id="age" name="age" type="text" maxlength="3" class="form-control required number" min="17" data-bv-greaterthan-inclusive="false" data-bv-greaterthan-message="The input must be greater than or equal to 18" max="100" data-bv-lessthan-inclusive="true" data-bv-lessthan-message="The input must be less than 100">                                    </div>--}}
+                                        {{--</div>--}}
+                                        {{--<div class="tab-pane" id="tab3">--}}
+                                            {{--<div class="form-group">--}}
+                                                {{--<label for="phone1" class="control-label">Home number *</label>--}}
+                                                {{--<input type="text" class="form-control" id="phone1" name="phone1" placeholder="(999)999-9999">--}}
+                                            {{--</div>--}}
+                                            {{--<div class="form-group">--}}
+                                                {{--<label for="phone2" class="control-label">Personal number *</label>--}}
+                                                {{--<input type="text" class="form-control" id="phone2" name="phone2" placeholder="(999)999-9999">--}}
+                                            {{--</div>--}}
+                                            {{--<div class="form-group">--}}
+                                                {{--<label for="phone3" class="control-label">Alternate number *</label>--}}
+                                                {{--<input type="text" class="form-control" id="phone3" name="phone3" placeholder="(999)999-9999">--}}
+                                            {{--</div>--}}
+                                            {{--<h2 class="hidden">&nbsp;</h2>--}}
+                                            {{--<div class="form-group">--}}
+                                                {{--<label>--}}
+                                                    {{--<input id="acceptTerms" name="acceptTerms" type="checkbox" class="custom-checkbox"> *I agree with the Terms and Conditions.--}}
+                                                {{--</label>--}}
+                                            {{--</div>--}}
+                                        {{--</div>--}}
                                         <ul class="pager wizard">
                                             <li class="previous">
                                                 <a href="#">Previous</a>
@@ -191,12 +203,12 @@ Advanced Features
 {{-- page level scripts --}}
 @section('footer_scripts')
     <!-- page level js starts-->
-    <script type="text/javascript" src="{{ asset('assets/vendors/bootstrap-tagsinput/js/bootstrap-tagsinput.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('assets/vendors/modal/js/classie.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('assets/vendors/modal/js/modalEffects.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('assets/vendors/switchery/js/switchery.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('assets/vendors/bootstrap-switch/js/bootstrap-switch.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('assets/js/frontend/advfeatures.js') }}"></script>
+    {{--<script type="text/javascript" src="{{ asset('assets/vendors/bootstrap-tagsinput/js/bootstrap-tagsinput.js') }}"></script>--}}
+    {{--<script type="text/javascript" src="{{ asset('assets/vendors/modal/js/classie.js') }}"></script>--}}
+    {{--<script type="text/javascript" src="{{ asset('assets/vendors/modal/js/modalEffects.js') }}"></script>--}}
+    {{--<script type="text/javascript" src="{{ asset('assets/vendors/switchery/js/switchery.js') }}"></script>--}}
+    {{--<script type="text/javascript" src="{{ asset('assets/vendors/bootstrap-switch/js/bootstrap-switch.js') }}"></script>--}}
+    {{--<script type="text/javascript" src="{{ asset('assets/js/frontend/advfeatures.js') }}"></script>--}}
 
 
     <script src="{{ asset('assets/vendors/iCheck/js/icheck.js') }}"></script>
