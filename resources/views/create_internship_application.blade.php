@@ -47,7 +47,7 @@ Advanced Features
                     </span>
                         </div>
                         <div class="panel-body">
-                            <form id="commentForm" method="post" action="#">
+                            <form id="internship_application_form" method="post" action="#">
                                 <div id="rootwizard">
                                     <ul>
 
@@ -82,7 +82,10 @@ Advanced Features
                                         {{--</li>--}}
                                     </ul>
                                     <div class="tab-content">
-                                        {!! Form::open(['action' => 'InternApplicationController@ajaxStore', 'id' => 'create_application_organization_form']) !!}
+                                        {{--{!! Form::open(--}}
+                                                        {{--[--}}
+                                                            {{--'action' => 'InternApplicationController@ajaxStore',--}}
+                                                            {{--'id' => 'internship_application_form']) !!}--}}
                                         {{--<div class="tab-pane" id="tab1">--}}
                                             {{--<h2 class="hidden">&nbsp;</h2>--}}
                                             {{--<div class="form-group">--}}
