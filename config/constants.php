@@ -12,6 +12,10 @@ return [
 			'internship_create_application' => '/internship/application/create',
 			'internship_application_status' => '/internship/application/status',
 			'internship_assignments' => '/internship/assignments',
+			'internship_timeline' => '/timeline',
+
+			'funding_overseas_internship' => '/funding/internship',
+			'funding_scholarships' => '/funding/scholarships',
 		],
 		'back_end' => [],
 	],
