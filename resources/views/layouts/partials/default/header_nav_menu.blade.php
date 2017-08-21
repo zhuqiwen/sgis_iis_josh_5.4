@@ -26,9 +26,9 @@
             </li>
             <li><a href="{{ URL::to(config('constants.menu_path.front_end.internship_application_status')) }}">Application Status</a>
             </li>
-            <li><a href="{{ URL::to(config('constants.menu_path.front_end.internship_assignments')) }}">Internship Assignment</a>
+            <li><a href="{{ URL::to(config('constants.menu_path.front_end.internship_assignments')) }}">Assignment</a>
             </li>
-            <li><a href="{{ URL::to(config('constants.menu_path.front_end.internship_timeline')) }}">Internship Timeline</a>
+            <li><a href="{{ URL::to(config('constants.menu_path.front_end.internship_timeline')) }}">Timeline</a>
             </li>
         </ul>
     </li>
