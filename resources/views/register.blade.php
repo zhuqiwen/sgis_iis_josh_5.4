@@ -21,7 +21,7 @@
     <!--Content Section Start -->
     <div class="row">
         <div class="box animation flipInX">
-            <img src="{{ asset('assets/images/josh-new.png') }}" alt="logo" class="img-responsive mar">
+            <img src="{{ asset('assets/images/sgis_logo.jpg') }}" alt="logo" class="img-responsive mar" height="100" width="100">
             <h3 class="text-primary">Sign Up</h3>
             <!-- Notifications -->
             <div id="notific">
@@ -45,9 +45,15 @@
                 </div>
                 <div class="form-group {{ $errors->first('email', 'has-error') }}">
                     <label class="sr-only"> Email</label>
-                    <input type="email" class="form-control" id="Email" name="email" placeholder="Email"
+                    <input type="email" class="form-control" id="Email" name="email" placeholder="IU Email"
                            value="{!! old('Email') !!}" >
                     {!! $errors->first('email', '<span class="help-block">:message</span>') !!}
+                </div>
+                <div class="form-group {{ $errors->first('iuid', 'has-error') }}">
+                    <label class="sr-only"> Email</label>
+                    <input type="text" class="form-control" id="IUID" name="iuid" placeholder="IUID"
+                           value="{!! old('IUID') !!}" >
+                    {!! $errors->first('iuid', '<span class="help-block">:message</span>') !!}
                 </div>
                 <div class="form-group {{ $errors->first('password', 'has-error') }}">
                     <label class="sr-only"> Password</label>
@@ -60,22 +66,12 @@
                            placeholder="Confirm Password">
                     {!! $errors->first('password_confirm', '<span class="help-block">:message</span>') !!}
                 </div>
+
                 <div class="clearfix"></div>
-                <div class="form-group {{ $errors->first('gender', 'has-error') }}">
-                    <label class="sr-only">Gender</label>
-                    <label class="radio-inline">
-                        <input type="radio" name="gender" id="inlineRadio1" value="male"> Male
-                    </label>
-                    <label class="radio-inline">
-                        <input type="radio" name="gender" id="inlineRadio2" value="female"> Female
-                    </label>
-                    {!! $errors->first('gender', '<span class="help-block">:message</span>') !!}
-                </div>
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" name="subscribed" >  I accept <a href="#"> Terms and Conditions</a>
-                    </label>
-                </div>
+{{--                @include('frontend.partials.register_gender_radio')--}}
+
+
+{{--                @include('frontend.partials.register_accept_term_checkbox')--}}
                 <button type="submit" class="btn btn-block btn-primary">Sign Up</button>
                 Already have an account? Please <a href="{{ route('login') }}"> Log In</a>
             </form>

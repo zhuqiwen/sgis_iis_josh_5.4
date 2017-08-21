@@ -7,10 +7,29 @@
     </li>
 @else
 
+    <li {!! (Request::is('/') ? 'class="active"' : '') !!}>
+        <a href="{{ route('home') }}">
+            Home
+        </a>
+    </li>
     {{--Internship with dropdown of guidance(timeline guide), create application, Application status(un-and submitted and approved in here), Internship Assignments--}}
         {{--application status page: tabs of unsubmitted, submitted, approved and rejected--}}
         {{--internship assignments page: tabs of journals, Reflection, and Site evaluation--}}
         {{--requires student role--}}
+    <li class="dropdown {!! (Request::is('internship')
+                            || Request::is(config('constants.menu_path.front_end.internship_create_application'))
+                            || Request::is(config('constants.menu_path.front_end.internship_application_status'))
+                            || Request::is(config('constants.menu_path.front_end.internship_assignments')) ? 'active' : '')!!}">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"> Internships</a>
+        <ul class="dropdown-menu" role="menu">
+            <li><a href="{{ URL::to(config('constants.menu_path.front_end.internship_create_application')) }}">Create Internship Application</a>
+            </li>
+            <li><a href="{{ URL::to(config('constants.menu_path.front_end.internship_application_status')) }}">Application Status</a>
+            </li>
+            <li><a href="{{ URL::to(config('constants.menu_path.front_end.internship_assignments')) }}">Internship Assignment</a>
+            </li>
+        </ul>
+    </li>
     {{--Funding: dropdown of Scholarships and Internship fundings--}}
         {{--requires student role--}}
     {{--Alumni (in furture version | register, and update their informatio; new alum nees to apply and be approved to become an official alum)--}}
@@ -21,11 +40,7 @@
         {{--students can browse others internship experiences--}}
     {{--logout--}}
 
-    <li {!! (Request::is('/') ? 'class="active"' : '') !!}>
-        <a href="{{ route('home') }}">
-            Home
-        </a>
-    </li>
+
     <li class="dropdown {!! (Request::is('typography') || Request::is('advancedfeatures') || Request::is('grid') ? 'active' : '') !!}">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"> Features</a>
         <ul class="dropdown-menu" role="menu">

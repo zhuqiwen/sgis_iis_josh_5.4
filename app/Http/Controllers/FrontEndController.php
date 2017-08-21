@@ -210,11 +210,20 @@ class FrontEndController extends JoshController
      */
     public function postRegister(UserRequest $request)
     {
-        $activate = $this->user_activation; //make it false if you don't want to activate user automatically it is declared above as global variable
+	    //make it false if you don't want to activate user automatically it is declared above as global variable
+	    $activate = $this->user_activation;
 
-        try {
+	    try {
             // Register the user
-            $user = Sentinel::register($request->only(['first_name', 'last_name', 'email', 'password', 'gender']), $activate);
+            $user = Sentinel::register($request->only(
+            	[
+            		'first_name',
+		            'last_name',
+		            'email',
+		            'iuid',
+		            'password',
+		            'gender'
+	            ]), $activate);
 
             //add user to 'User' group
             $role = Sentinel::findRoleByName('User');
