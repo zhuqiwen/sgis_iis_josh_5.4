@@ -20,6 +20,7 @@ Advanced Features
     <link href="{{ asset('assets/vendors/bootstrapvalidator/css/bootstrapValidator.min.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/vendors/iCheck/css/all.css') }}"  rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/css/pages/wizard.css') }}" rel="stylesheet">
+
     <!--end of page level css-->
 @stop
 
@@ -171,7 +172,7 @@ Advanced Features
                                                 <a href="#">Next</a>
                                             </li>
                                             <li class="next finish" style="display:none;">
-                                                <a href="javascript:;">Finish</a>
+                                                <a href="javascript:;" type="submit">Finish</a>
                                             </li>
                                         </ul>
                                     </div>
@@ -214,6 +215,7 @@ Advanced Features
     {{--<script type="text/javascript" src="{{ asset('assets/js/frontend/advfeatures.js') }}"></script>--}}
 
 
+    <script src="{{ asset('assets/js/frontend/ajax_init.js') }}"></script>
     <script src="{{ asset('assets/vendors/iCheck/js/icheck.js') }}"></script>
     <script src="{{ asset('assets/vendors/moment/js/moment.min.js') }}" ></script>
     <script src="{{ asset('assets/vendors/select2/js/select2.js') }}" type="text/javascript"></script>

@@ -10,6 +10,6 @@ class InternApplicationController extends Controller
 
     public function ajaxStore(Request $request)
     {
-
+	    return json_encode($request->all());
     }
 }
