@@ -50,15 +50,36 @@ Advanced Features
                             <form id="commentForm" method="post" action="#">
                                 <div id="rootwizard">
                                     <ul>
-                                        <li>
-                                            <a href="#tab1" data-toggle="tab">First</a>
-                                        </li>
-                                        <li>
-                                            <a href="#tab2" data-toggle="tab">Second</a>
-                                        </li>
-                                        <li>
-                                            <a href="#tab3" data-toggle="tab">Third</a>
-                                        </li>
+
+                                        <?php
+                                            $numTabs = 9;
+                                            $tabNames = [
+                                                    'Guide',
+                                                    'Organization',
+                                                    'Supervisor',
+                                                    'Basic details',
+                                                    'Location',
+                                                    'Dates',
+                                                    'Budget',
+                                                    'Work schedule',
+                                                    'Value',
+                                            ];
+                                            for ($i = 0; $i < $numTabs; $i++)
+                                            {
+                                                echo "<li>";
+                                                echo "<a href='#tab$i' data-toggle='tab'>$tabNames[$i]</a>";
+                                                echo "</li>";
+                                            }
+                                        ?>
+                                        {{--<li>--}}
+                                            {{--<a href="#tab1" data-toggle="tab">Guide</a>--}}
+                                        {{--</li>--}}
+                                        {{--<li>--}}
+                                            {{--<a href="#tab2" data-toggle="tab">Second</a>--}}
+                                        {{--</li>--}}
+                                        {{--<li>--}}
+                                            {{--<a href="#tab3" data-toggle="tab">Third</a>--}}
+                                        {{--</li>--}}
                                     </ul>
                                     <div class="tab-content">
                                         <div class="tab-pane" id="tab1">
