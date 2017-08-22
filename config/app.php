@@ -200,6 +200,12 @@ return [
         \InfyOm\CoreTemplates\CoreTemplatesServiceProvider::class,
         \InfyOm\GeneratorBuilder\GeneratorBuilderServiceProvider::class,
 
+        /*
+         * Helper provider
+         */
+        App\Providers\HelperServiceProvider::class,
+
+
     ],
 
     /*
@@ -258,7 +264,14 @@ return [
         'Reminder'   => Cartalyst\Sentinel\Laravel\Facades\Reminder::class,
         'Sentinel'   => Cartalyst\Sentinel\Laravel\Facades\Sentinel::class,
         'Image' => Intervention\Image\Facades\Image::class,
-        'Flash'     => Laracasts\Flash\Flash::class
+        'Flash'     => Laracasts\Flash\Flash::class,
+
+        /*
+         * Helpers aliases
+         */
+        'HTMLSnippet' => App\Helpers\HTMLSnippet::class,
+        'TravelWarning' => App\Helpers\TravelWarning::class,
+        'Thumbnail' => App\Helpers\Thumbnail::class,
 
     ],
 

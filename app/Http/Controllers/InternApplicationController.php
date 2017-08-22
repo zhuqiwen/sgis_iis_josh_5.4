@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use app\Helpers\HTMLSnippet;
 use App\Models\InternApplication;
 use App\Models\InternOrganization;
 use App\Models\InternSupervisor;
@@ -11,7 +12,7 @@ use Illuminate\Http\Request;
 
 class InternApplicationController extends Controller
 {
-    //
+    // front end user's functionalities
 	public function showApplicationStatus(Request $request)
 	{
 		$applications = new InternApplication();
@@ -53,5 +54,26 @@ class InternApplicationController extends Controller
 
 	    return json_encode($application);
 
+    }
+
+
+
+
+
+    // admin's functionalities
+    public function adminIndexSubmittedApplications(Request $request)
+    {
+        $applications = new InternApplication();
+        $submitted_applications = $applications->getSubmittedApplications();
+
+        $submitted_application_cards = '';
+        foreach ($submitted_applications as $application)
+        {
+            $submitted_application_cards .= HTMLSnippet::generateApplicationFloatCardWithModal($application);
+
+        }
+
+        return view('admin.internships.applications.submitted_applications')
+            ->withSubmittedApplicationCards($submitted_application_cards);
     }
 }

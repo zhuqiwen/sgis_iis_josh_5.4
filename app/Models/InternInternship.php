@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -41,6 +42,46 @@ class InternInternship extends Model
 	{
 		return $this->belongsTo('App\User', 'intern_internship_closed_by');
 	}
+
+    public function journals()
+    {
+        return $this->hasMany('App\Models\InternJournal', 'internship_id');
+	}
+
+    public function reflection()
+    {
+        return $this->hasOne('App\Models\InternReflection', 'internship_id');
+    }
+
+    public function siteEvaluation()
+    {
+        return $this->hasOne('App\Models\InternSiteEvaluation', 'internship_id');
+    }
+
+    public function studentEvaluation()
+    {
+        return $this->hasOne('App\Models\InternStudentEvaluation', 'internship_id');
+    }
+
+
+
+
+	public function getFinishedInternshipsByApplicantId($applicant_id)
+    {
+        $applications = new InternApplication();
+        $finishend_applications = $applications->getFinishedApplicationByApplicantId($applicant_id);
+        $application_ids = [];
+        foreach ($finishend_applications as $application)
+        {
+            $application_ids[] = $application->id;
+        }
+
+        return $this->whereIn('application_id', $application_ids)
+            ->get()
+            ->load('journals', 'reflection', 'siteEvaluation', 'studentEvaluation');
+
+
+    }
 
 
 

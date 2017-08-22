@@ -160,6 +160,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin', 'as' => 'admin.'], f
     Route::post('task/{task}/delete', 'TaskController@delete');
 
 
+    //sgis internship management
+    Route::get('approve_internship_applications', 'InternApplicationController@adminIndexSubmittedApplications');
     # Remaining pages will be called from below controller method
     # in real world scenario, you may be required to define all routes manually
 
@@ -182,6 +184,17 @@ Route::post('forgot-password/{userId}/{passwordResetCode}', 'FrontEndController@
 Route::group(array('middleware' => 'user'), function () {
     Route::get('my-account', array('as' => 'my-account', 'uses' => 'FrontEndController@myAccount'));
     Route::put('my-account', 'FrontEndController@update');
+
+    //sgis front end routes
+
+    Route::get('internship_application_status', 'InternApplicationController@showApplicationStatus');
+    Route::get('internship_assignments', 'InternInternshipController@showAssignments');
+    Route::post(config('constants.menu_path.front_end.internship_create_application'), 'InternApplicationController@ajaxStore');
+
+
+
+
+
 });
 Route::get('logout', array('as' => 'logout','uses' => 'FrontEndController@getLogout'));
 # contact form
@@ -200,10 +213,7 @@ Route::post('blogitem/{blog}/comment', 'FrontendBlogController@storeComment');
 
 
 
-Route::get('internship_application_status', 'InternApplicationController@showApplicationStatus');
 
-//sgis front end routes
-Route::post(config('constants.menu_path.front_end.internship_create_application'), 'InternApplicationController@ajaxStore');
 
 Route::get('{name?}', 'JoshController@showFrontEndView');
 

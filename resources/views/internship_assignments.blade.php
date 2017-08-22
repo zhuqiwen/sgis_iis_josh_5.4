@@ -1,7 +1,8 @@
 @extends('layouts/default')
 
 {{-- Page title --}}
-@section('title')Create Internship Application
+@section('title')
+    Submit Internship Assignments
 @parent
 @stop
 
@@ -26,6 +27,7 @@
 
 {{-- Page content --}}
 @section('content')
+
     <!-- Container Section Start -->
     <div class="container">
         <section class="content">
@@ -90,6 +92,17 @@
                     </div>
                 </div>
             </div>
+
+            {{--for each internship--}}
+            {{--produce a tab--}}
+            {{--produce a tab content--}}
+                {{--for each assignment type in internship--}}
+                    {{--if it is journals--}}
+                        {{--produce journals panel--}}
+                            {{--for each journal--}}
+                                {{--produce a journal collapse--}}
+                    {{--else--}}
+                        {{--produce assignment penal--}}
             <div class="row">
                 <div class="col-md-12">
                     <div class="panel panel-success">
