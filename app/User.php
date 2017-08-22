@@ -35,4 +35,19 @@ class User extends EloquentUser {
 
     protected $dates = ['deleted_at'];
 
+
+	public function InternshipApplications()
+	{
+		return $this->hasMany('App\Models\InternApplication', 'user_id');
+	}
+
+	public function approvedInternshipApplications()
+	{
+		return $this->hasMany('App\Models\InternApplication', 'intern_application_approved_by');
+	}
+
+	public function closedInternships()
+	{
+		return $this->hasMany('App\Models\InternInternships', 'intern_internship_closed_by');
+	}
 }

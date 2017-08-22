@@ -15,7 +15,7 @@ class CreateInternJournalsTable extends Migration
 	{
 		Schema::create('intern_journals', function (Blueprint $table) {
 			$table->increments('id');
-            $table->integer('internship_id')->unsigned();
+            $table->integer('internship_id')->unsigned()->nullable();
 			$table->text('intern_journal_content')->nullable();
 
 			$table->smallInteger('intern_journal_serial_num')->nullable();

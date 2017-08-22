@@ -16,6 +16,8 @@ $credit_hours = [
         </div>
         <div class="col-sm-5 col-sm-offset-1">
             <div class="form-group">
+                {!! Form::hidden('user_id', Sentinel::getUser()->id) !!}
+                {!! Form::hidden('intern_application_submitted_by', Sentinel::getUser()->id) !!}
                 {!! Form::label('intern_application_year', 'Which academic year?') !!}
                 {!! Form::select('intern_application_year',
                 ['2018' => '2018', '2019'=> '2019'],

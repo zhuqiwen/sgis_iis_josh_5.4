@@ -15,7 +15,7 @@ class CreateInternReflectionsTable extends Migration
 	{
 		Schema::create('intern_reflections', function (Blueprint $table) {
 			$table->increments('id');
-            $table->integer('internship_id')->unsigned();
+            $table->integer('internship_id')->unsigned()->nullable();
             $table->text('intern_reflection_content')->nullable();
             $table->date('intern_reflection_due_date')->nullable();
             $table->date('intern_reflection_submitted_at')->nullable();

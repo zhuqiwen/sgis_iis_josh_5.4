@@ -15,7 +15,7 @@ class CreateInternSiteEvaluationsTable extends Migration
     {
 	    Schema::create('intern_site_evaluations', function (Blueprint $table) {
 		    $table->increments('id');
-		    $table->integer('internship_id')->unsigned();
+		    $table->integer('internship_id')->unsigned()->nullable();
 		    $table->text('how_did_locate')->nullable();
 		    $table->text('site_description')->nullable();
 		    $table->text('task_description')->nullable();

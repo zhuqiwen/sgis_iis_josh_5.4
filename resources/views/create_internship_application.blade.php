@@ -1,8 +1,7 @@
 @extends('layouts/default')
 
 {{-- Page title --}}
-@section('title')
-Advanced Features
+@section('title')Create Internship Application
 @parent
 @stop
 
@@ -221,7 +220,7 @@ Advanced Features
     <script src="{{ asset('assets/vendors/select2/js/select2.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/vendors/bootstrapwizard/jquery.bootstrap.wizard.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/vendors/bootstrapvalidator/js/bootstrapValidator.min.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('assets/js/pages/form_wizard.js') }}"  type="text/javascript"></script>
+    <script src="{{ asset('assets/js/pages/create_internship_application.js') }}"  type="text/javascript"></script>
     <!--page level js ends-->
 
 @stop

@@ -17,7 +17,7 @@ class CreateInternStudentEvaluationsTable extends Migration
         // otherwise, we will need a new table/entity for midterm.
 		Schema::create('intern_student_evaluations', function (Blueprint $table) {
 			$table->increments('id');
-            $table->integer('internship_id')->unsigned();
+            $table->integer('internship_id')->unsigned()->nullable();
 			$table->text('intern_student_evaluation_performance_comment')->nullable();
 			$table->boolean('intern_student_evaluation_has_noteworthy')->nullable();
 			$table->text('intern_student_evaluation_noteworthy_aspects')->nullable();
