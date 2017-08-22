@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/pages/tab.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/float-card.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/pages/buttons.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/css/font-awesome.min.css') }}" />
 
     <style>
         @media (min-width:320px) and (max-width:425px){
@@ -44,8 +45,11 @@
                             Submitted Internship Applications
                             </span>
 
-                            <button type="button" class="btn btn-sm btn-warning" disabled>
+                            <button id="button_approve" type="button" class="btn btn-sm btn-warning">
                                 <span class="glyphicon glyphicon-check"></span> Approve
+                            </button>
+                            <button id="button_unapprove" type="button" class="btn btn-sm btn-warning" style="display: none;">
+                                <span class="glyphicon glyphicon-check"></span> Un-Approve
                             </button>
                         </h3>
 
@@ -56,10 +60,10 @@
                         <div class=" kal pull-right">
                             <!-- Tabs -->
                             <ul class="nav panel-tabs">
-                                <li class="active">
+                                <li class="active" id="tab_tobeapproved">
                                     <a href="#tab1" data-toggle="tab">To be approved</a>
                                 </li>
-                                <li>
+                                <li id="tab_approved">
                                     <a href="#tab2" data-toggle="tab">Approved</a>
                                 </li>
                             </ul>
