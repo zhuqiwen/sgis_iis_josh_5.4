@@ -86,7 +86,7 @@
                                 {{--here are applications' float cards--}}
                                 <div class="row">
                                     <?php
-                                    echo $approved_application_cards;
+                                        echo $approved_application_cards;
                                     ?>
                                 </div>
                             </div>

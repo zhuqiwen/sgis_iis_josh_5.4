@@ -17,9 +17,19 @@ class InternApplicationController extends Controller
 	{
 		$applications = new InternApplication();
 		$submitted_applications = $applications->getSubmittedApplicationsByApplicantId($request->user()->id);
+		$approved_applications = $applications->getApprovedApplicationsByApplicantId($request->user()->id);
 
-		return view('internship_application_status')->withSubmittedApplications($submitted_applications);
+		$submitted_application_cards = $this->getSubmittedApplicationCards($submitted_applications);
+		$approved_application_cards = $this->getApprovedApplicationCards($approved_applications);
+
+
+		return view('internship_application_status')
+            ->withSubmittedApplicationCards($submitted_application_cards)
+            ->withApprovedApplicationCards($approved_application_cards);
+
 	}
+
+
 
     public function ajaxStore(Request $request)
     {
@@ -70,17 +80,6 @@ class InternApplicationController extends Controller
         $submitted_application_cards = $this->getSubmittedApplicationCards($submitted_applications);
         $approved_application_cards = $this->getApprovedApplicationCards($approved_applications);
 
-//        foreach ($submitted_applications as $application)
-//        {
-//            $submitted_application_cards .= HTMLSnippet::generateApplicationFloatCardWithModal($application);
-//
-//        }
-
-
-//	    foreach ($approved_applications as $approved_application)
-//	    {
-//		    $approved_application_cards .= HTMLSnippet::generateApplicationFloatCardWithModal($approved_application);
-//	    }
 
         return view('admin.internships.applications.submitted_applications')
             ->withSubmittedApplicationCards($submitted_application_cards)

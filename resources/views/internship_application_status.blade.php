@@ -14,6 +14,11 @@
 {{--    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/frontend/features.css') }}">--}}
 {{--    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/frontend/timeline.css') }}">--}}
 {{--    <link type="text/css" rel="stylesheet" href="{{ asset('assets/vendors/bootstrap-switch/css/bootstrap-switch.css') }}">--}}
+    <link rel="stylesheet" href="{{ asset('assets/css/pages/tab.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/css/float-card.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/css/pages/buttons.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/css/font-awesome.min.css') }}" />
+
     <!--end of page level css-->
 @stop
 
@@ -41,9 +46,11 @@
                             </span>
                         </div>
                         <div class="panel-body">
-                            <p>
-                                There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.
-                            </p>
+                            <div class="row">
+                                <?php
+                                    echo $submitted_application_cards;
+                                ?>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -58,9 +65,11 @@
                             </span>
                         </div>
                         <div class="panel-body">
-                            <p>
-                                There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.
-                            </p>
+                            <div class="row">
+                                <?php
+                                    echo $approved_application_cards;
+                                ?>
+                            </div>
                         </div>
                     </div>
                 </div>
