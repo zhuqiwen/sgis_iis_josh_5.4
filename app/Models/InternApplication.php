@@ -190,11 +190,11 @@ class InternApplication extends Model
         );
 
         // prepare for itnernship assignments creations
-        $journal_interval = config('journal_interval');
-        $journal_buffer = config('journal_buffer');
-        $reflection_buffer = config('reflection_buffer');
-        $site_evaluation_buffer = config('site_evaluation_buffer');
-        $student_evaluation_buffer = config('student_evaluation_buffer');
+        $journal_interval = config('constants.journal_interval');
+        $journal_buffer = config('constants.journal_buffer');
+        $reflection_buffer = config('constants.reflection_buffer');
+        $site_evaluation_buffer = config('constants.site_evaluation_buffer');
+        $student_evaluation_buffer = config('constants.student_evaluation_buffer');
 
         $start_date = Carbon::createFromFormat('Y-m-d', $approved_application->intern_application_start_date);
         $end_date = Carbon::createFromFormat('Y-m-d', $approved_application->intern_application_end_date);
