@@ -29,4 +29,16 @@ return [
     'reflection_buffer' => 15,
     'site_evaluation_buffer' => 15,
     'student_evaluation_buffer' => 15,
+
+	'ajax' => [
+		'urls' => [
+			'approve_internship_application' => '/admin/approve_internship_applications',
+		],
+	],
+
+	'forms' => [
+		'ids' => [
+			'approve_internship_applications' => 'approve_applications_form',
+		],
+	],
 ];

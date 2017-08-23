@@ -40,17 +40,9 @@
                     <div class="panel-heading">
 
                         <h3 class="panel-title">
-                            <span>
-                                <i class="livicon" data-name="piggybank" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
+                            <i class="livicon" data-name="piggybank" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
                             Submitted Internship Applications
-                            </span>
 
-                            <button id="button_approve" type="button" class="btn btn-sm btn-warning">
-                                <span class="glyphicon glyphicon-check"></span> Approve
-                            </button>
-                            <button id="button_unapprove" type="button" class="btn btn-sm btn-warning" style="display: none;">
-                                <span class="glyphicon glyphicon-check"></span> Un-Approve
-                            </button>
                         </h3>
 
 
@@ -70,9 +62,17 @@
                         </div>
                     </div>
                     <div class="panel-body">
+                        <form id="{{ config('constants.forms.ids.approve_applications_form') }}" method="post" action="#">
                         <div class="tab-content" id="slim1">
                             <div class="tab-pane text-justify active" id="tab1">
-                                <h4> Applications that need approval</h4>
+                                <h4>
+                                    <span>
+                                        Applications that need approval
+                                    </span>
+                                    <button id="button_approve" type="button" class="btn btn-sm btn-warning" data-ajax--url="{{ config('constants.ajax.urls.approve_internship_application') }}" disabled>
+                                        <span class="glyphicon glyphicon-check"></span> Approve
+                                    </button>
+                                </h4>
                                 {{--here are applications' float cards--}}
                                 <div class="row">
                                     <?php
@@ -84,8 +84,15 @@
                             <div class="tab-pane text-justify" id="tab2">
                                 <h4> Approved Applications</h4>
                                 {{--here are applications' float cards--}}
+                                <div class="row">
+                                    <?php
+                                    echo $approved_application_cards;
+                                    ?>
+                                </div>
                             </div>
                         </div>
+                        </form>
+
                     </div>
                 </div>
             </div>

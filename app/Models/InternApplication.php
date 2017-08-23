@@ -158,15 +158,24 @@ class InternApplication extends Model
             ->load('applicant');
 	}
 
+	public function getApprovedApplications()
+	{
+		return $this->whereNotNull('intern_application_submitted_date')
+			->whereNotNull('intern_application_submitted_by')
+			->whereNull('deleted_at')
+			->whereNotNull('intern_application_approved_by')
+			->whereNotNull('intern_application_approved_date')
+			->get()
+			->load('applicant');
+	}
 
-    public function approveApplication(Request $request)
+    public function approveApplication($application_id, $approval_note, $approver_id)
     {
         //update application
-        $approved_application = $this->find($request->application_id);
+        $approved_application = $this->find($application_id);
         $approved_application->intern_application_approved_date = Carbon::now(config('current_time_zone'))->toDateString();
                 // for test only
-        $approved_application->intern_application_approved_by = $request->user_id;
-//        $approved_application->intern_application_approved_by = $request->user()->id;
+        $approved_application->intern_application_approved_by = $approver_id;
         $approved_application->save();
 
         // create or update associated internship
@@ -175,7 +184,7 @@ class InternApplication extends Model
                 'application_id' => $approved_application->id,
             ],
             [
-                'intern_internship_application_approval_notes' => $request->intern_internship_application_approval_notes,
+                'intern_internship_application_approval_notes' => $approval_note,
                 'intern_internship_x373_hours' => $approved_application->intern_application_credit_hours,
             ]
         );
@@ -187,8 +196,8 @@ class InternApplication extends Model
         $site_evaluation_buffer = config('site_evaluation_buffer');
         $student_evaluation_buffer = config('student_evaluation_buffer');
 
-        $start_date = Carbon::createFromFormat('YYYY-MM-DD', $approved_application->start_date);
-        $end_date = Carbon::createFromFormat('YYYY-MM-DD', $approved_application->end_date);
+        $start_date = Carbon::createFromFormat('Y-m-d', $approved_application->intern_application_start_date);
+        $end_date = Carbon::createFromFormat('Y-m-d', $approved_application->intern_application_end_date);
 
         $internship_duration = $start_date->copy()->diffInDays($end_date);
         $num_journals = $internship_duration / $journal_interval;

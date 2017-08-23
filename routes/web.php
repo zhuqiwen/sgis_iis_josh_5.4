@@ -162,6 +162,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin', 'as' => 'admin.'], f
 
     //sgis internship management
     Route::get('approve_internship_applications', 'InternApplicationController@adminIndexSubmittedApplications');
+    Route::post('approve_internship_applications', 'InternApplicationController@ajaxApproveApplications');
     # Remaining pages will be called from below controller method
     # in real world scenario, you may be required to define all routes manually
 

@@ -65,15 +65,79 @@ class InternApplicationController extends Controller
     {
         $applications = new InternApplication();
         $submitted_applications = $applications->getSubmittedApplications();
+	    $approved_applications = $applications->getApprovedApplications();
 
-        $submitted_application_cards = '';
-        foreach ($submitted_applications as $application)
-        {
-            $submitted_application_cards .= HTMLSnippet::generateApplicationFloatCardWithModal($application);
+        $submitted_application_cards = $this->getSubmittedApplicationCards($submitted_applications);
+        $approved_application_cards = $this->getApprovedApplicationCards($approved_applications);
 
-        }
+//        foreach ($submitted_applications as $application)
+//        {
+//            $submitted_application_cards .= HTMLSnippet::generateApplicationFloatCardWithModal($application);
+//
+//        }
+
+
+//	    foreach ($approved_applications as $approved_application)
+//	    {
+//		    $approved_application_cards .= HTMLSnippet::generateApplicationFloatCardWithModal($approved_application);
+//	    }
 
         return view('admin.internships.applications.submitted_applications')
-            ->withSubmittedApplicationCards($submitted_application_cards);
+            ->withSubmittedApplicationCards($submitted_application_cards)
+	        ->withApprovedApplicationCards($approved_application_cards);
     }
+
+
+
+	/**
+	 * @param $submitted_applications
+	 * @return string
+	 */
+	public function getSubmittedApplicationCards($submitted_applications)
+	{
+		$submitted_application_cards = '';
+
+		foreach ($submitted_applications as $application)
+		{
+			$submitted_application_cards .= HTMLSnippet::generateApplicationFloatCardWithModal($application);
+		}
+
+		return $submitted_application_cards;
+
+	}
+
+	/**
+	 * @param $approved_applications
+	 * @return string
+	 */
+	public function getApprovedApplicationCards($approved_applications)
+	{
+		$approved_application_cards = '';
+
+		foreach ($approved_applications as $approved_application)
+		{
+			$approved_application_cards .= HTMLSnippet::generateApplicationFloatCardWithModal($approved_application);
+		}
+
+		return $approved_application_cards;
+	}
+
+
+
+	//ajax
+	public function ajaxApproveApplications(Request $request)
+	{
+		$application = new InternApplication();
+
+		foreach ($request->ids as $application_id)
+		{
+			$application->approveApplication($application_id, $request->notes[$application_id], $request->user()->id);
+		}
+
+		$submitted_application_cards = $this->getSubmittedApplicationCards($application->getSubmittedApplications());
+		$approved_application_cards = $this->getApprovedApplicationCards($application->getApprovedApplications());
+
+
+		return json_encode(compact('submitted_application_cards', 'approved_application_cards'));
+	}
 }
