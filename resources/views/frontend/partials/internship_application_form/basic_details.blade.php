@@ -20,7 +20,7 @@ $credit_hours = [
                 {!! Form::hidden('intern_application_submitted_by', Sentinel::getUser()->id) !!}
                 {!! Form::label('intern_application_year', 'Which academic year?') !!}
                 {!! Form::select('intern_application_year',
-                ['2018' => '2018', '2019'=> '2019'],
+                ['2017' => '2017', '2018' => '2018', '2019'=> '2019'],
                 '2018',
                 ['class' => 'form-control']) !!}
 

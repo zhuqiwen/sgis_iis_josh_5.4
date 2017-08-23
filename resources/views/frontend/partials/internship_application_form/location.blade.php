@@ -1,10 +1,11 @@
 <?php
 
 $countries = [
-    'country 1',
-    'country 2',
-    'country 3',
-    'country 4',
+    'United States' => 'United States',
+    'country 1' => 'fdsa',
+    'country 2' => 'fdddsa',
+    'country 3' => 'ff',
+    'country 4' => 'eee',
 ];
 ?>
 <div class="tab-pane" id="tab4">

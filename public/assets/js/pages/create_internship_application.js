@@ -1,46 +1,108 @@
-// // bootstrap wizard//
-// $("#gender, #gender1").select2({
-//     theme:"bootstrap",
-//     placeholder:"",
-//     width: '100%'
-// });
+// bootstrap wizard//
+$("#gender, #gender1").select2({
+    theme:"bootstrap",
+    placeholder:"",
+    width: '100%'
+});
+
+function setMinDate(date) {
+    $('#intern_application_depart_date').attr('min', date).attr('val', date);
+    $('#intern_application_return_date').attr('min', date).attr('val', date);
+    $('#intern_application_start_date').attr('min', date).attr('val', date);
+    $('#intern_application_end_date').attr('min', date).attr('val', date);
+}
+
+function hideDepartAndReturnDates(){
+    var date = "0000-00-00";
+    $('#intern_application_depart_date').attr('val', date).hide();
+    $('#intern_application_return_date').attr('val', date).hide();
+    $('label[for="intern_application_depart_date"]').hide();
+    $('label[for="intern_application_return_date"]').hide();
+}
+
+$(document).ready(function () {
+    // set min defaults for depart date, return date, start date and end date
+    var yyyy = $('#intern_application_year').val() + '-01-01';
+    setMinDate(yyyy);
+
+    $('#intern_application_budget_airfare').attr('min', 0);
+});
+
+$(document).on('change','#intern_application_year', function () {
+    var yyyy = $(this).val();
+    var today = new Date();
+    var currentYYYY = today.getFullYear();
+    if(yyyy == currentYYYY)
+    {
+        var dd = today.getDate() < 10 ? '0' + today.getDate() : today.getDate();
+        var mm = today.getMonth() + 1 ? '0' + (today.getMonth() + 1) : today.getMonth() + 1;
+        var minDate = yyyy + '-' + mm + '-' + dd;
+
+    }
+    else
+    {
+        var minDate = yyyy + '-01-01';
+    }
+    setMinDate(minDate);
+
+});
+$(document).on('change', '#country-select', function () {
+    var country = $(this).val();
+
+    if(country.toLowerCase() == 'United States'.toLowerCase())
+    {
+        hideDepartAndReturnDates();
+    }
+});
+$(document).on('change', '#intern_application_start_date', function () {
+    var start_date = $(this).val();
+
+    $('#intern_application_end_date').attr('min', start_date);
+});
+$(document).on('change', '#intern_application_depart_date', function () {
+    var depart_date = $(this).val();
+
+    $('#intern_application_return_date').attr('min', depart_date);
+});
+$(document).on('focusout', 'input[type="number"]', function () {
+    if($(this).val() < 0)
+    {
+        console.log('negative number detected');
+        $(this).val('0');
+        console.log('new val is: ' + $(this).val());
+    }
+});
+
+
+
 $("#internship_application_form").bootstrapValidator({
     fields: {
-        username: {
+        intern_organization_name: {
             validators: {
                 notEmpty: {
-                    message: 'The User name is required'
+                    message: 'The Organization name is required'
                 }
             },
-            required: true,
-            minlength: 3
+            required: true
+            // minlength: 3
         },
-        password: {
+        intern_supervisor_first_name: {
             validators: {
                 notEmpty: {
-                    message: 'The password is required'
-                },
-                different: {
-                    field: 'first_name,last_name',
-                    message: 'Password should not match user Name'
+                    message: 'Supervisor\'s first name is required'
                 }
-            }
+            },
+            required: true
         },
-        confirm: {
+        intern_supervisor_last_name: {
             validators: {
                 notEmpty: {
-                    message: 'Confirm Password is required'
-                },
-                identical: {
-                    field: 'password'
-                },
-                different: {
-                    field: 'first_name,last_name',
-                    message: 'Confirm Password should match with password'
+                    message: 'Supervisor\'s first name is required'
                 }
-            }
+            },
+            required: true
         },
-        email: {
+        intern_supervisor_email: {
             validators: {
                 notEmpty: {
                     message: 'The email address is required'
@@ -50,85 +112,49 @@ $("#internship_application_form").bootstrapValidator({
                 }
             }
         },
-        fname: {
-            validators: {
-                notEmpty: {
-                    message: 'The first name is required '
-                }
-            }
-        },
-        lname: {
-            validators: {
-                notEmpty: {
-                    message: 'The last name is required '
-                }
-            }
-        },
-        password3: {
-            validators: {
-                notEmpty: {
-                    message: 'This field is required and mandatory'
-                }
-            },
-            required: true,
-            minlength: 3
-        },
-        age: {
-            validators: {
-                notEmpty: {},
-                digits: {},
-                greaterThan: {
-                    value: 18
-                },
-                lessThan: {
-                    value: 100
-                }
-            }
-        },
-        phone1: {
-            validators: {
-                notEmpty: {
-                    message: 'The home number is required'
-                },
-                regexp: {
-                    regexp: /^(\+?1-?)?(\([2-9]\d{2}\)|[2-9]\d{2})-?[2-9]\d{2}-?\d{4}$/,
-                    message: 'Enter valid phone number'
-                }
-            }
-        },
-        phone2: {
-            validators: {
-                notEmpty: {
-                    message: 'The personal number is required'
-                },
-                regexp: {
-                    regexp: /^(\+?1-?)?(\([2-9]\d{2}\)|[2-9]\d{2})-?[2-9]\d{2}-?\d{4}$/,
-                    message: 'Enter valid phone number'
-                }
-            }
-        },
-        phone3: {
-            validators: {
-                notEmpty: {
-                    message: 'Alternate number is required'
-                },
-                different: {
-                    field: 'phone1',
-                    message: 'The alternate number must be different from Home number'
-                },
-                regexp: {
-                    regexp: /^(\+?1-?)?(\([2-9]\d{2}\)|[2-9]\d{2})-?[2-9]\d{2}-?\d{4}$/,
-                    message: 'Enter valid phone number'
-                }
-            }
-        },
-        acceptTerms:{
+        intern_supervisor_phone_country_code:{
             validators:{
-                notEmpty:{
-                    message: 'The checkbox must be checked'
+                numeric: {
+                    message: 'Please do not include any characters other than numbers'
+                },
+                notEmpty: {
+                    message: 'Country code is required'
                 }
             }
-        }
+        },
+        intern_supervisor_phone: {
+            validators: {
+                numeric: {
+                    message: 'Please do not include any characters other than numbers'
+                },
+                notEmpty: {
+                    message: 'Phone number is required'
+                }
+            }
+        },
+        intern_application_state: {
+            validators: {
+                notEmpty: {
+                    message: 'The State/Province field is required'
+                }
+            }
+        },
+        intern_application_city: {
+            validators: {
+                notEmpty: {
+                    message: 'The City field is required'
+                }
+            }
+        },
+        intern_application_street: {
+            validators: {
+                notEmpty: {
+                    message: 'The Street field is required'
+                }
+            }
+        },
+
+        //
     }
 });
 $('#acceptTerms').on('ifChanged', function(event){
@@ -157,14 +183,6 @@ $('#rootwizard').bootstrapWizard({
             $('#rootwizard').find('.pager .next').show();
             $('#rootwizard').find('.pager .finish').hide();
         }
-        // $('#rootwizard .finish').click(function() {
-        //     var $validator = $('#internship_application_form').data('bootstrapValidator').validate();
-        //     if ($validator.isValid()) {
-        //         $('#myModal').modal('show');
-        //         return $validator.isValid();
-        //         $('#rootwizard').find("a[href='#tab1']").tab('show');
-        //     }
-        // });
 
     }});
 
