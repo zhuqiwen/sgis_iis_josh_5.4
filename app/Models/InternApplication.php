@@ -209,7 +209,7 @@ class InternApplication extends Model
                 'internship_id' => $internship->id,
                 'intern_journal_serial_num' => $i + 1,
                 'intern_journal_required_total_num' => $num_journals,
-                'intern_journal_due_date' => $end_date->copy()->addDays($journal_buffer),
+                'intern_journal_due_date' => $end_date->copy()->addDays($journal_buffer)->toDateString(),
             ]);
         }
 

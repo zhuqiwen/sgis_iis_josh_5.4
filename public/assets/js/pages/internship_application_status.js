@@ -1,4 +1,15 @@
 $(document).ready(function() {
+
+    //remove all buttons in modal
+    $('.modal-footer').find('button').remove();
+
+    var num_approved = $('.panel-success').find('.modal').size();
+    var num_submitted = $('.panel-primary').find('.modal').size();
+
+    console.log(num_approved + ' applications approved.');
+    console.log(num_submitted + ' applications submitted.');
+
+
     $(document).on('click', '.panel-heading .removepanel', function(){
         var $this = $(this);
         $this.parents('.panel').hide("slow");
@@ -20,37 +31,6 @@ $(document).ready(function() {
         }
     });
 
-    // var elem = document.querySelector('.js-switch2');
-    // var init = new Switchery(elem, {
-    //     size: 'big',
-    //     color: '#418bca'
-    // });
-    // // end of switchery's.
 
-    // $.each($('.make-switch'), function() {
-    //     $(this).bootstrapSwitch({
-    //         onText: $(this).data('onText'),
-    //         offText: $(this).data('offText'),
-    //         onColor: $(this).data('onColor'),
-    //         offColor: $(this).data('offColor'),
-    //         size: $(this).data('size'),
-    //         labelText: $(this).data('labelText'),
-    //         state: $(this).data('checked')
-    //     });
-    // });
-    // $(function() {
-    //     $("[data-toggle='popover']").popover();
-    // });
-    //
-    //
-    // $(function() {
-    //     $('[data-toggle="tooltip"]').tooltip()
-    // });
-    //
-    // $('.collapse').on('shown.bs.collapse', function() {
-    //     $(this).parent().find(".glyphicon-plus").removeClass("glyphicon-plus").addClass("glyphicon-minus");
-    // }).on('hidden.bs.collapse', function() {
-    //     $(this).parent().find(".glyphicon-minus").removeClass("glyphicon-minus").addClass("glyphicon-plus");
-    // });
 
 });

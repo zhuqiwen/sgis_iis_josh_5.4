@@ -15,11 +15,10 @@ class InternInternshipController extends Controller
     //
 	public function showAssignments(Request $request)
 	{
-	    $internships = new InternInternship();
-	    $finished_internships = $internships->getFinishedInternshipsByApplicantId($request->user()->id);
 
-	    return view('internship_assignments')
-            ->withFinishedInternships($finished_internships);
+
+
+	    return view('frontend.internship_assignments.internship_selection');
 
 
 	}
