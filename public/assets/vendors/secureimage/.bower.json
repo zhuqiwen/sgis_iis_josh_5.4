@@ -1,0 +1,14 @@
+{
+  "name": "secureimage",
+  "homepage": "https://github.com/dapphp/securimage",
+  "version": "3.6.5",
+  "_release": "3.6.5",
+  "_resolution": {
+    "type": "version",
+    "tag": "3.6.5",
+    "commit": "3f5a84fd80b1a35d58332896c944142713a7e802"
+  },
+  "_source": "https://github.com/dapphp/securimage.git",
+  "_target": "*",
+  "_originalSource": "https://github.com/dapphp/securimage.git"
+}
