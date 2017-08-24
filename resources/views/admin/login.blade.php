@@ -32,7 +32,9 @@
                         <div id="login" class="animate form">
                             <form action="{{ route('signin') }}" autocomplete="on" method="post" role="form" id="login_form">
                                 <h3 class="black_bg">
-                                    <img src="{{ asset('assets/img/logo.png') }}" alt="josh logo">
+                                    {{--<img src="{{ asset('assets/img/logo.png') }}" alt="josh logo">--}}
+                                    <img src="{{ asset('assets/images/sgis_logo.jpg') }}" alt="logo" height="100" width="100">
+
                                     <br>Log In</h3>
                                     <!-- CSRF Token -->
                                     <input type="hidden" name="_token" value="{{ csrf_token() }}" />

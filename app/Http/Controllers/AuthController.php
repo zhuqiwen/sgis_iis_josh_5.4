@@ -28,7 +28,8 @@ class AuthController extends JoshController
         }
 
         // Show the page
-        return view('admin.login');
+	    // original template: admin.login
+        return view('admin.signin');
     }
 
     /**
@@ -122,7 +123,7 @@ class AuthController extends JoshController
 
             // login user automatically
 
-            
+
 
             // Log the user in
             Sentinel::login($user, false);
