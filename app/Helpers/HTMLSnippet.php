@@ -326,6 +326,10 @@ EOF;
 
     }
 
+
+    /*
+     * Admin components of internship assignments
+     */
     // extra content in internship modal
     // internship journals
     private static function generateInternshipJournalOutsideAccordion($internship)
@@ -682,7 +686,116 @@ EOF;
     }
 
 
+    /*
+     * Front end user's components of Internship Assignments
+     */
 
+    public static function generateAssignmentItemCollapsePanel($type, $item)
+    {
+        $panel = <<<PANEL
+
+PANEL;
+
+        return $panel;
+
+    }
+
+
+    // Journals: outer wrapper
+    public static function generateAssignmentJournalsOutterAccordion($internship)
+    {
+
+        $journals_to_submit = $internship->journals->where('intern_journal_submitted_at', '<>', null);
+        $journal_inner_accordions = self::generateAssignmentJournalsInnerAccordions($journals_to_submit);
+
+        $num_to_submit = sizeof($journals_to_submit);
+        $accordion = <<<EOF
+        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">
+                                    <i class="livicon" data-name="signal" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
+                                    $num_to_submit Journals to submit
+                                </h3>
+                                <span class="pull-right clickable">
+                                    <i class="glyphicon glyphicon-chevron-up"></i>
+                                </span>
+                            </div>
+                            <div class="panel-body">
+                                <div class="panel-group" id="journal_accordion" role="tablist" aria-multiselectable="true">
+                                    <!--Inner panels-->
+                                    $journal_inner_accordions
+                                </div>
+                                <!-- nav-tabs-custom -->
+                            </div>
+                        </div>
+
+EOF;
+        return $accordion;
+
+    }
+
+    // Journals: inner accordions
+    public static function generateAssignmentJournalsInnerAccordions($journals)
+    {
+        $accordions = '';
+        $action = config('constants.ajax.urls.submit_internship_assignment_journal');
+        for($i = 0; $i < sizeof($journals); $i++)
+        {
+            $single_textarea_form = self::generateSingleTextareaForm($journals[$i]->id, $action);
+            $journal_serial_num = $i + 1;
+            $panel_heading_id = 'heading_' . $journal_serial_num;
+            $collapse_id = 'coolapse_' . $journal_serial_num;
+            $panel_heading = <<<HEADING
+            <div class="panel-heading" role="tab" id="$panel_heading_id">
+                <a role="button" data-toggle="collapse" data-parent="#journal_accordion" href="#$collapse_id" aria-expanded="false" aria-controls="$collapse_id">
+                    <h4 class="panel-title">Journal $journal_serial_num</h4>
+                </a>
+            </div>
+
+HEADING;
+            $panel_body = <<<BODY
+            <div id="$collapse_id" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="$panel_heading_id">
+                <div class="panel-body">
+                $single_textarea_form
+                </div>
+            </div>
+
+BODY;
+
+            $div_wrapper_begin = '<div class="panel panel-default">';
+            $div_wrapper_end = '</div>';
+
+            $accordions .= $div_wrapper_begin . $panel_heading . $panel_body . $div_wrapper_end;
+        }
+
+        return $accordions;
+    }
+
+
+
+
+
+
+
+
+
+
+
+    /*
+     * single element form generators
+     */
+
+    public static function generateSingleTextareaForm($record_id, $action)
+    {
+        $form = <<<FORM
+        <form action="$action">
+        <textarea></textarea>
+        <button type="submit" class="btn btn-default" data-record-id="$record_id">Submit</button>
+        </form> 
+FORM;
+
+        return $form;
+    }
 
 
 

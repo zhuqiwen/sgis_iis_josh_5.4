@@ -101,7 +101,8 @@ Accordion Tabs
                                     <i class="glyphicon glyphicon-chevron-up"></i>
                                 </span>
                             </div>
-                            <div class="panel-body"><div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                            <div class="panel-body">
+                                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
                                     <div class="panel panel-default">
                                         <div class="panel-heading" role="tab" id="headingOne">
                                             <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
@@ -133,7 +134,6 @@ Accordion Tabs
                                             <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
                                                 <h4 class="panel-title"> Accordion3</h4>
                                             </a>
-                                            </h4>
                                         </div>
                                         <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
                                             <div class="panel-body">

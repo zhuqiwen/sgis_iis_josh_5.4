@@ -189,8 +189,12 @@ Route::group(array('middleware' => 'user'), function () {
     //sgis front end routes
 
     Route::get('internship_application_status', 'InternApplicationController@showApplicationStatus');
-    Route::get('internship_assignments', 'InternInternshipController@showAssignments');
+    Route::get('internship_assignments', 'InternInternshipController@showAssignmentView');
+
+    //ajax
+    Route::get(config('constants.ajax.urls.get_internship_assignments'), 'InternInternshipController@ajaxGetAssignmentToSubmit');
     Route::post(config('constants.menu_path.front_end.internship_create_application'), 'InternApplicationController@ajaxStore');
+    Route::put(config('constants.ajax.urls.submit_internship_assignment_journal'), 'InternJournalController@ajaxUpdate');
 
 
 

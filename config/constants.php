@@ -33,6 +33,8 @@ return [
 	'ajax' => [
 		'urls' => [
 			'approve_internship_application' => '/admin/approve_internship_applications',
+            'get_internship_assignments' => '/internship/assignment/get',
+            'submit_internship_assignment_journal' => '/submit/assignment/journal',
 		],
 	],
 
