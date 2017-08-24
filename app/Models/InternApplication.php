@@ -173,7 +173,7 @@ class InternApplication extends Model
     {
         //update application
         $approved_application = $this->find($application_id);
-        $approved_application->intern_application_approved_date = Carbon::now(config('current_time_zone'))->toDateString();
+        $approved_application->intern_application_approved_date = Carbon::now(config('constants.current_time_zone'))->toDateString();
                 // for test only
         $approved_application->intern_application_approved_by = $approver_id;
         $approved_application->save();
@@ -200,41 +200,46 @@ class InternApplication extends Model
         $end_date = Carbon::createFromFormat('Y-m-d', $approved_application->intern_application_end_date);
 
         $internship_duration = $start_date->copy()->diffInDays($end_date);
-        $num_journals = $internship_duration / $journal_interval;
+        $num_journals = intval($internship_duration / $journal_interval);
 
         // create journal stubs
         for($i = 0; $i < $num_journals; $i++)
         {
-            $journal = InternJournal::create([
-                'internship_id' => $internship->id,
-                'intern_journal_serial_num' => $i + 1,
-                'intern_journal_required_total_num' => $num_journals,
-                'intern_journal_due_date' => $end_date->copy()->addDays($journal_buffer)->toDateString(),
-            ]);
+            InternJournal::updateOrCreate(
+            	[
+	                'internship_id' => $internship->id,
+	                'intern_journal_serial_num' => $i + 1,
+	                'intern_journal_required_total_num' => $num_journals,
+	                'intern_journal_due_date' => $end_date->copy()->addDays($journal_buffer)->toDateString(),
+	            ]
+            );
         }
 
         // create reflection stub
-        $reflection = InternReflection::create([
+        InternReflection::create([
             'internship_id' => $internship->id,
             'intern_reflection_due_date' => $end_date->copy()->addDays($reflection_buffer),
         ]);
 
 
         // create site eval stub
-        $site_evaluation = InternSiteEvaluation::create([
+        InternSiteEvaluation::create([
             'internship_id' => $internship->id,
             'intern_site_evaluation_due_date' => $end_date->copy()->addDays($site_evaluation_buffer),
         ]);
 
 
         // create student eval stub
-        $student_evaluation = InternStudentEvaluation::create([
+        InternStudentEvaluation::create([
             'internship_id' => $internship->id,
             'intern_student_evaluation_due_date' => $end_date->copy()->addDays($student_evaluation_buffer),
         ]);
 
-
-
+	    InternStudentEvaluation::create([
+		    'internship_id' => $internship->id,
+		    'intern_student_evaluation_is_midterm' => 1,
+		    'intern_student_evaluation_due_date' => $start_date->copy()->addDays($internship_duration / 2),
+	    ]);
 
 	}
 }

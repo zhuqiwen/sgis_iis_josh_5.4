@@ -15,13 +15,14 @@ class InternReflection extends Model
     public $timestamps = true;
 
     protected $fillable = [
-        'internship_id',
-        'reflection',
-        'due_date',
-        'submitted_at'
+	    "internship_id",
+	    "intern_reflection_content",
+	    "intern_reflection_due_date",
+	    "intern_reflection_submitted_at",
+
     ];
 
-    protected $guarded = [];
+    protected $guarded = ['id'];
 
 	use SoftDeletes;
 
