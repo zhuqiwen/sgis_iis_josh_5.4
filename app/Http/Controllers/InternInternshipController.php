@@ -27,8 +27,16 @@ class InternInternshipController extends Controller
     public function ajaxGetAssignmentToSubmit(Request $request)
     {
 
-        $internship = InternInternship::find($request->internship_id)
-            ->load('application', 'journals', 'reflection', 'siteEvaluation');
+        $internship = InternInternship::find($request->internship_id);
+	    if(!is_null($internship))
+	    {
+		    $internship = $internship->load('application', 'journals', 'reflection', 'siteEvaluation');
+
+	    }
+	    else
+	    {
+		    return 'So such Internship';
+	    }
 
 	    // hasMany, so no need to use get()
         $journals = $internship->journals->where('intern_journal_submitted_on', NULL);
