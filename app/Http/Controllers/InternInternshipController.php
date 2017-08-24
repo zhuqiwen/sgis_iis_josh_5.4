@@ -19,52 +19,59 @@ class InternInternshipController extends Controller
 	    return view('frontend.internship_assignments.internship_selection');
 	}
 
-	/**
-	 * Return HTML code for ajax refresh
-	 * @param Request $request
-	 * @return string
-	 */
-    public function ajaxGetAssignmentToSubmit(Request $request)
-    {
+//	/**
+//	 * Return HTML code for ajax refresh
+//	 * @param Request $request
+//	 * @return string
+//	 */
+//    public function ajaxGetAssignmentToSubmit(Request $request)
+//    {
+//
+//        $internship = InternInternship::find($request->internship_id);
+//	    if(!is_null($internship))
+//	    {
+//		    $internship = $internship->load('application', 'journals', 'reflection', 'siteEvaluation');
+//
+//	    }
+//	    else
+//	    {
+//		    return 'So such Internship';
+//	    }
+//
+//	    // hasMany, so no need to use get()
+//        $journals = $internship->journals->where('intern_journal_submitted_on', NULL);
+//	    // hasOne, so get() is necessary, or only returns a Builder instead of a collection
+//        $reflection = $internship->reflection->where('intern_reflection_submitted_on', NULL)->get();
+//        $site_evaluation = $internship->siteEvaluation->where('intern_site_evaluation_submitted_on', NULL)->get();
+//
+//	    if(empty($reflection))
+//	    {
+//		    $reflection = NULL;
+//	    }
+//	    else
+//	    {
+//		    $reflection = $reflection[0];
+//	    }
+//
+//	    if(empty($site_evaluation))
+//	    {
+//		    $site_evaluation = NULL;
+//	    }
+//	    else
+//	    {
+//		    $site_evaluation = $site_evaluation[0];
+//	    }
+//
+//        $assignments = $this->packAssignments(compact('journals', 'reflection', 'site_evaluation'));
+//
+//        return $assignments;
+//	}
 
-        $internship = InternInternship::find($request->internship_id);
-	    if(!is_null($internship))
-	    {
-		    $internship = $internship->load('application', 'journals', 'reflection', 'siteEvaluation');
 
-	    }
-	    else
-	    {
-		    return 'So such Internship';
-	    }
+	public function ajaxSubmitAssignments(Request $request)
+	{
+		return 'hahahah';
 
-	    // hasMany, so no need to use get()
-        $journals = $internship->journals->where('intern_journal_submitted_on', NULL);
-	    // hasOne, so get() is necessary, or only returns a Builder instead of a collection
-        $reflection = $internship->reflection->where('intern_reflection_submitted_on', NULL)->get();
-        $site_evaluation = $internship->siteEvaluation->where('intern_site_evaluation_submitted_on', NULL)->get();
-
-	    if(empty($reflection))
-	    {
-		    $reflection = NULL;
-	    }
-	    else
-	    {
-		    $reflection = $reflection[0];
-	    }
-
-	    if(empty($site_evaluation))
-	    {
-		    $site_evaluation = NULL;
-	    }
-	    else
-	    {
-		    $site_evaluation = $site_evaluation[0];
-	    }
-
-        $assignments = $this->packAssignments(compact('journals', 'reflection', 'site_evaluation'));
-
-        return $assignments;
 	}
 
 
@@ -72,17 +79,17 @@ class InternInternshipController extends Controller
 
 
 
-	/*
-	 * helpers
-	 */
-    public function packAssignments(array $assignment_items = [])
-    {
-        $assignments = '';
-        foreach ($assignment_items as $type => $item)
-        {
-            $assignments .= HTMLSnippet::generateAssignmentItemCollapsePanel($type, $item);
-        }
-
-        return $assignments;
-	}
+//	/*
+//	 * helpers
+//	 */
+//    public function packAssignments(array $assignment_items = [])
+//    {
+//        $assignments = '';
+//        foreach ($assignment_items as $type => $item)
+//        {
+//            $assignments .= HTMLSnippet::generateAssignmentItemCollapsePanel($type, $item);
+//        }
+//
+//        return $assignments;
+//	}
 }

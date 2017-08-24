@@ -11,6 +11,8 @@
     <!--page level css starts-->
     <link href="{{ asset('assets/css/app.css') }}" rel="stylesheet" />
 
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/frontend/panel.css') }}">
+
     <link href="{{ asset('assets/vendors/acc-wizard/acc-wizard.min.css') }}" rel="stylesheet" />
     <link href="{{ asset('assets/css/pages/accordionformwizard.css') }}" rel="stylesheet" />
 
@@ -100,6 +102,7 @@
 {{--    <script src="{{ asset('assets/vendors/acc-wizard/acc-wizard.min.js') }}" ></script>--}}
     <script src="{{ asset('assets/js/frontend/ajax_init.js') }}"  type="text/javascript"></script>
     <script src="{{ asset('assets/js/pages/internship_assignments.js') }}"  type="text/javascript"></script>
+
     <!--page level js ends-->
 
 @stop
