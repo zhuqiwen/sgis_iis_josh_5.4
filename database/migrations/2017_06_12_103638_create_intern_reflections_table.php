@@ -18,7 +18,7 @@ class CreateInternReflectionsTable extends Migration
             $table->integer('internship_id')->unsigned()->nullable();
             $table->text('intern_reflection_content')->nullable();
             $table->date('intern_reflection_due_date')->nullable();
-            $table->date('intern_reflection_submitted_at')->nullable();
+            $table->date('intern_reflection_submitted_on')->nullable();
 			$table->timestamps();
 			$table->softDeletes();
 		});

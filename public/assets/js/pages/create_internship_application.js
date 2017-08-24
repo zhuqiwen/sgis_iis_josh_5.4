@@ -13,9 +13,9 @@ function setMinDate(date) {
 }
 
 function hideDepartAndReturnDates(){
-    var date = "0000-00-00";
-    $('#intern_application_depart_date').attr('val', date).hide();
-    $('#intern_application_return_date').attr('val', date).hide();
+    var date = "1111-11-11";
+    $('#intern_application_depart_date').attr('value', date).hide();
+    $('#intern_application_return_date').attr('value', date).hide();
     $('label[for="intern_application_depart_date"]').hide();
     $('label[for="intern_application_return_date"]').hide();
 }
@@ -51,6 +51,7 @@ $(document).on('change', '#country-select', function () {
 
     if(country.toLowerCase() == 'United States'.toLowerCase())
     {
+        console.log('country is US');
         hideDepartAndReturnDates();
     }
 });
@@ -64,6 +65,7 @@ $(document).on('change', '#intern_application_depart_date', function () {
 
     $('#intern_application_return_date').attr('min', depart_date);
 });
+
 $(document).on('focusout', 'input[type="number"]', function () {
     if($(this).val() < 0)
     {

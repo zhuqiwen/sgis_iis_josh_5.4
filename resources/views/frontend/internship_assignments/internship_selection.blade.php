@@ -79,6 +79,7 @@
                         </div>
                         <div id="addwizard" class="panel-collapse collapse awd-h" style="height: 36.400001525878906px;">
                             <div class="panel-body">
+
                             </div>
                             <!--/.panel-body -->
                         </div>

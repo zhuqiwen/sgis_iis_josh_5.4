@@ -21,6 +21,7 @@ $(document).on('change', '#internship_select', function () {
     ajaxConfigration.url = '/internship/assignment/get';
     ajaxConfigration.success = function (returned_data) {
         console.log(returned_data);
+        $('#addwizard .panel-body').html(returned_data);
     };
     $.ajax(ajaxConfigration);
 });

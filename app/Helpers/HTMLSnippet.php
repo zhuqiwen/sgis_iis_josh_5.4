@@ -181,12 +181,12 @@ EOF;
     private static function generateInternshipModal($internship)
     {
 
-        $accordion_journal = self::generateInternshipJournalOutsideAccordion($internship);
-        $accordion_reflection = self::generateInternshipReflectionAccordion($internship);
-        $accordion_site_evaluation = self::generateInternshipSiteEvaluationAccordion($internship);
-        $accordion_student_evaluation = self::generateInternshipStudentEvaluationOutsideAccordion($internship);
+        $accordion_journal = self::generateAdminInternshipJournalOutsideAccordion($internship);
+        $accordion_reflection = self::generateAdminInternshipReflectionAccordion($internship);
+        $accordion_site_evaluation = self::generateAdminInternshipSiteEvaluationAccordion($internship);
+        $accordion_student_evaluation = self::generateAdminInternshipStudentEvaluationOutsideAccordion($internship);
 
-        $form_sgis_opinion = self::generateInternshipSGISOpinionForm($internship);
+        $form_sgis_opinion = self::generateAdminInternshipSGISOpinionForm($internship);
 
         $modal =<<<EOF
 			<div id="myModalInternshipId_$internship->internship_id" class="modal fade" role="dialog">
@@ -332,9 +332,9 @@ EOF;
      */
     // extra content in internship modal
     // internship journals
-    private static function generateInternshipJournalOutsideAccordion($internship)
+    private static function generateAdminInternshipJournalOutsideAccordion($internship)
     {
-        $inner_journals = self::generateInternshipJournalInsideAccordion($internship->journal);
+        $inner_journals = self::generateAdminInternshipJournalInsideAccordion($internship->journal);
         $num_submitted_journals = 0;
         $required_total_num_journals = sizeof($internship->journal);
         for($i = 0; $i < sizeof($internship->journal); $i++)
@@ -373,7 +373,7 @@ EOF;
 
     }
 
-    private static function generateInternshipJournalInsideAccordion($journals)
+    private static function generateAdminInternshipJournalInsideAccordion($journals)
     {
         $accordion = '<div class="panel-group" id="journal_accordion">';
 
@@ -432,7 +432,7 @@ EOF;
     }
 
     // internship reflection
-    private static function generateInternshipReflectionAccordion($internship)
+    private static function generateAdminInternshipReflectionAccordion($internship)
     {
         $submission_marker = '<i class="fa fa-check" aria-hidden="true"></i>';
 
@@ -477,7 +477,7 @@ EOF;
     }
 
     // internship site evaluation
-    private static function generateInternshipSiteEvaluationAccordion($internship)
+    private static function generateAdminInternshipSiteEvaluationAccordion($internship)
     {
         $submission_marker = '<i class="fa fa-check" aria-hidden="true"></i>';
 
@@ -524,11 +524,11 @@ EOF;
     }
 
     // internship student evaluation
-    private static function generateInternshipStudentEvaluationOutsideAccordion($internship)
+    private static function generateAdminInternshipStudentEvaluationOutsideAccordion($internship)
     {
 
 
-        $inner_accordion = self::generateInternshipStudentEvaluationInsideAccordion($internship->student_evaluation);
+        $inner_accordion = self::generateAdminInternshipStudentEvaluationInsideAccordion($internship->student_evaluation);
 
         if(!is_null($internship->student_evaluation[0]->submitted_at)
             && !is_null($internship->student_evaluation[1]->submitted_at))
@@ -572,7 +572,7 @@ EOF;
         return $accordion;
     }
 
-    private static function generateInternshipStudentEvaluationInsideAccordion($evaluations)
+    private static function generateAdminInternshipStudentEvaluationInsideAccordion($evaluations)
     {
         $accordion = '<div class="panel-group" id="student_evaluation_accordion">';
         $eval_contents = 'student evaluation';
@@ -645,7 +645,7 @@ EOF;
     }
 
     // internship SGIS opinion
-    private static function generateInternshipSGISOpinionForm($internship)
+    private static function generateAdminInternshipSGISOpinionForm($internship)
     {
 
         $action = '/test_ajax_close_internship';
@@ -692,9 +692,23 @@ EOF;
 
     public static function generateAssignmentItemCollapsePanel($type, $item)
     {
-        $panel = <<<PANEL
-
-PANEL;
+        $panel = '';
+	    if($type === 'journals')
+	    {
+		    $panel .= self::generateAssignmentJournalsOuterAccordion($item);
+	    }
+	    elseif($type === 'reflection')
+	    {
+		    $panel .= self::generateAssignmentReflectionAccordion($item);
+	    }
+	    elseif($type === 'site_evaluation')
+	    {
+		    $panel .= self::generateAssignmentSiteEvaluationAccordion($item);
+	    }
+	    elseif($type === 'student_evaluations')
+	    {
+		    $panel .= self::generateAssignmentStudentEvaluationAccordion($item);
+	    }
 
         return $panel;
 
@@ -702,11 +716,17 @@ PANEL;
 
 
     // Journals: outer wrapper
-    public static function generateAssignmentJournalsOutterAccordion($internship)
+    public static function generateAssignmentJournalsOuterAccordion($journals_to_submit)
     {
 
-        $journals_to_submit = $internship->journals->where('intern_journal_submitted_at', '<>', null);
-        $journal_inner_accordions = self::generateAssignmentJournalsInnerAccordions($journals_to_submit);
+	    if(!empty($journals_to_submit))
+	    {
+		    $journal_inner_accordions = self::generateAssignmentJournalsInnerAccordions($journals_to_submit);
+	    }
+	    else
+	    {
+		    $journal_inner_accordions = 'No Journals need to be submitted';
+	    }
 
         $num_to_submit = sizeof($journals_to_submit);
         $accordion = <<<EOF
@@ -773,9 +793,80 @@ BODY;
 
 
 
+    // Reflection
+	public static function generateAssignmentReflectionAccordion($reflection_to_submit)
+	{
+		$action = config('constants.ajax.urls.submit_internship_assignment_reflection');
+		if(!is_null($reflection_to_submit))
+		{
+			$single_textarea_form = self::generateSingleTextareaForm($reflection_to_submit->id, $action);
+		}
+		else
+		{
+			$single_textarea_form = 'No Reflection needs to be submitted';
+		}
+		$accordion = <<<EOF
+        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">
+                                    <i class="livicon" data-name="signal" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
+                                    Reflection to submit
+                                </h3>
+                                <span class="pull-right clickable">
+                                    <i class="glyphicon glyphicon-chevron-up"></i>
+                                </span>
+                            </div>
+                            <div class="panel-body">
+                                $single_textarea_form
+                            </div>
+                        </div>
 
+EOF;
+		return $accordion;
+	}
 
+	// Site evaluation
+	public static function generateAssignmentSiteEvaluationAccordion($site_evaluation_to_submit)
+	{
+		$action = config('constants.ajax.urls.submit_internship_assignment_site_evaluation');
+		if(!is_null($site_evaluation_to_submit))
+		{
+			$single_textarea_form = self::generateSingleTextareaForm($site_evaluation_to_submit->id, $action);
+		}
+		else
+		{
+			$single_textarea_form = 'No Site Evaluation needs to be submitted';
+		}
+		$accordion = <<<EOF
+        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">
+                                    <i class="livicon" data-name="signal" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
+                                    Site Evaluation to submit
+                                </h3>
+                                <span class="pull-right clickable">
+                                    <i class="glyphicon glyphicon-chevron-up"></i>
+                                </span>
+                            </div>
+                            <div class="panel-body">
+                                $single_textarea_form
+                            </div>
+                        </div>
 
+EOF;
+		return $accordion;
+
+	}
+
+	// Student evaluations
+	public static function generateAssignmentStudentEvaluationAccordion($student_evaluation_to_submit)
+	{
+		return "to be finished";
+	}
+
+	/*
+	 * END OF ASSIGNMENT COMPONENTS
+	 */
 
 
 
