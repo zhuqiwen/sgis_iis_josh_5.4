@@ -5,13 +5,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class InternJournalController extends InternAssignmentController
+class InternReflectionController extends InternAssignmentController
 {
     //
 	public function ajaxSubmit(Request $request)
 	{
-		return parent::ajaxUpdate($request, 'journal');
-
+		return parent::ajaxUpdate($request, 'reflection');
 	}
 
 }

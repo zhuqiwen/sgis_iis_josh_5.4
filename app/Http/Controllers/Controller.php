@@ -40,7 +40,8 @@ class Controller extends BaseController
 		$reflection = $internship->reflection->where('intern_reflection_submitted_on', NULL)->get();
 		$site_evaluation = $internship->siteEvaluation->where('intern_site_evaluation_submitted_on', NULL)->get();
 
-		if(empty($reflection))
+
+		if($reflection->isEmpty())
 		{
 			$reflection = NULL;
 		}
@@ -49,7 +50,7 @@ class Controller extends BaseController
 			$reflection = $reflection[0];
 		}
 
-		if(empty($site_evaluation))
+		if($site_evaluation->isEmpty())
 		{
 			$site_evaluation = NULL;
 		}

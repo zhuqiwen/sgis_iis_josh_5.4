@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 /**
  * Class InternSiteEvaluation
  */
-class InternSiteEvaluation extends Model
+class InternSiteEvaluation extends SgisModels
 {
     protected $table = 'intern_site_evaluations';
 

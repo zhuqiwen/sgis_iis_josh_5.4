@@ -759,10 +759,12 @@ EOF;
     {
         $accordions = '';
         $action = config('constants.ajax.urls.submit_internship_assignment_journal');
-        for($i = 0; $i < sizeof($journals); $i++)
+//        for($i = 0; $i < sizeof($journals); $i++)
+	    foreach ($journals as $journal)
         {
-            $single_textarea_form = self::generateSingleTextareaForm($journals[$i]->id, $action);
-            $journal_serial_num = $i + 1;
+//            $single_textarea_form = self::generateSingleTextareaForm($journals[$i]->id, $action);
+            $single_textarea_form = self::generateSingleTextareaForm($journal->id, $action);
+            $journal_serial_num = $journal->intern_journal_serial_num;
             $panel_heading_id = 'heading_' . $journal_serial_num;
             $collapse_id = 'coolapse_' . $journal_serial_num;
             $panel_heading = <<<HEADING
@@ -788,6 +790,11 @@ BODY;
             $accordions .= $div_wrapper_begin . $panel_heading . $panel_body . $div_wrapper_end;
         }
 
+        if($journals->isEmpty())
+        {
+	        $accordions = 'All Journals have been submitted';
+        }
+
         return $accordions;
     }
 
@@ -803,7 +810,7 @@ BODY;
 		}
 		else
 		{
-			$single_textarea_form = 'No Reflection needs to be submitted';
+			$single_textarea_form = 'Internship Reflection has been submitted';
 		}
 		$accordion = <<<EOF
         <div class="panel panel-default">
@@ -831,11 +838,11 @@ EOF;
 		$action = config('constants.ajax.urls.submit_internship_assignment_site_evaluation');
 		if(!is_null($site_evaluation_to_submit))
 		{
-			$single_textarea_form = self::generateSingleTextareaForm($site_evaluation_to_submit->id, $action);
+			$single_textarea_form = self::generateSiteEvaluationForm($site_evaluation_to_submit->id, $action);
 		}
 		else
 		{
-			$single_textarea_form = 'No Site Evaluation needs to be submitted';
+			$single_textarea_form = 'Internship Site Evaluation has been submitted';
 		}
 		$accordion = <<<EOF
         <div class="panel panel-default">
@@ -879,16 +886,110 @@ EOF;
     public static function generateSingleTextareaForm($record_id, $action)
     {
         $form = <<<FORM
-        <form action="$action">
-        <textarea></textarea>
-        <button type="submit" class="btn btn-default" data-record-id="$record_id">Submit</button>
-        </form> 
+		<form class="form-horizontal" action="$action" method="POST">
+			<!-- Textarea -->
+			<div class="form-group">
+			  <div class="col-sm-12 col-md-8 col-md-offset-1">                     
+			    <textarea class="form-control" id="textarea" name="textarea">default text</textarea>
+			  </div>
+			
+			<!-- Button -->
+			  <div class="col-sm-12 col-md-2">
+			    <button type="submit" class="btn btn-primary" data-record-id="$record_id">Submit</button>
+			  </div>
+			</div>
+		</form>
 FORM;
 
         return $form;
     }
 
 
+	public static function generateSiteEvaluationForm($record_id, $action)
+	{
+		$form = <<<FORM
+		<form class="form-horizontal" method="PUT" action="$action">
+			<div class="row">
+				<div class="col-md-6">
+					<div class="form-group">
+						<label class="col-md-12" for="how_did_locate">How did you locate this internship?</label>
+						<div class="col-md-12">                     
+				            <textarea class="form-control" id="how_did_locate" name="how_did_locate">default text</textarea>
+				        </div>
+				    </div>
+				    <div class="form-group">
+						<label class="col-md-12" for="site_description">Provide brief description of the internship site</label>
+						<div class="col-md-12">                     
+							<textarea class="form-control" id="site_description" name="site_description">default text</textarea>
+						</div>
+				    </div>
+				    <div class="form-group">
+						<label class="col-md-12" for="task_description">What were your tasks and responsibilities as an intern?</label>
+						<div class="col-md-12">                     
+						    <textarea class="form-control" id="task_description" name="task_description">default text</textarea>
+				        </div>
+				    </div>
+				    <div class="form-group">
+				        <label class="col-md-12" for="fit_into_study">How does this internship site fit into the scope of your studies at IU?</label>
+						<div class="col-md-12">                     
+				            <textarea class="form-control" id="fit_into_study" name="fit_into_study">default text</textarea>
+				        </div>
+				    </div>
+				    <div class="form-group">
+				        <label class="col-md-12" for="willing_to_recommend">Would you recommend this internship site?</label>
+						<div class="col-md-12">                     
+				            <select id="willing_to_recommend" name="willing_to_recommend" class="form-control">
+							    <option value="2">Yes! Very Much!</option>
+							    <option value="1">Yes</option>
+							    <option value="0">Not Sure</option>
+							    <option value="-1">No</option>
+							    <option value="-2">Absolutely NO!</option>
+						    </select>
+				        </div>
+				    </div>				    				    			
+				</div>
+				
+				<div class="col-md-6">
+					<div class="form-group">
+						<label class="col-md-12" for="site_strength">What were the strengths of the internship site?</label>
+						<div class="col-md-12">                     
+				            <textarea class="form-control" id="site_strength" name="site_strength">default text</textarea>
+				        </div>
+				    </div>
+				    <div class="form-group">
+						<label class="col-md-12" for="site_weakness">What were weaknesses of the internship site?</label>
+						<div class="col-md-12">                     
+							<textarea class="form-control" id="site_weakness" name="site_weakness">default text</textarea>
+						</div>
+				    </div>
+				    <div class="form-group">
+    			        <label class="col-md-12" for="gained_skills">What skills and knowledge did you gain by participating in this internship site?</label>
+						<div class="col-md-12">                     
+						    <textarea class="form-control" id="gained_skills" name="gained_skills">default text</textarea>
+				        </div>
+				    </div>
+				    <div class="form-group">
+				        <label class="col-md-12" for="brief_comment">Any other brief comment?</label>
+						<div class="col-md-12">                     
+				            <textarea class="form-control" id="brief_comment" name="brief_comment">default text</textarea>
+				        </div>
+				    </div>
+				    <div class="form-group">
+   				        <label class="col-md-12" for="single_button">&nbsp</label>
+						<div class="col-md-12">                     
+							<button type="submit" id="single_button" data-record-id="$record_id" class="btn btn-primary">Submit</button>
+				        </div>
+				    </div>
+				</div>
+			</div>			
+		</form>
+
+
+FORM;
+
+		return $form;
+
+    }
 
 
 

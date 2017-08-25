@@ -42,10 +42,10 @@
                     <div class="panel panel-success">
                         <div class="panel-heading">
                             <h4 class="panel-title">
-                                <a href="#prerequisites" data-parent="#accordion-demo" data-toggle="collapse">Select an Internship</a>
+                                <a href="#panel_select_internship" data-parent="#accordion-demo" data-toggle="collapse">Select an Internship</a>
                             </h4>
                         </div>
-                        <div id="prerequisites" class="panel-collapse collapse in">
+                        <div id="panel_select_internship" class="panel-collapse collapse in">
                             <div class="panel-body">
 
                                 <div class="row">
@@ -76,10 +76,11 @@
                     <div class="panel panel-info">
                         <div class="panel-heading">
                             <h4 class="panel-title">
-                                <a href="#addwizard" data-parent="#accordion-demo" data-toggle="collapse">Assignments</a>
+                                <a href="#panel_assignments" data-parent="#accordion-demo" data-toggle="collapse">Assignments</a>
                             </h4>
                         </div>
-                        <div id="addwizard" class="panel-collapse collapse awd-h" style="height: 36.400001525878906px;">
+                        {{--<div id="panel_assignments" class="panel-collapse collapse awd-h" style="height: 36.400001525878906px;">--}}
+                        <div id="panel_assignments" class="panel-collapse collapse">
                             <div class="panel-body">
 
                             </div>

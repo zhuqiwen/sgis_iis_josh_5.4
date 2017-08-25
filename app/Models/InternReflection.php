@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 /**
  * Class InternReflection
  */
-class InternReflection extends Model
+class InternReflection extends SgisModels
 {
     protected $table = 'intern_reflections';
 
@@ -18,7 +18,7 @@ class InternReflection extends Model
 	    "internship_id",
 	    "intern_reflection_content",
 	    "intern_reflection_due_date",
-	    "intern_reflection_submitted_at",
+	    "intern_reflection_submitted_on",
 
     ];
 
