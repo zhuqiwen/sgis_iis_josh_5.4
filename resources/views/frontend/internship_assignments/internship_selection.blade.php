@@ -52,10 +52,7 @@
                                     <div class="col-sm-12 col-md-8 col-md-offset-2">
                                         {!! Form::select(
                                             'internship_id'
-                                            , [
-                                                '1' => 'internship 1',
-                                                '2' => 'internship 2',
-                                            ]
+                                            , $internship_options
                                             , null
                                             , [
                                                 'placeholder' => 'select an internship',
