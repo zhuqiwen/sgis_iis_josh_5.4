@@ -16,19 +16,11 @@ class InternInternshipController extends Controller
     //
 	public function showAssignmentView(Request $request)
 	{
-		$applications = new InternApplication();
-		$applications = $applications->getApprovedApplicationsByApplicantId($request->user()->id);
 
-		$approved_application_ids = [];
-		foreach ($applications as $application)
-		{
-			array_push($approved_application_ids, $application->id);
-		}
-
-		$internship_options = InternInternship::whereIN('application_id', $approved_application_ids)
-			->get()
-			->load('application')
-			->keyBy('id')->all();
+		$internships = new InternInternship();
+		// internship_id => object(internship)
+		$internship_options = $internships->getApprovedNotClosedInternshipsByApplicantId($request->user()->id);
+		$internship_panels_submitted = $this->getInternshipCollapsePanels($internship_options);
 		foreach ($internship_options as $key => $option)
 		{
 			$internship_info = '';
@@ -39,10 +31,44 @@ class InternInternshipController extends Controller
 		}
 
 
-
-
 	    return view('frontend.internship_assignments.internship_selection')
+		    ->withInternshipPanelsSubmitted($internship_panels_submitted)
 		    ->withInternshipOptions($internship_options);
+	}
+
+
+
+
+	//helpers
+	public function getInternshipCollapsePanels($internships_key_by_id)
+	{
+		//first
+
+		$content = '';
+		foreach ($internships_key_by_id as $key => $internship)
+		{
+
+			//hasMany
+			$journals = $internship->journals
+				->where('intern_journal_submitted_on', '<>', NULL)
+				->where('internship_id', $key)
+				->all();
+			// hasOne
+			$reflection = $internship->reflection
+				->where('intern_reflection_submitted_on', '<>', NULL)
+				->where('internship_id', $key)
+				->get()
+				->all();
+			$site_evaluation = $internship->siteEvaluation
+				->where('intern_site_evaluation_submitted_on', '<>', NULL)
+				->where('internship_id', $key)
+				->get()
+				->all();
+
+			$content .= HTMLSnippet::generateInternshipCollapsePanelWithSubmittedAssignments($internship, $journals, $reflection, $site_evaluation);
+		}
+
+		return $content;
 	}
 
 

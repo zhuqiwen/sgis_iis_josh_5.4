@@ -687,7 +687,7 @@ EOF;
 
 
     /*
-     * Front end user's components of Internship Assignments
+     * Front end user's components of Internship Assignments SUBMISSION
      */
 
     public static function generateAssignmentItemCollapsePanel($type, $item)
@@ -716,25 +716,42 @@ EOF;
 
 
     // Journals: outer wrapper
-    public static function generateAssignmentJournalsOuterAccordion($journals_to_submit)
+    public static function generateAssignmentJournalsOuterAccordion($journals_to_submit, $for = 'to_submit')
     {
 
 	    if(!empty($journals_to_submit))
+//	    if(!$journals_to_submit->isEmpty())
 	    {
-		    $journal_inner_accordions = self::generateAssignmentJournalsInnerAccordions($journals_to_submit);
+		    $journal_inner_accordions = self::generateAssignmentJournalsInnerAccordions($journals_to_submit, $for);
 	    }
 	    else
 	    {
-		    $journal_inner_accordions = 'No Journals need to be submitted';
+		    if($for === 'to_submit')
+		    {
+			    $journal_inner_accordions = 'No Journals need to be submitted';
+		    }
+		    elseif($for === 'submitted')
+		    {
+			    $journal_inner_accordions = 'No Journal has been submitted yet';
+		    }
 	    }
 
         $num_to_submit = sizeof($journals_to_submit);
+	    if($for === 'to_submit')
+	    {
+		    $panel_title = $num_to_submit . ' Journals to submit';
+	    }
+	    elseif($for === 'submitted')
+	    {
+		    $panel_title = $num_to_submit . ' Journals has been submitted';
+	    }
+
         $accordion = <<<EOF
         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <h3 class="panel-title">
-                                    <i class="livicon" data-name="signal" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
-                                    $num_to_submit Journals to submit
+                                    <!--<i class="livicon" data-name="signal" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>-->
+                                    $panel_title
                                 </h3>
                                 <span class="pull-right clickable">
                                     <i class="glyphicon glyphicon-chevron-up"></i>
@@ -755,18 +772,29 @@ EOF;
     }
 
     // Journals: inner accordions
-    public static function generateAssignmentJournalsInnerAccordions($journals)
+    public static function generateAssignmentJournalsInnerAccordions($journals, $for)
     {
         $accordions = '';
         $action = config('constants.ajax.urls.submit_internship_assignment_journal');
 //        for($i = 0; $i < sizeof($journals); $i++)
 	    foreach ($journals as $journal)
         {
-//            $single_textarea_form = self::generateSingleTextareaForm($journals[$i]->id, $action);
-            $single_textarea_form = self::generateSingleTextareaForm($journal->id, $action);
+	        if($for === 'to_submit')
+	        {
+		        $single_textarea = self::generateSingleTextareaForm($journal->id, $action);
+	        }
+	        elseif($for === 'submitted')
+	        {
+		        $single_textarea = self::generateSingleTextareaDisplay();
+	        }
+	        else
+	        {
+		        $single_textarea = 'oooops, seems something went wrong.';
+
+	        }
             $journal_serial_num = $journal->intern_journal_serial_num;
-            $panel_heading_id = 'heading_' . $journal_serial_num;
-            $collapse_id = 'coolapse_' . $journal_serial_num;
+            $panel_heading_id = $for . '_heading_' . $journal_serial_num;
+            $collapse_id = $for . '_coolapse_' . $journal_serial_num;
             $panel_heading = <<<HEADING
             <div class="panel-heading" role="tab" id="$panel_heading_id">
                 <a role="button" data-toggle="collapse" data-parent="#journal_accordion" href="#$collapse_id" aria-expanded="false" aria-controls="$collapse_id">
@@ -778,7 +806,7 @@ HEADING;
             $panel_body = <<<BODY
             <div id="$collapse_id" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="$panel_heading_id">
                 <div class="panel-body">
-                $single_textarea_form
+                $single_textarea
                 </div>
             </div>
 
@@ -790,7 +818,8 @@ BODY;
             $accordions .= $div_wrapper_begin . $panel_heading . $panel_body . $div_wrapper_end;
         }
 
-        if($journals->isEmpty())
+//        if($journals->isEmpty())
+        if(empty($journals))
         {
 	        $accordions = 'All Journals have been submitted';
         }
@@ -801,30 +830,56 @@ BODY;
 
 
     // Reflection
-	public static function generateAssignmentReflectionAccordion($reflection_to_submit)
+	public static function generateAssignmentReflectionAccordion($reflection_to_submit, $for = 'to_submit')
 	{
 		$action = config('constants.ajax.urls.submit_internship_assignment_reflection');
-		if(!is_null($reflection_to_submit))
+//		if(!is_null($reflection_to_submit))
+		if(!empty($reflection_to_submit))
 		{
-			$single_textarea_form = self::generateSingleTextareaForm($reflection_to_submit->id, $action);
+			if($for === 'to_submit')
+			{
+				$single_textarea = self::generateSingleTextareaForm($reflection_to_submit->id, $action);
+			}
+			elseif($for === 'submitted')
+			{
+				$single_textarea = self::generateSingleTextareaDisplay();
+			}
 		}
 		else
 		{
-			$single_textarea_form = 'Internship Reflection has been submitted';
+			if($for === 'to_submit')
+			{
+				$single_textarea = 'Internship Reflection has been submitted';
+			}
+			elseif($for === 'submitted')
+			{
+				$single_textarea = 'Internship Reflection has not been submitted';
+
+			}
+		}
+
+		if($for === 'to_submit')
+		{
+			$panel_title = 'Reflection to submit';
+		}
+		elseif ($for === 'submitted')
+		{
+			$panel_title = 'Submitted Reflection';
+
 		}
 		$accordion = <<<EOF
         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <h3 class="panel-title">
-                                    <i class="livicon" data-name="signal" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
-                                    Reflection to submit
+                                    <!--<i class="livicon" data-name="signal" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>-->
+                                    $panel_title
                                 </h3>
                                 <span class="pull-right clickable">
                                     <i class="glyphicon glyphicon-chevron-up"></i>
                                 </span>
                             </div>
                             <div class="panel-body">
-                                $single_textarea_form
+                                $single_textarea
                             </div>
                         </div>
 
@@ -833,30 +888,47 @@ EOF;
 	}
 
 	// Site evaluation
-	public static function generateAssignmentSiteEvaluationAccordion($site_evaluation_to_submit)
+	public static function generateAssignmentSiteEvaluationAccordion($site_evaluation_to_submit, $for = 'to_submit')
 	{
 		$action = config('constants.ajax.urls.submit_internship_assignment_site_evaluation');
 		if(!is_null($site_evaluation_to_submit))
 		{
-			$single_textarea_form = self::generateSiteEvaluationForm($site_evaluation_to_submit->id, $action);
+			$content = self::generateSiteEvaluationForm($site_evaluation_to_submit->id, $action, $for);
 		}
 		else
 		{
-			$single_textarea_form = 'Internship Site Evaluation has been submitted';
+			if($for === 'to_submit')
+			{
+				$content = 'Internship Site Evaluation has been submitted';
+			}
+			elseif ($for === 'submitted')
+			{
+				$content = 'Internship Site Evaluation has NOT been submitted';
+			}
 		}
+
+		if($for === 'to_submit')
+		{
+			$panel_title = 'Site Evaluation to submit';
+		}
+		elseif ($for === 'submitted')
+		{
+			$panel_title = 'Submitted Site Evaluation';
+		}
+
 		$accordion = <<<EOF
         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <h3 class="panel-title">
                                     <i class="livicon" data-name="signal" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
-                                    Site Evaluation to submit
+                                    $panel_title
                                 </h3>
                                 <span class="pull-right clickable">
                                     <i class="glyphicon glyphicon-chevron-up"></i>
                                 </span>
                             </div>
                             <div class="panel-body">
-                                $single_textarea_form
+                                $content
                             </div>
                         </div>
 
@@ -872,8 +944,63 @@ EOF;
 	}
 
 	/*
-	 * END OF ASSIGNMENT COMPONENTS
+	 * END OF ASSIGNMENT SUBMISSION COMPONENTS
 	 */
+
+	/*
+	 * SUBMITTED ASSIGNMENT GROUPED BY INTERNSHIPS
+	 */
+	public static function generateInternshipCollapsePanelWithSubmittedAssignments($internship, $journals, $reflection, $site_evaluation)
+	{
+
+		$internship_info = '';
+		$internship_info .= $internship->application->intern_application_year . ', ';
+		$internship_info .= $internship->application->intern_application_term . ', ';
+		$internship_info .= $internship->application->intern_application_country;
+
+		$journals_panel = self::generateSubmittedJournalsCollapsePanel($journals);
+		$reflection_panel = self::generateSubmittedReflectionCollapsePanel($reflection);
+		$site_evaluation_panel = self::generateSubmittedSiteEvaluationCollapsePanel($site_evaluation);
+
+		$panel = <<<PANEL
+			<div class="panel panel-info">
+	            <div class="panel-heading">
+	                <h4 class="panel-title">
+	                    <a id="assignment_panel_title" href="#$internship->id" data-parent="#accordion-internship" data-toggle="collapse">$internship_info</a>
+	                </h4>
+	            </div>
+	            <div id="$internship->id" class="panel-collapse collapse">
+	                <div class="panel-body">
+						$journals_panel
+						$reflection_panel
+						$site_evaluation_panel
+	                </div>
+	                <!--/.panel-body -->
+	            </div>
+	            <!-- /#addwizard -->
+	        </div>
+
+PANEL;
+		return $panel;
+
+	}
+
+	public static function generateSubmittedJournalsCollapsePanel($submitted_journals)
+	{
+
+		return self::generateAssignmentJournalsOuterAccordion($submitted_journals, 'submitted');
+	}
+
+	public static function generateSubmittedReflectionCollapsePanel($submitted_reflection)
+	{
+		return self::generateAssignmentReflectionAccordion($submitted_reflection, 'submitted');
+	}
+
+	public static function generateSubmittedSiteEvaluationCollapsePanel($site_evaluation)
+	{
+//		return self::generateAssignmentSiteEvaluationAccordion($site_evaluation, 'submitted');
+		return 'submitted site evaluation';
+	}
 
 
 
@@ -902,6 +1029,21 @@ EOF;
 FORM;
 
         return $form;
+    }
+
+	public static function generateSingleTextareaDisplay()
+	{
+		$display = <<<DISPLAY
+			<div class="col-md-10 col-md-offset-1 display_submitted">
+				<p>
+					display submitted single text area assignment
+				</p>
+			</div>
+
+DISPLAY;
+
+		return $display;
+
     }
 
 

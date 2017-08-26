@@ -83,6 +83,26 @@ class InternInternship extends Model
 
     }
 
+	public function getApprovedNotClosedInternshipsByApplicantId($applicant_id)
+	{
+		$applications = new InternApplication();
+		$applications = $applications->getApprovedApplicationsByApplicantId($applicant_id);
+
+		$approved_application_ids = [];
+		foreach ($applications as $application)
+		{
+			array_push($approved_application_ids, $application->id);
+		}
+
+		return $this->whereIN('application_id', $approved_application_ids)
+			//closed internships do not qualify
+			->whereNULL('intern_internship_case_closed_date')
+			->whereNULL('intern_internship_closed_by')
+			->get()
+			->load('application', 'journals', 'reflection', 'siteEvaluation')
+			->keyBy('id')->all();
+    }
+
 
 
 
