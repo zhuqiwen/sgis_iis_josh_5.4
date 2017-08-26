@@ -73,7 +73,7 @@
                     <div class="panel panel-info">
                         <div class="panel-heading">
                             <h4 class="panel-title">
-                                <a href="#panel_assignments" data-parent="#accordion-demo" data-toggle="collapse">Assignments</a>
+                                <a id="assignment_panel_title" href="#panel_assignments" data-parent="#accordion-demo" data-toggle="collapse">Assignments</a>
                             </h4>
                         </div>
                         {{--<div id="panel_assignments" class="panel-collapse collapse awd-h" style="height: 36.400001525878906px;">--}}

@@ -37,8 +37,16 @@ class Controller extends BaseController
 		// hasMany, so no need to use get()
 		$journals = $internship->journals->where('intern_journal_submitted_on', NULL);
 		// hasOne, so get() is necessary, or only returns a Builder instead of a collection
-		$reflection = $internship->reflection->where('intern_reflection_submitted_on', NULL)->get();
-		$site_evaluation = $internship->siteEvaluation->where('intern_site_evaluation_submitted_on', NULL)->get();
+		// AND has to add filter of internship_id, or it will return all unsubmitted assignment of all internships
+		$reflection = $internship->reflection
+			->where('intern_reflection_submitted_on', NULL)
+			->where('internship_id', $request->internship_id)
+			->get();
+		$site_evaluation = $internship->siteEvaluation
+			->where('intern_site_evaluation_submitted_on', NULL)
+			->where('internship_id', $request->internship_id)
+			->get();
+
 
 
 		if($reflection->isEmpty())
