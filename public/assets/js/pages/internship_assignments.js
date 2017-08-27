@@ -67,4 +67,25 @@ $(document).on('click', 'button[type="submit"]', function (e) {
     });
 });
 
+$(document).on('click', 'a[href="#submitted"]', function (e) {
 
+
+    console.log('the submitted tab is clicked');
+
+
+    $.ajax({
+        type:'get',
+        url: '/internship/assignment/get_submitted',
+        data:{},
+        dataType:'html',
+        success: function (returned_data) {
+            console.log(returned_data);
+            $('#accordion-internship').html(returned_data);
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            var e = window.open();
+            e.document.write(xhr.responseText);
+        }
+    });
+
+});

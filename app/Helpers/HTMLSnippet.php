@@ -785,7 +785,7 @@ EOF;
 	        }
 	        elseif($for === 'submitted')
 	        {
-		        $single_textarea = self::generateSingleTextareaDisplay();
+		        $single_textarea = self::generateSingleTextareaDisplay($journal->intern_journal_content, $journal->id, 'journal');
 	        }
 	        else
 	        {
@@ -844,7 +844,10 @@ BODY;
 			}
 			elseif($for === 'submitted')
 			{
-				$single_textarea = self::generateSingleTextareaDisplay($reflection_to_submit->id, 'reflection');
+				$single_textarea = self::generateSingleTextareaDisplay(
+				    $reflection_to_submit->intern_reflection_content,
+                    $reflection_to_submit->id,
+                    'reflection');
 			}
 		}
 		else
@@ -1040,13 +1043,14 @@ FORM;
         return $form;
     }
 
-	public static function generateSingleTextareaDisplay($record_id, $record_type)
+	public static function generateSingleTextareaDisplay($content, $record_id, $record_type)
 	{
 		$div_id = $record_type . '_' . $record_id;
+		$content = nl2br($content);
 		$display = <<<DISPLAY
 			<div class="col-md-10 col-md-offset-1 display_submitted" id="$div_id">
 				<p>
-					display submitted single text area assignment
+				    $content
 				</p>
 			</div>
 

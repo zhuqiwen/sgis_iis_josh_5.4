@@ -34,6 +34,7 @@ return [
 		'urls' => [
 			'approve_internship_application' => '/admin/approve_internship_applications',
             'get_internship_assignments' => '/internship/assignment/get',
+            'get_submitted_assignments_grouped_by_internship' => '/internship/assignment/get_submitted',
             'submit_internship_assignment_journal' => '/submit/assignment/journal',
             'submit_internship_assignment_reflection' => '/submit/assignment/reflection',
             'submit_internship_assignment_site_evaluation' => '/submit/assignment/site_evaluation',

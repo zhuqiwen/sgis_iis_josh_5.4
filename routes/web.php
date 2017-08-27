@@ -194,11 +194,13 @@ Route::group(array('middleware' => 'user'), function () {
     //ajax
     Route::get(config('constants.ajax.urls.get_internship_assignments'), 'InternInternshipController@ajaxGetAssignmentToSubmit');
     Route::post(config('constants.menu_path.front_end.internship_create_application'), 'InternApplicationController@ajaxStore');
-    // ajas: submit internship assignment
+    // ajax: submit internship assignment
 	Route::put(config('constants.ajax.urls.submit_internship_assignment_journal'), 'InternJournalController@ajaxSubmit');
 	Route::put(config('constants.ajax.urls.submit_internship_assignment_reflection'), 'InternReflectionController@ajaxSubmit');
 	Route::put(config('constants.ajax.urls.submit_internship_assignment_site_evaluation'), 'InternSiteEvaluationController@ajaxSubmit');
 
+	// ajax: get submitted assignments grouped by internships
+    Route::get(config('constants.ajax.urls.get_submitted_assignments_grouped_by_internship'), 'InternInternshipController@ajaxGetInternshipPanelsWithSubmitAssignments');
 
 
 

@@ -75,10 +75,12 @@ class InternInternshipController extends Controller
 
 
 
-	public function ajaxSubmitAssignments(Request $request)
+	public function ajaxGetInternshipPanelsWithSubmitAssignments(Request $request)
 	{
-		return 'hahahah';
-
+        $internships = new InternInternship();
+        // internship_id => object(internship)
+        $internship_options = $internships->getApprovedNotClosedInternshipsByApplicantId($request->user()->id);
+        return $this->getInternshipCollapsePanels($internship_options);
 	}
 
 
