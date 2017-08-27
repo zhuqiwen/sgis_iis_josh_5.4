@@ -57,13 +57,15 @@ class InternInternshipController extends Controller
 			$reflection = $internship->reflection
 				->where('intern_reflection_submitted_on', '<>', NULL)
 				->where('internship_id', $key)
-				->get()
-				->all();
+				->first();
+//				->get()
+//				->all();
 			$site_evaluation = $internship->siteEvaluation
 				->where('intern_site_evaluation_submitted_on', '<>', NULL)
 				->where('internship_id', $key)
-				->get()
-				->all();
+				->first();
+//				->get()
+//				->all();
 
 			$content .= HTMLSnippet::generateInternshipCollapsePanelWithSubmittedAssignments($internship, $journals, $reflection, $site_evaluation);
 		}

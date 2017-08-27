@@ -833,16 +833,18 @@ BODY;
 	public static function generateAssignmentReflectionAccordion($reflection_to_submit, $for = 'to_submit')
 	{
 		$action = config('constants.ajax.urls.submit_internship_assignment_reflection');
-//		if(!is_null($reflection_to_submit))
-		if(!empty($reflection_to_submit))
+		if(!is_null($reflection_to_submit))
+//		if(!empty($reflection_to_submit))
 		{
+//			dd($reflection_to_submit);
+
 			if($for === 'to_submit')
 			{
 				$single_textarea = self::generateSingleTextareaForm($reflection_to_submit->id, $action);
 			}
 			elseif($for === 'submitted')
 			{
-				$single_textarea = self::generateSingleTextareaDisplay();
+				$single_textarea = self::generateSingleTextareaDisplay($reflection_to_submit->id, 'reflection');
 			}
 		}
 		else
@@ -893,7 +895,15 @@ EOF;
 		$action = config('constants.ajax.urls.submit_internship_assignment_site_evaluation');
 		if(!is_null($site_evaluation_to_submit))
 		{
-			$content = self::generateSiteEvaluationForm($site_evaluation_to_submit->id, $action, $for);
+			if($for === 'to_submit')
+			{
+				$content = self::generateSiteEvaluationForm($site_evaluation_to_submit->id, $action, $for);
+
+			}
+			elseif ($for === 'submitted')
+			{
+				$content = self::generateSiteEvaluationDisplay($site_evaluation_to_submit);
+			}
 		}
 		else
 		{
@@ -920,7 +930,7 @@ EOF;
         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <h3 class="panel-title">
-                                    <i class="livicon" data-name="signal" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
+                                    <!---<i class="livicon" data-name="signal" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>--->
                                     $panel_title
                                 </h3>
                                 <span class="pull-right clickable">
@@ -998,8 +1008,7 @@ PANEL;
 
 	public static function generateSubmittedSiteEvaluationCollapsePanel($site_evaluation)
 	{
-//		return self::generateAssignmentSiteEvaluationAccordion($site_evaluation, 'submitted');
-		return 'submitted site evaluation';
+		return self::generateAssignmentSiteEvaluationAccordion($site_evaluation, 'submitted');
 	}
 
 
@@ -1031,10 +1040,11 @@ FORM;
         return $form;
     }
 
-	public static function generateSingleTextareaDisplay()
+	public static function generateSingleTextareaDisplay($record_id, $record_type)
 	{
+		$div_id = $record_type . '_' . $record_id;
 		$display = <<<DISPLAY
-			<div class="col-md-10 col-md-offset-1 display_submitted">
+			<div class="col-md-10 col-md-offset-1 display_submitted" id="$div_id">
 				<p>
 					display submitted single text area assignment
 				</p>
@@ -1134,5 +1144,49 @@ FORM;
     }
 
 
+	public static function generateSiteEvaluationDisplay($site_evaluation)
+	{
+		$labels = [
+			"how_did_locate" => 'How did you locate this internship?',
+			"site_description" => 'Provide brief description of the internship site',
+			"task_description" => 'What were your tasks and responsibilities as an intern?',
+			"fit_into_study" => 'How does this internship site fit into the scope of your studies at IU?',
+			"site_strength" => 'What were the strengths of the internship site?',
+			"site_weakness" => 'What were weaknesses of the internship site?',
+			"gained_skills" => 'What skills and knowledge did you gain by participating in this internship site?',
+			"brief_comment" => 'Any other brief comment?',
+			"willing_to_recommend" => 'Would you recommend this internship site?',
+		];
+		$excludes = [
+			"id" => '',
+			"internship_id" => '',
+			"intern_site_evaluation_due_date" => '',
+			"intern_site_evaluation_submitted_on" => '',
+			"created_at" => '',
+			"updated_at" => '',
+			"deleted_at" => '',
+		];
+		$attributes = $site_evaluation->getAttributes();
+		$attributes = array_diff_key($attributes, $excludes);
+		$content = '';
+		foreach ($attributes as $key => $value)
+		{
+			$content .= '<div class="col-md-10 col-me-offset-1">';
+			$content .= '<div class="form-group">';
+			$content .= '<label class="col-md-12" for="' . $key . '">' . $labels[$key] . '</label>';
+			$content .= '<div class="col-md-12">';
+			$content .= nl2br($value);
+			$content .= '</div></div></div>';
+
+		}
+		$display = <<<DISPLAY
+		<div class="row">
+			$content
+		</div>
+
+DISPLAY;
+
+		return $display;
+    }
 
 }

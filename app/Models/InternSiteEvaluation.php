@@ -31,6 +31,7 @@ class InternSiteEvaluation extends SgisModels
 
     protected $guarded = ['id'];
 
+
 	use SoftDeletes;
 	protected $dates = ['deleted_at'];
 
