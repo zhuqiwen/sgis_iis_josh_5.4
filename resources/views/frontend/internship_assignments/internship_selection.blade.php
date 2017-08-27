@@ -1,7 +1,7 @@
 @extends('layouts/default')
 
 {{-- Page title --}}
-@section('title')Create Internship Application
+@section('title')Internship Assignments
 @parent
 @stop
 
@@ -32,7 +32,7 @@
     <div class="container">
         <section class="content-header">
             <!--section starts-->
-            <h1>Internship Assignment submission wizards</h1>
+            <h1>Internship Assignments</h1>
         </section>
         <!--section ends-->
         <section class="content">
