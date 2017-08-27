@@ -204,7 +204,15 @@ $(document).on('click', '#rootwizard .finish', function () {
         dataType: 'json',
         success: function (returned_data) {
             console.log(returned_data);
-            window.location.replace("/internship_application_status");
+            var next = '/internship_application_status';
+            if ($('#intern_application_term').val() == 'Summer')
+            {
+                if (confirm('hey, a summer internship'))
+                {
+                    next = '/funding_summer_internship';
+                }
+            }
+            window.location.replace(next);
 
         },
         error: function (xhr, ajaxOptions, thrownError) {
