@@ -65,7 +65,7 @@
                         ['name1' => 'name1'],
                         NULL,
                         [
-                            'placeholder' => 'Which Email Belongs To You',
+                            'placeholder' => 'Which is your email?',
                             'class' => 'form-control',
                             'id' => 'supervisor_email',
                         ]) !!}
@@ -78,7 +78,7 @@
                         ['name1' => 'name1'],
                         NULL,
                         [
-                            'placeholder' => 'Which Email Belongs To You',
+                            'placeholder' => 'Which is your phone number?',
                             'class' => 'form-control',
                             'id' => 'supervisor_phone',
                         ]) !!}
@@ -91,9 +91,9 @@
                         ['name1' => 'name1'],
                         NULL,
                         [
-                            'placeholder' => 'The internship student\'s name',
+                            'placeholder' => 'The internship student\'s first name',
                             'class' => 'form-control',
-                            'id' => 'student_name',
+                            'id' => 'student_first_name',
                         ]) !!}
                 </div>
 

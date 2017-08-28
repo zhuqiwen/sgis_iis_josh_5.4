@@ -42,6 +42,7 @@ class InternSupervisorPortal extends Model
 	}
 
 
+
 	public function getIdentityCheckData($random_url)
 	{
 		$portal = $this->where('random_url', $random_url)
@@ -55,8 +56,8 @@ class InternSupervisorPortal extends Model
 			->load('application')
 			->application;
 
-		$applicant = User::find($application->user_id);
-		return array_merge($supervisor, $applican);
+		$applicant = User::find($application->user_id)->getAttributes();
+		return array_merge($supervisor, $applicant);
 
 	}
 
@@ -65,7 +66,7 @@ class InternSupervisorPortal extends Model
 	{
 		$random_url = explode('/', $request->path());
 		$random_url = end($random_url);
-		$answers = this->getIdentityCheckData($random_url);
+		$answers = $this->getIdentityCheckData($random_url);
 
 		$result = true;
 
