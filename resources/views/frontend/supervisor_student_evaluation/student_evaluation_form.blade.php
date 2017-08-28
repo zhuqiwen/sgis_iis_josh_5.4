@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Register | Welcome to Josh Frontend</title>
+    <title>Student Evaluation | SGIS IIS</title>
     <!--global css starts-->
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/bootstrap.min.css') }}">
     <link rel="shortcut icon" href="{{ asset('assets/images/favicon.png') }}" type="image/x-icon">
@@ -39,10 +39,11 @@
                 <div class="panel panel-success">
                     <div class="panel-heading">
                         <h3 class="panel-title">
-                            <i class="livicon" data-name="folder-add" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i> Student Evaluation Wizard
+                            {{--<i class="livicon" data-name="folder-add" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i> --}}
+                            Student Evaluation Wizard
                         </h3>
-                        <span class="pull-right clickable">
-                        <i class="glyphicon glyphicon-chevron-up"></i>
+                        {{--<span class="pull-right clickable">--}}
+                        {{--<i class="glyphicon glyphicon-chevron-up"></i>--}}
                     </span>
                     </div>
                     <div class="panel-body">
