@@ -58,7 +58,8 @@ Route::group(array('prefix' => 'admin'), function () {
 
 Route::group(['prefix' => 'admin', 'middleware' => 'admin', 'as' => 'admin.'], function () {
     # Dashboard / Index
-    Route::get('/', array('as' => 'dashboard','uses' => 'JoshController@showHome'));
+//    Route::get('/', array('as' => 'dashboard','uses' => 'JoshController@showHome'));
+    Route::get('/', array('as' => 'dashboard','uses' => 'SGISIISAdminController@showHome'));
 
     // GUI Crud Generator
     Route::get('generator_builder', '\InfyOm\GeneratorBuilder\Controllers\GeneratorBuilderController@builder');
@@ -206,6 +207,18 @@ Route::group(array('middleware' => 'user'), function () {
 
 
 });
+
+
+# Supervisor portal
+Route::get('supervisor/{random_url}', 'InternSupervisorController@identityCheckView');
+Route::post('supervisor/validate', ['as' => 'supervisor_identity_check', 'use' => 'InternSupervisorController@validateIdentity']);
+Route::post('supervisor/student_evaluation', 'InternSupervisorController@submitStudentEvaluation');
+
+
+
+
+
+
 Route::get('logout', array('as' => 'logout','uses' => 'FrontEndController@getLogout'));
 # contact form
 Route::post('contact',array('as' => 'contact','uses' => 'FrontEndController@postContact'));

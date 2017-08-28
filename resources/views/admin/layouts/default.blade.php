@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <title>
         @section('title')
-            | Josh Admin Template
+            {{--| Josh Admin Template--}}
+            | SGIS IIS Admin
         @show
     </title>
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
@@ -42,7 +43,7 @@
         </div>
         <div class="navbar-right">
             <ul class="nav navbar-nav">
-                @include('admin.layouts._messages')
+{{--                @include('admin.layouts._messages')--}}
                 @include('admin.layouts._notifications')
                 <li class="dropdown user user-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
