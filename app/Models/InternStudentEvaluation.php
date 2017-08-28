@@ -17,10 +17,10 @@ class InternStudentEvaluation extends Model
     protected $fillable = [
 	    "internship_id",
 	    "intern_student_evaluation_performance_comment",
-	    "intern_student_evaluation_has_noteworthy",
 	    "intern_student_evaluation_noteworthy_aspects",
-	    "intern_student_evaluation_need_improve",
-	    "intern_student_evaluation_student_weakness",
+	    "intern_student_evaluation_noteworthy_examples",
+	    "intern_student_evaluation_weakness",
+	    "intern_student_evaluation_weakness_examples",
 	    "intern_student_evaluation_weakness_remedy",
 	    "intern_student_evaluation_suitability",
 	    "intern_student_evaluation_job_advice",
@@ -31,7 +31,6 @@ class InternStudentEvaluation extends Model
 	    "intern_student_evaluation_submitted_on",
 	    "intern_student_evaluation_request_sent_on",
 	    "intern_student_evaluation_request_sent_by",
-
     ];
 
 	protected $guarded = ['id'];
@@ -46,4 +45,6 @@ class InternStudentEvaluation extends Model
             ->whereNull('submitted_at')
             ->get();
     }
+
+
 }

@@ -19,10 +19,10 @@ class CreateInternStudentEvaluationsTable extends Migration
 			$table->increments('id');
             $table->integer('internship_id')->unsigned()->nullable();
 			$table->text('intern_student_evaluation_performance_comment')->nullable();
-			$table->boolean('intern_student_evaluation_has_noteworthy')->nullable();
 			$table->text('intern_student_evaluation_noteworthy_aspects')->nullable();
-			$table->boolean('intern_student_evaluation_need_improve')->nullable();
-			$table->text('intern_student_evaluation_student_weakness')->nullable();
+			$table->text('intern_student_evaluation_noteworthy_examples')->nullable();
+			$table->text('intern_student_evaluation_weakness')->nullable();
+			$table->text('intern_student_evaluation_weakness_examples')->nullable();
 			$table->text('intern_student_evaluation_weakness_remedy')->nullable();
 			$table->text('intern_student_evaluation_suitability')->nullable();
 			$table->text('intern_student_evaluation_job_advice')->nullable();
