@@ -22,7 +22,7 @@
     <div class="row">
         <div class="box animation flipInX">
             <img src="{{ asset('assets/images/sgis_logo.jpg') }}" alt="logo" class="img-responsive mar" height="100" width="100">
-            <h3 class="text-primary">Sign Up</h3>
+            <h3 class="text-primary">Please Verify Your Identity</h3>
             <!-- Notifications -->
             <div id="notific">
                 @include('notifications')
@@ -100,7 +100,7 @@
 
 
                 <div class="clearfix"></div>
-                <button type="submit" class="btn btn-block btn-primary">Sign Up</button>
+                <button type="submit" class="btn btn-block btn-primary">Next</button>
             </form>
         </div>
     </div>
