@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 use App\Models\InternSupervisorPortal;
 use Illuminate\Http\Request;
+use function Sodium\randombytes_uniform;
 
 class InternSupervisorController extends Controller
 {
@@ -14,6 +15,13 @@ class InternSupervisorController extends Controller
 		$portal = new InternSupervisorPortal();
 		$random_url = explode('/', $request->path());
 		$random_url = end($random_url);
+
+		$exist = $portal->where('random_url', $random_url)->whereNull('deleted_at')->exists();
+		if(!$exist)
+        {
+            return view('frontend.url_not_exist');
+        }
+
 		$answer = $portal->getIdentityCheckData($random_url);
 
 		$faker = \Faker\Factory::create();

@@ -172,6 +172,13 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin', 'as' => 'admin.'], f
 });
 
 #FrontEndController
+Route::get('404', function () {
+    return View('frontend.url_not_exist');
+});
+Route::get('500', function () {
+    return View::make('admin/500');
+});
+
 Route::get('login', array('as' => 'login','uses' => 'FrontEndController@getLogin'));
 Route::post('login','FrontEndController@postLogin');
 Route::get('register', array('as' => 'register','uses' => 'FrontEndController@getRegister'));

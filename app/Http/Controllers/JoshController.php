@@ -319,7 +319,7 @@ class JoshController extends Controller {
         }
         else
         {
-            return view('admin.404');
+            return view('frontend.url_not_exist');
         }
     }
 
