@@ -55,10 +55,14 @@ class InternApplicationController extends Controller
 
 		    $request->request->add(['intern_application_submitted_date' => Carbon::now('America/New_York')->toDateString()]);
 		    $application = InternApplication::create($request->all());
-		    $application->organization()->associate($organization);
-		    $application->supervisor()->associate($supervisor);
+//		    $application->organization()->associate($organization);
+//		    $application->supervisor()->associate($supervisor);
+            $application->intern_organization_id = $organization->id;
+            $application->intern_supervisor_id = $supervisor->id;
+            $application->save();
 		    $applicant = User::find($request->user()->id);
 		    $application->applicant()->associate($applicant);
+
 
 	    }
 

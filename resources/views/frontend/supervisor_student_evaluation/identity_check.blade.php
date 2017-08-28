@@ -36,7 +36,7 @@
                 <div class="form-group">
 {{--                    {!! Form::label('intern_supervisor_first_name', 'Your First Name', ['class' => 'sr-only']) !!}--}}
                     {!! Form::select('intern_supervisor_first_name',
-                        ['name1' => 'name1'],
+                        $options['supervisor_first_names'],
                         NULL,
                         [
                             'placeholder' => 'Your First Name',
@@ -49,7 +49,7 @@
                 <div class="form-group">
 {{--                    {!! Form::label('intern_supervisor_last_name', 'Your First Name', ['class' => 'sr-only']) !!}--}}
                     {!! Form::select('intern_supervisor_last_name',
-                        ['name1' => 'name1'],
+                        $options['supervisor_last_names'],
                         NULL,
                         [
                             'placeholder' => 'Your Last Name',
@@ -62,7 +62,7 @@
                 <div class="form-group">
 {{--                    {!! Form::label('intern_supervisor_email', 'Your First Name', ['class' => 'sr-only']) !!}--}}
                     {!! Form::select('intern_supervisor_email',
-                        ['name1' => 'name1'],
+                        $options['supervisor_emails'],
                         NULL,
                         [
                             'placeholder' => 'Which is your email?',
@@ -75,7 +75,7 @@
                 <div class="form-group">
 {{--                    {!! Form::label('intern_supervisor_phone', 'Your First Name', ['class' => 'sr-only']) !!}--}}
                     {!! Form::select('intern_supervisor_phone',
-                        ['name1' => 'name1'],
+                        $options['supervisor_phones'],
                         NULL,
                         [
                             'placeholder' => 'Which is your phone number?',
@@ -87,8 +87,8 @@
 
                 <div class="form-group">
 {{--                    {!! Form::label('intern_supervisor_first_name', 'Your First Name', ['class' => 'sr-only']) !!}--}}
-                    {!! Form::select('intern_application_first_name',
-                        ['name1' => 'name1'],
+                    {!! Form::select('first_name',
+                        $options['student_first_names'],
                         NULL,
                         [
                             'placeholder' => 'The internship student\'s first name',
@@ -109,8 +109,8 @@
 <!--global js starts-->
 <script type="text/javascript" src="{{ asset('assets/js/jquery.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
-<script src="{{ asset('assets/vendors/bootstrapvalidator/js/bootstrapValidator.min.js') }}" type="text/javascript"></script>
-<script type="text/javascript" src="{{ asset('assets/vendors/iCheck/js/icheck.js') }}"></script>
+{{--<script src="{{ asset('assets/vendors/bootstrapvalidator/js/bootstrapValidator.min.js') }}" type="text/javascript"></script>--}}
+{{--<script type="text/javascript" src="{{ asset('assets/vendors/iCheck/js/icheck.js') }}"></script>--}}
 <script type="text/javascript" src="{{ asset('assets/js/frontend/register_custom.js') }}"></script>
 <!--global js end-->
 </body>

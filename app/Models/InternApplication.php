@@ -241,5 +241,17 @@ class InternApplication extends Model
 		    'intern_student_evaluation_due_date' => $start_date->copy()->addDays($internship_duration / 2),
 	    ]);
 
+	    // create supervisor portal stub
+        $random_url = bin2hex(random_bytes(random_int(5, 10)));
+        $portal = new InternSupervisorPortal();
+        $portal->create([
+            "random_url" => $random_url,
+            "supervisor_id" => $approved_application->intern_supervisor_id,
+            "internship_id" => $internship->id,
+            "form_submitted" => null,
+            "num_visit" => 0,
+        ]);
+
+
 	}
 }

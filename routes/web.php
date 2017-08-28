@@ -211,7 +211,7 @@ Route::group(array('middleware' => 'user'), function () {
 
 # Supervisor portal
 Route::get('supervisor/{random_url}', 'InternSupervisorController@identityCheckView');
-Route::post('supervisor/validate', ['as' => 'supervisor_identity_check', 'use' => 'InternSupervisorController@validateIdentity']);
+Route::post('supervisor/validate', ['as' => 'supervisor_identity_check', 'uses' => 'InternSupervisorController@validateIdentity']);
 Route::post('supervisor/student_evaluation', 'InternSupervisorController@submitStudentEvaluation');
 
 

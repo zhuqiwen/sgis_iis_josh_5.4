@@ -32,3 +32,5 @@
     <strong>Info:</strong> {{ $message }}
 </div>
 @endif
+
+

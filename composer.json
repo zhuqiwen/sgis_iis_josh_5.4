@@ -17,6 +17,7 @@
         "cviebrock/eloquent-sluggable": "^4.2",
         "cviebrock/eloquent-taggable": "2.1.0-beta",
         "doctrine/dbal": "^2.5",
+        "fzaninotto/faker": "^1.7",
         "infyomlabs/core-templates": "5.3.x-dev",
         "infyomlabs/generator-builder": "dev-master",
         "infyomlabs/laravel-generator": "^1.0",
@@ -30,7 +31,6 @@
         "yajra/laravel-datatables-oracle": "^7.3"
     },
     "require-dev": {
-        "fzaninotto/faker": "~1.4",
         "mockery/mockery": "0.9.*",
         "phpunit/phpunit": "~5.0",
         "barryvdh/laravel-debugbar": "^2.3",

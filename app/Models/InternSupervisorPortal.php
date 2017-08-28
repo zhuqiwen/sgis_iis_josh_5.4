@@ -2,9 +2,11 @@
 
 namespace App\Models;
 
+use App\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\URL;
 
 
 /**
@@ -47,40 +49,58 @@ class InternSupervisorPortal extends Model
 	{
 		$portal = $this->where('random_url', $random_url)
 					->whereNull('deleted_at')
-					->first()
-					->load('supervisor');
+					->first();
+		if($portal)
+        {
+            $portal = $portal->load('supervisor');
+            $supervisor = $portal->supervisor->getAttributes();
 
-		$supervisor = $portal->supervisor->getAttributes();
+            $application = InternInternship::find($portal->internship_id)
+                ->load('application')
+                ->application;
 
-		$application = InternInternship::find($portal->internship_id)
-			->load('application')
-			->application;
+            $applicant = User::find($application->user_id)->getAttributes();
+            return array_merge($supervisor, $applicant);
+        }
+        else
+        {
+            return [
+                'intern_supervisor_first_name' => 'Not in the list',
+                'intern_supervisor_last_name' => 'Not in the list',
+                'intern_supervisor_email' => 'Not in the list',
+                'intern_supervisor_phone' => 'Not in the list',
+                'first_name' => 'Not in the list',
+            ];
+        }
 
-		$applicant = User::find($application->user_id)->getAttributes();
-		return array_merge($supervisor, $applicant);
+
+
 
 	}
 
 
 	public function checkIdentity(Request $request)
 	{
-		$random_url = explode('/', $request->path());
+
+		$random_url = explode('/', URL::previous());
 		$random_url = end($random_url);
 		$answers = $this->getIdentityCheckData($random_url);
 
-		$result = true;
+
+		if(in_array('Not in the list', $answers))
+        {
+            return false;
+        }
 
 		foreach ($request->except(['_token']) as $key => $answer)
 		{
-			if($request->input($key) != $answers[$key])
+			if(strtolower($request->input($key)) != strtolower($answers[$key]))
 			{
-				$result = false;
+				return false;
 			}
 		}
 
-		return $result;
-
-
-
+		return true;
 	}
+
 }

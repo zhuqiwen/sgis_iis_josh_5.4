@@ -34,5 +34,7 @@ class CreateInternSupervisorPortalTable extends Migration
     public function down()
     {
         //
+        Schema::dropIfExists('intern_supervisor_portal');
+
     }
 }
