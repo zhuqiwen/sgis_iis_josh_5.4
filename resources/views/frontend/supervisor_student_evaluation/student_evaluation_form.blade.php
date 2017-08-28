@@ -39,7 +39,7 @@
                 <div class="panel panel-success">
                     <div class="panel-heading">
                         <h3 class="panel-title">
-                            <i class="livicon" data-name="folder-add" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i> Internship Application Wizard
+                            <i class="livicon" data-name="folder-add" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i> Student Evaluation Wizard
                         </h3>
                         <span class="pull-right clickable">
                         <i class="glyphicon glyphicon-chevron-up"></i>
@@ -49,7 +49,16 @@
                         <form id="internship_application_form" method="post" action="#">
                             <div id="rootwizard">
                                 <ul>
-
+                                    {{--4 tabs--}}
+                                    {{--guide / introduction--}}
+                                        {{--tell supervisor who the student is and other details of the internship--}}
+                                    {{--general comments--}}
+                                        {{--performance commend--}}
+                                        {{----}}
+                                    {{--4 tabs--}}
+                                    {{--4 tabs--}}
+                                    {{--4 tabs--}}
+                                    {{--4 tabs--}}
                                     <?php
                                     $numTabs = 9;
                                     $tabNames = [
