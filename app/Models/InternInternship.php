@@ -58,9 +58,9 @@ class InternInternship extends Model
         return $this->hasOne('App\Models\InternSiteEvaluation', 'internship_id');
     }
 
-    public function studentEvaluation()
+    public function studentEvaluations()
     {
-        return $this->hasOne('App\Models\InternStudentEvaluation', 'internship_id');
+        return $this->hasMany('App\Models\InternStudentEvaluation', 'internship_id');
     }
 
 
@@ -103,6 +103,29 @@ class InternInternship extends Model
 			->keyBy('id')->all();
     }
 
+
+    /**
+     * @return Eloquent collection
+     * all:[]
+     */
+    public function getFinishedUnclosedInternships()
+    {
+        $days_buffer = config('constants.internship_close_buffer');
+        $today = Carbon::now(config('constants.current_time_zone'));
+        $end_date = $today->copy()->subDays($days_buffer);
+
+        return InternInternship::whereNull('intern_internship_closed_date')
+            ->whereNull('intern_internship_closed_by')
+            ->get()
+            ->load('application', 'journals', 'reflection', 'siteEvaluation', 'studentEvaluations')
+            ->where('application.intern_application_end_date', '<', $end_date);
+    }
+
+    public function getFinishedUnclosedAssignmentsIncompleteInternships()
+    {
+        $finished_unclosed = $this->getFinishedUnclosedInternships();
+
+    }
 
 
 

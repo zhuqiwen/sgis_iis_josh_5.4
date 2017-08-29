@@ -169,6 +169,7 @@ class InternApplication extends Model
 			->load('applicant');
 	}
 
+
     public function approveApplication($application_id, $approval_note, $approver_id)
     {
         //update application

@@ -1,3 +1,7 @@
+<?php
+        $today = \Carbon\Carbon::now(config('constants.current_time_zone'))->toDateString();
+?>
+
 @extends('admin/layouts/default')
 
 {{-- Page title --}}
@@ -37,52 +41,47 @@
 
                         <h3 class="panel-title">
                             {{--<i class="livicon" data-name="piggybank" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>--}}
-                            Submitted Internship Applications
-
+                            Finished Internships as of {{ $today }}
                         </h3>
-
-
-
-
 
                         <div class=" kal pull-right">
                             <!-- Tabs -->
                             <ul class="nav panel-tabs">
                                 <li class="active" id="tab_tobeapproved">
-                                    <a href="#tab1" data-toggle="tab">To be approved</a>
+                                    <a href="#tab1" data-toggle="tab">To be finalized</a>
                                 </li>
                                 <li id="tab_approved">
-                                    <a href="#tab2" data-toggle="tab">Approved</a>
+                                    <a href="#tab2" data-toggle="tab">Finalized</a>
                                 </li>
                             </ul>
                         </div>
                     </div>
                     <div class="panel-body">
-                        <form id="{{ config('constants.forms.ids.approve_applications_form') }}" method="post" action="#">
+                        <form id="{{ config('constants.forms.ids.finalize_internships_form') }}" method="post" action="#">
                         <div class="tab-content" id="slim1">
                             <div class="tab-pane text-justify active" id="tab1">
                                 <h4>
                                     <span>
-                                        Applications that need approval
+                                        Internships that end on / before {{ $today }}
                                     </span>
-                                    <button id="button_approve" type="button" class="btn btn-sm btn-warning" data-ajax--url="{{ config('constants.ajax.urls.approve_internship_application') }}" disabled>
-                                        <span class="glyphicon glyphicon-check"></span> Approve
+                                    <button id="button_approve" type="button" class="btn btn-sm btn-warning" data-ajax--url="{{ config('constants.ajax.urls.finalize_internship') }}" disabled>
+                                        <span class="glyphicon glyphicon-check"></span> Finalize
                                     </button>
                                 </h4>
                                 {{--here are applications' float cards--}}
                                 <div class="row">
                                     <?php
-                                        echo $submitted_application_cards;
+//                                        echo $submitted_application_cards;
                                     ?>
                                 </div>
 
                             </div>
                             <div class="tab-pane text-justify" id="tab2">
-                                <h4> Approved Applications</h4>
+                                <h4> Finalized Internships</h4>
                                 {{--here are applications' float cards--}}
                                 <div class="row">
                                     <?php
-                                        echo $approved_application_cards;
+//                                        echo $approved_application_cards;
                                     ?>
                                 </div>
                             </div>
@@ -101,5 +100,5 @@
 
 {{-- page level scripts --}}
 @section('footer_scripts')
-    <script src="{{ asset('assets/js/pages/submitted_internship_applications.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/js/pages/finished_internships.js') }}" type="text/javascript"></script>
 @stop

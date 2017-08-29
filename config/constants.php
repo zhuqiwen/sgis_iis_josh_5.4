@@ -24,6 +24,7 @@ return [
 
 
     'journal_interval' => 7,
+    'internship_close_buffer' => 15,
 
     'journal_buffer' => 15,
     'reflection_buffer' => 15,
@@ -39,12 +40,14 @@ return [
             'submit_internship_assignment_reflection' => '/submit/assignment/reflection',
             'submit_internship_assignment_site_evaluation' => '/submit/assignment/site_evaluation',
             'submit_internship_assignment_student_evaluation' => '/submit/assignment/student_evaluation',
+            'finalize_internship' => '/admin/finalize_internships',
 		],
 	],
 
 	'forms' => [
 		'ids' => [
 			'approve_internship_applications' => 'approve_applications_form',
+			'finalize_internships_form' => 'finalize_internships_form',
 		],
 	],
 
