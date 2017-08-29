@@ -91,9 +91,9 @@ class InternSupervisorController extends Controller
 
 	    if($exist)
         {
-	        session('internship_id', $portal->internship_id);
-	        session('portal_id', $portal->id);
-	        session('student_evaluation_id', $portal->student_evaluation_id);
+//	        session('internship_id', $portal->internship_id);
+//	        session('portal_id', $portal->id);
+//	        session('student_evaluation_id', $portal->student_evaluation_id);
             return view('frontend.supervisor_student_evaluation.student_evaluation_form')
 //	            ->withInternshipId($portal->internship_id)
 	            ->withPortalId($portal->id)
@@ -125,7 +125,7 @@ class InternSupervisorController extends Controller
 			$portal = new InternSupervisorPortal();
 			$portal->where('id', $portal_id)->update(['form_submitted' => 1]);
 			//set successful message
-			$request->session()->flash('success', 'Student Evaluation submitted successfully.');
+			$request->session()->flash('success', 'Student Evaluation submitted successfully. The browser can be safely closed.');
 			//redirect thanks page
 			return redirect('supervisor/thank_you');
 		}
@@ -134,6 +134,8 @@ class InternSupervisorController extends Controller
 			//set error message
 			$request->session()->flash('error', 'Oooops. Something went wrong. Can you try again? Thank you.');
 			//redirect to identity check page
+            //TODO
+            //develop this redirect
 			return 'aho...';
 		}
 
