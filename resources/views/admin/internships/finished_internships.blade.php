@@ -47,11 +47,14 @@
                         <div class=" kal pull-right">
                             <!-- Tabs -->
                             <ul class="nav panel-tabs">
-                                <li class="active" id="tab_tobeapproved">
-                                    <a href="#tab1" data-toggle="tab">To be finalized</a>
+                                <li class="active" id="tab_assignment_complete">
+                                    <a href="#tab1" data-toggle="tab">Assignment Complete</a>
                                 </li>
-                                <li id="tab_approved">
-                                    <a href="#tab2" data-toggle="tab">Finalized</a>
+                                <li id="tab_assignment_incomplete">
+                                    <a href="#tab2" data-toggle="tab">Assignment Incomplete</a>
+                                </li>
+                                <li id="tab_finalized">
+                                    <a href="#tab3" data-toggle="tab">Closed Internships</a>
                                 </li>
                             </ul>
                         </div>
@@ -62,7 +65,7 @@
                             <div class="tab-pane text-justify active" id="tab1">
                                 <h4>
                                     <span>
-                                        Internships that end on / before {{ $today }}
+                                        Finished Internships with <strong>all required assignments submitted</strong> as of {{ $today }}
                                     </span>
                                     <button id="button_approve" type="button" class="btn btn-sm btn-warning" data-ajax--url="{{ config('constants.ajax.urls.finalize_internship') }}" disabled>
                                         <span class="glyphicon glyphicon-check"></span> Finalize
@@ -77,11 +80,27 @@
 
                             </div>
                             <div class="tab-pane text-justify" id="tab2">
-                                <h4> Finalized Internships</h4>
+                                <h4>
+                                    <span>
+                                        Finished Internships with <strong>at least 1 required assignments missing</strong> as of {{ $today }}
+                                    </span>
+                                    <button id="button_approve" type="button" class="btn btn-sm btn-warning" data-ajax--url="{{ config('constants.ajax.urls.finalize_internship') }}" disabled>
+                                        <span class="glyphicon glyphicon-check"></span> Finalize
+                                    </button>
+                                </h4>
                                 {{--here are applications' float cards--}}
                                 <div class="row">
                                     <?php
 //                                        echo $approved_application_cards;
+                                    ?>
+                                </div>
+                            </div>
+                            <div class="tab-pane text-justify" id="tab3">
+                                <h4> Finalized Internships</h4>
+                                {{--here are applications' float cards--}}
+                                <div class="row">
+                                    <?php
+                                    //                                        echo $approved_application_cards;
                                     ?>
                                 </div>
                             </div>

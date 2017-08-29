@@ -39,17 +39,8 @@ class InternInternshipController extends Controller
 
     public function adminIndexFinishedInternships()
     {
-//        $applications = new InternApplication();
-//        $submitted_applications = $applications->getSubmittedApplications();
-//        $approved_applications = $applications->getApprovedApplications();
-//
-//        $submitted_application_cards = $this->getSubmittedApplicationCards($submitted_applications);
-//        $approved_application_cards = $this->getApprovedApplicationCards($approved_applications);
-//
-//
-//        return view('admin.internships.applications.submitted_applications')
-//            ->withSubmittedApplicationCards($submitted_application_cards)
-//            ->withApprovedApplicationCards($approved_application_cards);
+	    return view('admin.internships.finished_internships');
+
 	}
 
 

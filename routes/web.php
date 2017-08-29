@@ -164,9 +164,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin', 'as' => 'admin.'], f
     //sgis internship management
     Route::get('approve_internship_applications', 'InternApplicationController@adminIndexSubmittedApplications');
     Route::post('approve_internship_applications', 'InternApplicationController@ajaxApproveApplications');
-    Route::get('close_internships', function (){
-        return view('admin.internships.finished_internships');
-    });
+
+
+    Route::get('close_internships', 'InternInternshipController@adminIndexFinishedInternships');
     Route::post('close_internships', function(){
         return 'close internship POST result';
     });
