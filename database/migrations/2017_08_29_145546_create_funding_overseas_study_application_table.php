@@ -34,7 +34,6 @@ class CreateFundingOverseasStudyApplicationTable extends Migration
             $table->string('fosa_recommendation_email_2')->nullable();
             $table->text('fosa_personal_statement')->nullable();
             $table->text('fosa_promotional_bio')->nullable();
-            $table->text('fosa_promotional_bio')->nullable();
             $table->date('fosa_submitted_on')->nullable();
             $table->timestamps();
             $table->softDeletes();

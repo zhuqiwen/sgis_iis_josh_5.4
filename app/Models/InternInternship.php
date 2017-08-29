@@ -104,27 +104,115 @@ class InternInternship extends Model
     }
 
 
+	/**
+	 * @param boolean $closed
+	 * true: finished and closed internships
+	 * false: finished and unclosed internships
+	 * @return mixed
+	 *
+	 */
+    public function getFinishedInternshipsClosed($closed)
+    {
+	    $days_buffer = config('constants.internship_close_buffer');
+	    $today = Carbon::now(config('constants.current_time_zone'));
+	    $end_date = $today->copy()->subDays($days_buffer);
+
+	    if($closed)
+	    {
+		    $internships = InternInternship::whereNotNull('intern_internship_case_closed_date')
+			    ->whereNotNull('intern_internship_closed_by');
+	    }
+	    else
+	    {
+		    $internships = InternInternship::whereNull('intern_internship_case_closed_date')
+			    ->whereNull('intern_internship_closed_by');
+	    }
+
+	    return $internships->get()
+		    ->load('application', 'journals', 'reflection', 'siteEvaluation', 'studentEvaluations')
+		    ->where('application.intern_application_end_date', '<', $end_date);
+    }
+
+	/**
+	 * @return mixed
+	 * return finished and closed internships
+	 */
+	public function getFinishedClosedInternships()
+	{
+		return $this->getFinishedInternshipsClosed(true);
+    }
+
     /**
      * @return Eloquent collection
+     * return finished and unclosed internships
      * all:[]
      */
     public function getFinishedUnclosedInternships()
     {
-        $days_buffer = config('constants.internship_close_buffer');
-        $today = Carbon::now(config('constants.current_time_zone'));
-        $end_date = $today->copy()->subDays($days_buffer);
-
-        return InternInternship::whereNull('intern_internship_closed_date')
-            ->whereNull('intern_internship_closed_by')
-            ->get()
-            ->load('application', 'journals', 'reflection', 'siteEvaluation', 'studentEvaluations')
-            ->where('application.intern_application_end_date', '<', $end_date);
+	    return $this->getFinishedInternshipsClosed(false);
     }
 
-    public function getFinishedUnclosedAssignmentsIncompleteInternships()
+	/**
+	 * @param boolean $assignment_incomplete
+	 * $assignment_incomplete = true
+	 *  returns internships with at 1 assignment not submitted
+	 * $assignment_incomplete = false
+	 *  return internships with all assignment submitted
+	 * @return mixed
+	 */
+    public function getFinishedUnclosedInternshipsWithAssignmentStatus($assignment_incomplete)
     {
         $finished_unclosed = $this->getFinishedUnclosedInternships();
 
+	    return $finished_unclosed->filter(function($internship) use ($assignment_incomplete){
+		    // check if any journal is missing
+		    foreach ($internship->journals as $journal)
+		    {
+			    if($journal->intern_journal_submitted_on == null)
+			    {
+				    return $assignment_incomplete;
+			    }
+		    }
+
+		    // check if any student evaluation is missing
+		    foreach ($internship->studentEvaluations as $studentEvaluation)
+		    {
+			    if($studentEvaluation->intern_student_evaluation_submitted_on == null)
+			    {
+				    return $assignment_incomplete;
+			    }
+		    }
+
+		    if($internship->reflection->intern_reflection_submitted_on == null)
+		    {
+			    return $assignment_incomplete;
+		    }
+
+		    if($internship->siteEvaluation->intern_site_evaluation_submitted_on == null)
+		    {
+			    return $assignment_incomplete;
+		    }
+
+		    return !$assignment_incomplete;
+	    });
+    }
+
+	/**
+	 * @return mixed
+	 * return all internships that are finished and unclosed on the day and with at leas one assignment not submitted
+	 */
+    public function getFinishedUnclosedInternshipsWithAssignmentIncomplete()
+    {
+	    return $this->getFinishedUnclosedInternshipsWithAssignmentStatus(true);
+    }
+
+	/**
+	 * @return mixed
+	 * return all finished and unclosed internships with all assignments submitted
+	 */
+    public function getFinishedUnclosedInternshipsWithAssignmentComplete()
+    {
+	    return $this->getFinishedUnclosedInternshipsWithAssignmentStatus(false);
     }
 
 
