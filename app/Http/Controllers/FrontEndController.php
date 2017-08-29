@@ -25,8 +25,10 @@ use View;
 class FrontEndController extends JoshController
 {
     protected $validationRules = array(
-        'first_name' => 'required|min:3',
-        'last_name' => 'required|min:3',
+//        'first_name' => 'required|min:3',
+        'first_name' => 'required',
+//        'last_name' => 'required|min:3',
+        'last_name' => 'required',
         'email' => 'required|email|unique:users,email',
         'password' => 'required|between:3,32',
         'password_confirm' => 'required|same:password',

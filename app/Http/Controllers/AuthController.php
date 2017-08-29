@@ -70,8 +70,10 @@ class AuthController extends JoshController
     {
         // Declare the rules for the form validation
         $rules = array(
-            'first_name'       => 'required|min:3',
-            'last_name'        => 'required|min:3',
+//            'first_name'       => 'required|min:3',
+            'first_name'       => 'required',
+//            'last_name'        => 'required|min:3',
+            'last_name'        => 'required',
             'email'            => 'required|email|unique:users',
             'email_confirm'    => 'required|email|same:email',
             'password'         => 'required|between:3,32',
@@ -322,8 +324,10 @@ class AuthController extends JoshController
     {
         // Declare the rules for the form validation
         $rules = array(
-            'first_name'       => 'required|min:3',
-            'last_name'        => 'required|min:3',
+//            'first_name'       => 'required|min:3',
+            'first_name'       => 'required',
+//            'last_name'        => 'required|min:3',
+            'last_name'        => 'required',
             'email'            => 'required|email|unique:users',
             'email_confirm'    => 'required|email|same:email',
             'password'         => 'required|between:3,32',

@@ -13,7 +13,7 @@ $("#reg_form").bootstrapValidator({
                 }
             },
             required: true,
-            minlength: 3
+            // minlength: 3
         },
         last_name: {
             validators: {
@@ -22,7 +22,7 @@ $("#reg_form").bootstrapValidator({
                 }
             },
             required: true,
-            minlength: 3
+            // minlength: 3
         },
         email: {
             validators: {

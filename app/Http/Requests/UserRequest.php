@@ -31,8 +31,10 @@ class UserRequest extends FormRequest
             }
             case 'POST': {
                 return [
-                    'first_name' => 'required|min:3',
-                    'last_name' => 'required|min:3',
+//                    'first_name' => 'required|min:3',
+                    'first_name' => 'required',
+//                    'last_name' => 'required|min:3',
+                    'last_name' => 'required',
                     'email' => 'required|email|unique:users,email',
                     'password' => 'required|between:3,32',
                     'password_confirm' => 'required|same:password',
@@ -42,8 +44,10 @@ class UserRequest extends FormRequest
             case 'PUT':
             case 'PATCH': {
                 return [
-                    'first_name' => 'required|min:3',
-                    'last_name' => 'required|min:3',
+//                    'first_name' => 'required|min:3',
+                    'first_name' => 'required',
+//                    'last_name' => 'required|min:3',
+                    'last_name' => 'required',
                     'email' => 'required|unique:users,email,' . $this->user->id,
                     'password_confirm' => 'sometimes|same:password',
                     'pic_file' => 'mimes:jpg,jpeg,bmp,png,gif|max:10000'
