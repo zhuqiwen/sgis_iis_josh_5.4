@@ -230,27 +230,39 @@ class InternApplication extends Model
 
 
         // create student eval stub
-        InternStudentEvaluation::create([
+        $student_evaluation = InternStudentEvaluation::create([
             'internship_id' => $internship->id,
+            'intern_student_evaluation_is_midterm' => 0,
             'intern_student_evaluation_due_date' => $end_date->copy()->addDays($student_evaluation_buffer),
         ]);
 
-	    InternStudentEvaluation::create([
+	    $student_evaluation_midterm = InternStudentEvaluation::create([
 		    'internship_id' => $internship->id,
 		    'intern_student_evaluation_is_midterm' => 1,
 		    'intern_student_evaluation_due_date' => $start_date->copy()->addDays($internship_duration / 2),
 	    ]);
 
-	    // create supervisor portal stub
+	    // create supervisor portal stubs
         $random_url = bin2hex(random_bytes(random_int(5, 10)));
         $portal = new InternSupervisorPortal();
         $portal->create([
             "random_url" => $random_url,
             "supervisor_id" => $approved_application->intern_supervisor_id,
             "internship_id" => $internship->id,
-            "form_submitted" => null,
+            "student_evaluation_id" => $student_evaluation->id,
+            "form_submitted" => 0,
             "num_visit" => 0,
         ]);
+
+	    $random_url = bin2hex(random_bytes(random_int(5, 10)));
+	    $portal->create([
+		    "random_url" => $random_url,
+		    "supervisor_id" => $approved_application->intern_supervisor_id,
+		    "internship_id" => $internship->id,
+		    "student_evaluation_id" => $student_evaluation_midterm->id,
+		    "form_submitted" => 0,
+		    "num_visit" => 0,
+	    ]);
 
 
 	}

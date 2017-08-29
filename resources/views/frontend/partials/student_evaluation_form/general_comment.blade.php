@@ -1,8 +1,8 @@
 <div class="tab-pane" id="tab1">
     <div class="row">
         <div class="col-sm-10 col-sm-offset-1">
-                {!! Form::hidden('user_id', Sentinel::getUser()->id) !!}
-                {!! Form::hidden('intern_application_submitted_by', Sentinel::getUser()->id) !!}
+{{--                {!! Form::hidden('user_id', Sentinel::getUser()->id) !!}--}}
+{{--                {!! Form::hidden('intern_application_submitted_by', Sentinel::getUser()->id) !!}--}}
 
             <div class="row">
                 <div class="col-sm-12">

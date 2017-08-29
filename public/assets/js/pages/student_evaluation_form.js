@@ -198,29 +198,30 @@ $('input[type="checkbox"].custom-checkbox, input[type="radio"].custom-radio').iC
 
 $(document).on('click', '#rootwizard .finish', function () {
     var form = $('#student_evaluation_form');
-    console.log(form.attr('action'));
-    $.ajax({
-        type: form.attr('method'),
-        url: form.attr('action'),
-        data: form.serialize(),
-        dataType: 'json',
-        success: function (returned_data) {
-            console.log(returned_data);
-            var next = '/internship_application_status';
-            if ($('#intern_application_term').val() == 'Summer')
-            {
-                if (confirm('hey, a summer internship'))
-                {
-                    next = '/funding_summer_internship';
-                }
-            }
-            window.location.replace(next);
-
-        },
-        error: function (xhr, ajaxOptions, thrownError) {
-            var e = window.open();
-            e.document.write(xhr.responseText);
-
-        }
-    })
+    form.submit();
+    // console.log(form.attr('action'));
+    // $.ajax({
+    //     type: form.attr('method'),
+    //     url: form.attr('action'),
+    //     data: form.serialize(),
+    //     dataType: 'json',
+    //     success: function (returned_data) {
+    //         console.log(returned_data);
+    //         var next = '/internship_application_status';
+    //         if ($('#intern_application_term').val() == 'Summer')
+    //         {
+    //             if (confirm('hey, a summer internship'))
+    //             {
+    //                 next = '/funding_summer_internship';
+    //             }
+    //         }
+    //         window.location.replace(next);
+    //
+    //     },
+    //     error: function (xhr, ajaxOptions, thrownError) {
+    //         var e = window.open();
+    //         e.document.write(xhr.responseText);
+    //
+    //     }
+    // })
 });

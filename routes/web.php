@@ -219,13 +219,17 @@ Route::group(array('middleware' => 'user'), function () {
 # Supervisor portal
 
 //for test; disable after work
-Route::get('supervisor/student_evaluation', function (){
-	return view('frontend.supervisor_student_evaluation.student_evaluation_form');
-});
+//Route::get('supervisor/student_evaluation', function (){
+//	return view('frontend.supervisor_student_evaluation.student_evaluation_form');
+//});
 
-Route::get('supervisor/{random_url}', 'InternSupervisorController@identityCheckView');
 Route::post('supervisor/validate', ['as' => 'supervisor_identity_check', 'uses' => 'InternSupervisorController@validateIdentity']);
 Route::post('supervisor/student_evaluation', ['as' => 'submit_student_evaluation', 'uses' => 'InternSupervisorController@submitStudentEvaluation']);
+Route::get('supervisor/thank_you', function (){
+	return view('frontend.supervisor_student_evaluation.thank_you');
+});
+Route::get('supervisor/{random_url}', 'InternSupervisorController@identityCheckView');
+
 
 
 

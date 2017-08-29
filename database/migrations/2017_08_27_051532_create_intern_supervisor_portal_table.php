@@ -19,6 +19,7 @@ class CreateInternSupervisorPortalTable extends Migration
             $table->string('random_url');
             $table->integer('supervisor_id')->unsigned()->nullable();
             $table->integer('internship_id')->unsigned()->nullable();
+            $table->integer('student_evaluation_id')->unsigned()->nullable();
             $table->boolean('form_submitted')->nullable();
             $table->unsignedBigInteger('num_visit')->nullable();
             $table->timestamps();

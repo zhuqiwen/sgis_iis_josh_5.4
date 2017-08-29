@@ -22,6 +22,7 @@ class InternSupervisorPortal extends Model
 	    "random_url",
 	    "supervisor_id",
 	    "internship_id",
+	    "student_evaluation_id",
 	    "form_submitted",
 	    "num_visit",
     ];
@@ -48,8 +49,9 @@ class InternSupervisorPortal extends Model
 	public function getIdentityCheckData($random_url)
 	{
 		$portal = $this->where('random_url', $random_url)
-					->whereNull('deleted_at')
-					->first();
+			->whereNull('deleted_at')
+			->where('form_submitted', 0)
+			->first();
 		if($portal)
         {
             $portal = $portal->load('supervisor');
@@ -73,10 +75,10 @@ class InternSupervisorPortal extends Model
             ];
         }
 
-
-
-
 	}
+
+
+
 
 
 	public function checkIdentity(Request $request)
