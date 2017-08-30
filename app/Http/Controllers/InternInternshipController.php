@@ -39,7 +39,21 @@ class InternInternshipController extends Controller
 
     public function adminIndexFinishedInternships()
     {
-	    return view('admin.internships.finished_internships');
+        $internships = new InternInternship();
+        //get data
+        $finished_internships_assignments_complete = $internships->getFinishedUnclosedInternshipsWithAssignmentComplete();
+        $finished_internships_assignments_incomplete = $internships->getFinishedUnclosedInternshipsWithAssignmentIncomplete();
+        dd($finished_internships_assignments_incomplete);
+        $closed_internships = $internships->getFinishedClosedInternships();
+        //make cards: fiac => finished_internships_assignments_complete
+	    $cards_fiac = $this->getFiacCards($finished_internships_assignments_complete);
+	    $cards_fiai = $this->getFiaiCards($finished_internships_assignments_incomplete);
+	    $cards_ci = $this->getCiCards($closed_internships);
+	    return view('admin.internships.finished_internships')
+		    ->withCardsFiac($cards_fiac)
+		    ->withCardsFiai($cards_fiai)
+		    ->withCardsCi($cards_ci);
+
 
 	}
 
@@ -80,6 +94,34 @@ class InternInternshipController extends Controller
 
 
 
+	public function getFiacCards($internships)
+	{
+		return $this->getInternshipCards($internships, '');
+	}
+
+
+	public function getFiaiCards($internships)
+	{
+		return $this->getInternshipCards($internships, 'Missing: ');
+	}
+
+	public function getCiCards($internships)
+	{
+		return $this->getInternshipCards($internships, 'Closed!');
+	}
+
+
+	//
+	private function getInternshipCards($internships, $tag = '')
+	{
+
+		foreach ($internships as $internship)
+		{
+		}
+		return 'yoho! just a temporary stub';
+	}
+
+	//ajax
 	public function ajaxGetInternshipPanelsWithSubmitAssignments(Request $request)
 	{
         $internships = new InternInternship();

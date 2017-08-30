@@ -8,6 +8,7 @@
 
 namespace app\Helpers;
 
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 
 class HTMLSnippet
@@ -81,19 +82,94 @@ EOF;
 
     }
 
-    public static function generateInternshipFloatCardWithModal($internship)
+    public static function generateInternshipFloatCardWithModal($internship, $tag_title = '')
     {
         $modal = self::generateInternshipModal($internship);
+        $tag = '';
+        $missing_assignments = [];
+        $tag_content = '';
+        if($tag != '')
+        {
+        	if($tag == 'Missing Assignments: ')
+	        {
+	        	foreach ($internship->journals as $journal)
+		        {
+		        	if($journal->intern_journal_submitted_on == null)
+			        {
+			        	$missing_assignments[] = 'Journal-' . $journal->id;
+			        }
+		        }
+
+		        foreach ($internship->studentEvaluation as $student_evaluation)
+		        {
+		        	if($student_evaluation->intern_student_evaluation_submitted_on == null)
+			        {
+			        	if($student_evaluation->intern_student_evaluation_is_midterm == 1)
+				        {
+				        	$missing_assignments[] = 'Midterm Student Evaluation';
+				        }
+				        else
+				        {
+				        	$missing_assignments[] = 'Final Student Evaluation';
+				        }
+			        }
+		        }
+
+		        if($internship->reflection->intern_reflection_submitted_on == null)
+		        {
+		        	$missing_assignments[] = 'Reflection';
+		        }
+
+		        if($internship->siteEvaluation->intern_site_evaluation_submitted_on == null)
+		        {
+			        $missing_assignments[] = 'Site Evaluation';
+		        }
+
+		        $tag_content = '<ul>';
+	        	foreach ($missing_assignments as $missing_assignment)
+		        {
+		        	$tag_content .= '<li>' . $missing_assignment . '</li>';
+		        }
+
+		        $tag_content .= '</ul>';
+
+	        }
+
+        	$tag = "<P>$tag_title</P>" . $tag_content;
+        }
+
+        // information displayed on cards
+
+	    $applicant = $internship->application->load('applicant')->applicant;
+
+	    foreach ($internship->application as $key => $value)
+	    {
+	    	$$key = $value;
+	    }
+
+	    $organization = $internship->application->load('organization')->organization;
+	    foreach ($organization as $key => $value)
+	    {
+	    	$$key = $value;
+	    }
+	    $supervisor = $internship->application->load('supervisor')->supervisor;
+	    foreach ($supervisor as $key => $value)
+	    {
+	    	$$key = $value;
+	    }
+
+
         $card = <<< EOF
 		<div class="col-md-4" style="margin-bottom: 5%;">
-            <a id="float_card_a" href="#" style="text-decoration: none" data-toggle="modal" data-target="#myModalInternshipId_$internship->internship_id">
+            <a id="float_card_a" href="#" style="text-decoration: none" data-toggle="modal" data-target="#myModalInternshipId_$internship->id">
                 <div id="float-card" class="col-md-10 col-md-offset-1 float-card">
                     <div class="title" id="$internship->id">
 	                    <div class="row">
 	                        <div class="col-md-8">
+	                        		$tag
 	                                <h4 id="applicant_name">
-	                                    $internship->last_name, $internship->first_name
-	                                    <br/><small>Internship ID: $internship->internship_id</small>
+	                                    $applicant->last_name, $applicant->first_name
+	                                    <br/><small>Internship ID: $internship->id</small>
 	                                    <br/><small>Application ID: $internship->application_id</small>
 	                                </h4>
 	                        </div>
@@ -107,12 +183,14 @@ EOF;
                         <div class="row">
 	                        <div class="col-md-12">
 		                        <p><strong>Internship Address:</strong></p>
-		                        <p id="address_$internship->internship_id">$internship->street, $internship->city,
-		                        $internship->state, $internship->country</p>
+		                        <p id="address_$internship->id">
+									$intern_application_street, $$intern_application_city,
+									$intern_application_state, $intern_application_country
+								</p>
 		                        <p><strong>Internship Organization:</strong></p>
-		                        <p>$internship->org_name</p>
-		                        <p><strong>Internship Date:</strong></p>
-		                        <p>From $internship->start_date To $internship->end_date</p>
+		                        <p>$intern_organization_name</p>
+		                        <p><strong>Starts on</strong>: $intern_application_start_date</p>
+		                        <p><strong>Ends on</strong>: $intern_application_end_date</p>
 		                    </div>
 	                    </div>
                     </div>
@@ -186,7 +264,65 @@ EOF;
         $accordion_site_evaluation = self::generateAdminInternshipSiteEvaluationAccordion($internship);
         $accordion_student_evaluation = self::generateAdminInternshipStudentEvaluationOutsideAccordion($internship);
 
-        $form_sgis_opinion = self::generateAdminInternshipSGISOpinionForm($internship);
+//        $form_sgis_opinion = self::generateAdminInternshipSGISOpinionForm($internship);
+
+
+        $approval_notes = "<p>Application approval note: <br />$internship->intern_internship_application_approval_notes</p>";
+        if($internship->intern_internship_case_closed_date == NULL)
+        {
+        	$sgis_opinions = $approval_notes . self::generateAdminInternshipSGISOpinionForm($internship);
+        }
+        else
+        {
+        	$final_note = "<p>Final note: <br />$internship->intern_internship_final_notes</p>";
+        	$sgis_opinions = $approval_notes . $final_note;
+        }
+
+
+	    $applicant = $internship->application->load('applicant')->applicant;
+
+	    foreach ($internship->application as $key => $value)
+	    {
+		    $$key = $value;
+	    }
+
+	    if($intern_application_paid_internship != 1)
+	    {
+		    $payment = '<strong>Unpaid</strong>';
+	    }
+	    else
+	    {
+		    $payment = '<strong>Paid</strong>';
+	    }
+
+	    if(strtolower($intern_application_country) != strtolower('United States'))
+	    {
+		    $depart_return_info = "<p>Departs from United States: $intern_application_depart_date</p>";
+		    $depart_return_info .= "<p>Returns from United States: $intern_application_return_date</p>";
+	    }
+	    else
+	    {
+		    $depart_return_info = NULL;
+	    }
+
+	    $start = Carbon::createFromFormat('Y-m-d', $intern_application_start_date);
+	    $end = Carbon::createFromFormat('Y-m-d', $intern_application_end_date);
+	    $internship_duration = $end->diffInDays($start);
+	    $internship_duration_without_weekends = $end->diffInDaysFiltered(function(Carbon $date){
+	    	return $date->isWeekend();
+	    }, $start);
+
+
+	    $organization = $internship->application->load('organization')->organization;
+	    foreach ($organization as $key => $value)
+	    {
+		    $$key = $value;
+	    }
+	    $supervisor = $internship->application->load('supervisor')->supervisor;
+	    foreach ($supervisor as $key => $value)
+	    {
+		    $$key = $value;
+	    }
 
         $modal =<<<EOF
 			<div id="myModalInternshipId_$internship->internship_id" class="modal fade" role="dialog">
@@ -194,44 +330,147 @@ EOF;
                       <div class="modal-content">
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                <h4 class="modal-title">$internship->first_name $internship->last_name 's Internship in $internship->country</h4>
-                                <p>$internship->year, $internship->term</p>
+                                <h4 class="modal-title">$applicant->first_name $applicant->last_name's $payment Internship in $intern_application_country</h4>
+                                <p>$intern_application_year, $intern_application_term</p>
                             </div>
                             <div class="modal-body">
                                 <div id="internship_details">
                                     <h4>Internship Details</h4>
                                    
                                     <div>
-                                    <h4>Internship Location: <small>$internship->street, $internship->state, $internship->country</small></h4> 
-                                    <div id="map_$internship->internship_id" style="height: 450px; width: 100%;"></div>
+	                                    <h4>Internship Location: 
+	                                        <small>
+											$intern_application_street, 
+											$intern_application_city, 
+											$intern_application_state, 
+											$intern_application_country
+											</small>
+										</h4> 
+                                    	<div id="map_$internship->id" style="height: 450px; width: 100%;"></div>
                                     </div>
                                     <div>
-                                    $internship->term, in $internship->year<br>
-                                    plan to leave the States on $internship->depart_date and return on $internship->return_date<br>
-                                    The internship starts on $internship->start_date and ends on $internship->end_date<br>
+	                                    <h4>
+	                                    	Internship Organization: 
+										</h4>
+										<div>
+											<p>
+												Name: $intern_organization_name
+											</p>
+											<P>
+												Website: <a href="$intern_organization_url" target="_blank">$intern_organization_url</a>
+											</P>
+											<P>
+												Type: $intern_organization_type
+											</P>
+										</div>
+                                    </div>
+                                    
+                                    <div>
+	                                    <h4>
+	                                    	Internship Supervisor: 
+										</h4>
+										<div>
+											<p>
+												Name: $intern_supervisor_prefix $intern_supervisor_first_name $intern_supervisor_last_name
+											</p>
+											<p>
+												Email: <a href="mailto:$intern_supervisor_email">$intern_supervisor_email</a>
+											</p>
+											<p>
+												Phone: $intern_supervisor_phone_country_code-$intern_supervisor_phone
+											</p>
+										</div>
                                     </div>
                                     <div>
-                                    $internship->description<br>
+                                    	<h4>
+	                                    	Internship Dates: 
+										</h4>
+                                    	<div>
+                                    		<p>
+												$intern_application_term, in $intern_application_year
+											</p>
+											$depart_return_info
+											<p>
+												Starts: $intern_application_start_date
+											</p>
+											<p>
+												Ends: $intern_application_end_date
+											</p>
+											<p>
+												Duration: $internship_duration (including weekends) 
+												/ $internship_duration_without_weekends (excluding weekends)
+											</p>
+										</div>
                                     </div>
                                     <div>
-                                    $internship->reasons<br>
+                                    	<h4>
+	                                    	Internship Budgets: 
+										</h4>
+                                    	<div>
+                                    		<p>
+												Airfare: $intern_application_budget_airfare
+											</p>
+											<p>
+												Housing: $intern_application_budget_housing
+											</p>
+											<p>
+												Meals: $intern_application_budget_meals
+											</p>
+											<p>
+												Transportation: $intern_application_budget_transportation
+											</p>
+											<p>
+												Others: $intern_application_budget_others
+											</p>
+										</div>
                                     </div>
+                                    <div>
+                                    	<h4>
+	                                    	Other info 
+										</h4>
+										<div>
+											<p>
+												Work hours per week: $intern_application_work_hours_per_week
+											</p>
+											<p>
+												Schedule: <br>$intern_application_work_schedule
+											</p>
+											<p>
+												Internship description: <br>$intern_application_description
+											</p>
+											<p>
+												Reasons: <br>$intern_application_reasons
+											</p>
+											<p>
+												Cultural Interaction: <br>$intern_application_cultural_interaction
+											</p>
+											<p>
+												Challenges: <br>$intern_application_challenges
+											</p>
+											<p>
+												This internship was submitted on: <br>$intern_application_submitted_date
+											</p>
+											<p>
+												This internship was approved on: <br>$intern_application_approved_date
+											</p>
+										</div>
+                                    </div>
+                                    
                                     <hr>
                                 </div> 
                                 <div id="internship_assignments">
                                     <div class="panel-group" id="accordion_$internship->internship_id">
                                         <h4>Internship Assignments</h4>
-                                      $accordion_journal
-                                      $accordion_reflection
-                                      $accordion_site_evaluation
-                                      $accordion_student_evaluation
-                                      
+                                    	$accordion_journal
+                                    	$accordion_reflection
+                                    	$accordion_site_evaluation
+                                    	$accordion_student_evaluation
                                     </div>
                                     <hr>
                                 </div>
                                 <div id="internship_for_sgis_use_only">
                                 <h4>SGIS Opinions</h4>
-                                $form_sgis_opinion
+                                $sgis_opinions
                                 </div>
                             </div>
                             <div class="modal-footer">
@@ -331,15 +570,16 @@ EOF;
      * Admin components of internship assignments
      */
     // extra content in internship modal
+	// all pass-in data must be eloquent model object
     // internship journals
     private static function generateAdminInternshipJournalOutsideAccordion($internship)
     {
-        $inner_journals = self::generateAdminInternshipJournalInsideAccordion($internship->journal);
+        $inner_journals = self::generateAdminInternshipJournalInsideAccordion($internship->journals);
         $num_submitted_journals = 0;
-        $required_total_num_journals = sizeof($internship->journal);
-        for($i = 0; $i < sizeof($internship->journal); $i++)
+        $required_total_num_journals = sizeof($internship->journals);
+        for($i = 0; $i < $required_total_num_journals; $i++)
         {
-            if(!is_null($internship->journal[$i]->journal))
+            if(!is_null($internship->journals[$i]->intern_journal_submitted_on))
             {
                 $num_submitted_journals ++;
             }
@@ -351,7 +591,7 @@ EOF;
                 <div class="row">
                     <div class="col-sm-6">
                         <h4 class="panel-title">
-                            <a data-toggle="collapse" data-parent="#accordion_$internship->internship_id" href="#journal_of_internship_$internship->internship_id">
+                            <a data-toggle="collapse" data-parent="#accordion_$internship->id" href="#journal_of_internship_$internship->id">
                             Journals
                             </a>
                         </h4>
@@ -361,7 +601,7 @@ EOF;
                     </div> 
                 </div>  
             </div>
-            <div id="journal_of_internship_$internship->internship_id" class="panel-collapse collapse">
+            <div id="journal_of_internship_$internship->id" class="panel-collapse collapse">
                 <div class="panel-body">
                 $inner_journals
                 </div>
@@ -373,16 +613,20 @@ EOF;
 
     }
 
+	/**
+	 * @param collection $journals
+	 * @return string
+	 */
     private static function generateAdminInternshipJournalInsideAccordion($journals)
     {
         $accordion = '<div class="panel-group" id="journal_accordion">';
 
         foreach ($journals as $journal)
         {
-            $journal_content = $journal->journal;
+            $journal_content = $journal->intern_journal_content;
             $submission_mark = '<i class="fa fa-check" aria-hidden="true"></i>';
 
-            if($journal->submitted_at > $journal->due_date)
+            if($journal->intern_journal_submitted_on > $journal->intern_journal_due_date)
             {
                 $submission_mark = '<i class="fa fa-clock-o" aria-hidden="true"></i>';
             }
@@ -403,9 +647,9 @@ EOF;
                 . '<a data-toggle="collapse" data-parent="#journal_accordion" href="#journal_'
                 . $journal->id
                 . '">'
-                . 'Journal ' . $journal->serial_num . '/' . $journal->required_total_num
-                . ' due: ' . $journal->due_date
-                . ' | submitted: ' . $journal->submitted_at
+                . 'Journal ' . $journal->intern_journal_serial_num . '/' . $journal->intern_journal_required_total_num
+                . ' due: ' . $journal->intern_journal_due_date
+                . ' | submitted: ' . $journal->intern_journal_submitted_on
                 . '</a>'
                 . '</h4>'
                 . '</div>'
@@ -436,14 +680,14 @@ EOF;
     {
         $submission_marker = '<i class="fa fa-check" aria-hidden="true"></i>';
 
-        $reflection = $internship->reflection[0];
+        $reflection = $internship->reflection;
 
-        if($reflection->submitted_at > $reflection->due_date)
+        if($reflection->intern_reflection_submitted_on > $reflection->intern_reflection_due_date)
         {
             $submission_marker = '<i class="fa fa-clock-o" aria-hidden="true"></i>';
         }
 
-        if(is_null($reflection->reflection))
+        if(is_null($reflection->intern_reflection_content))
         {
             $submission_marker = '<i class="fa fa-times" aria-hidden="true"></i>';
         }
@@ -455,7 +699,7 @@ EOF;
                 <div class="row">
                     <div class="col-sm-6">
                         <h4 class="panel-title">
-                            <a data-toggle="collapse" data-parent="#accordion_$internship->internship_id" href="#reflection_of_internship_$internship->internship_id">
+                            <a data-toggle="collapse" data-parent="#accordion_$internship->id" href="#reflection_of_internship_$internship->id">
                             Reflection Paper
                             </a>
                         </h4>
@@ -465,9 +709,9 @@ EOF;
                     </div> 
                 </div>  
             </div>
-            <div id="reflection_of_internship_$internship->internship_id" class="panel-collapse collapse">
+            <div id="reflection_of_internship_$internship->id" class="panel-collapse collapse">
                 <div class="panel-body">
-                $reflection->reflection
+                $reflection->intern_reflection_content
                 </div>
             </div>
         </div>
@@ -481,16 +725,16 @@ EOF;
     {
         $submission_marker = '<i class="fa fa-check" aria-hidden="true"></i>';
 
-        $site_evaluation = $internship->site_evaluation[0];
+        $site_evaluation = $internship->siteEvaluation;
 
         $site_eval_contents = 'detailed contents of site evaluation';
 
-        if($site_evaluation->submitted_at > $site_evaluation->due_date)
+        if($site_evaluation->intern_site_evaluation_submitted_on > $site_evaluation->intern_site_evaluation_due_date)
         {
             $submission_marker = '<i class="fa fa-clock-o" aria-hidden="true"></i>';
         }
 
-        if(is_null($site_evaluation->submitted_at))
+        if(is_null($site_evaluation->intern_site_evaluation_submitted_on))
         {
             $submission_marker = '<i class="fa fa-times" aria-hidden="true"></i>';
             $site_eval_contents = 'No Submission';
@@ -502,7 +746,7 @@ EOF;
                 <div class="row">
                     <div class="col-sm-6">
                         <h4 class="panel-title">
-                            <a data-toggle="collapse" data-parent="#accordion_$internship->internship_id" href="#site_evaluation_of_internship_$internship->internship_id">
+                            <a data-toggle="collapse" data-parent="#accordion_$internship->id" href="#site_evaluation_of_internship_$internship->id">
                             Internship Site Evaluation
                             </a>
                         </h4>
@@ -512,7 +756,7 @@ EOF;
                     </div> 
                 </div>  
             </div>
-            <div id="site_evaluation_of_internship_$internship->internship_id" class="panel-collapse collapse">
+            <div id="site_evaluation_of_internship_$internship->id" class="panel-collapse collapse">
                 <div class="panel-body">
                 $site_eval_contents
                 </div>
@@ -528,15 +772,18 @@ EOF;
     {
 
 
-        $inner_accordion = self::generateAdminInternshipStudentEvaluationInsideAccordion($internship->student_evaluation);
+        $inner_accordion = self::generateAdminInternshipStudentEvaluationInsideAccordion($internship->studentEvaluations);
 
-        if(!is_null($internship->student_evaluation[0]->submitted_at)
-            && !is_null($internship->student_evaluation[1]->submitted_at))
+	    $midterm_evaluation = $internship->studentEvaluations->where('intern_student_evaluation_is_midterm', 1);
+	    $final_evaluation = $internship->studentEvaluations->where('intern_student_evaluation_is_midterm', 0);
+
+        if(!is_null($midterm_evaluation->intern_student_evaluation_submitted_on)
+            && !is_null($final_evaluation->intern_student_evaluation_submitted_on))
         {
             $num_submission = 2;
         }
-        elseif (is_null($internship->student_evaluation[0]->submitted_at)
-            && is_null($internship->student_evaluation[1]->submitted_at))
+        elseif (is_null($midterm_evaluation->intern_student_evaluation_submitted_on)
+            && is_null($final_evaluation->intern_student_evaluation_submitted_on))
         {
             $num_submission = 0;
         }
@@ -551,7 +798,7 @@ EOF;
                 <div class="row">
                     <div class="col-sm-6">
                         <h4 class="panel-title">
-                            <a data-toggle="collapse" data-parent="#accordion_$internship->internship_id" href="#student_evaluation_of_internship_$internship->internship_id">
+                            <a data-toggle="collapse" data-parent="#accordion_$internship->id" href="#student_evaluation_of_internship_$internship->id">
                             Supervisor's Evaluation of Student
                             </a>
                         </h4>
@@ -561,7 +808,7 @@ EOF;
                     </div> 
                 </div>  
             </div>
-            <div id="student_evaluation_of_internship_$internship->internship_id" class="panel-collapse collapse">
+            <div id="student_evaluation_of_internship_$internship->id" class="panel-collapse collapse">
                 <div class="panel-body">
                 $inner_accordion
                 </div>
@@ -585,7 +832,7 @@ EOF;
 
 
 
-            if($evaluation->submitted_at > $evaluation->due_date)
+            if($evaluation->intern_student_evaluation_submitted_on > $evaluation->intern_student_evaluation_due_date)
             {
                 $submission_mark = '<i class="fa fa-clock-o" aria-hidden="true"></i>';
             }
@@ -597,7 +844,7 @@ EOF;
             }
 
 
-            if($evaluation->is_midterm == 1)
+            if($evaluation->intern_student_evaluation_is_midterm == 1)
             {
                 $inner_title = 'Midterm Evaluation';
             }
@@ -644,39 +891,21 @@ EOF;
 
     }
 
-    // internship SGIS opinion
+    // internship SGIS final opinion form
     private static function generateAdminInternshipSGISOpinionForm($internship)
     {
 
         $action = '/test_ajax_close_internship';
-        $grade_seeds = [
-            'A',
-            'B',
-            'C',
-            'D',
-        ];
 
-        $suggested_grade = $grade_seeds[rand(0,3)];
-        $grade_options = '';
-        foreach($grade_seeds as $seed)
-        {
-            $grade_options .= '<option value="'. $seed . '+' .'">'. $seed . '+' .'</option>';
-            $grade_options .= '<option value="'. $seed .'">'. $seed .'</option>';
-            $grade_options .= '<option value="'. $seed . '-' .'">'. $seed . '-' .'</option>';
-        }
-        $grade_options .='<option value="F">F</option>';
 
+        $form_id = config('constants.forms.ids.sgis_internship_final_opinion_form');
 
         $form = <<<EOF
-        <form action="$action" method="post" id="sgis_opinions_form">
-        <input type="hidden" name="internship_id" value="$internship->internship_id">
+        <form action="$action" method="post" id="$form_id">
+        <input type="hidden" name="internship_id" value="$internship->id">
         <input type="hidden" name="case_closed" value="1">
         <label for="final_notes">Final Notes</label>
-        <textarea name="final_notes" id="final_notes"></textarea>
-        <label for="x373_grade">Suggested Grade: $suggested_grade</label>
-        <select name="x373_grade" id="x373_grade">
-        $grade_options
-        </select>
+        <textarea name="final_notes" id="final_notes" placeholder="Final note for this internship"></textarea>
         </form>
 
 EOF;
@@ -1014,6 +1243,12 @@ PANEL;
 		return self::generateAssignmentSiteEvaluationAccordion($site_evaluation, 'submitted');
 	}
 
+
+
+
+	/*
+	 * ADMIN: FINISHED INTERNSHIPS
+	 */
 
 
 

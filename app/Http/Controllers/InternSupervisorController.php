@@ -134,8 +134,7 @@ class InternSupervisorController extends Controller
 			//set error message
 			$request->session()->flash('error', 'Oooops. Something went wrong. Can you try again? Thank you.');
 			//redirect to identity check page
-            //TODO
-            //develop this redirect
+            //TODO: develop this redirect
 			return 'aho...';
 		}
 

@@ -48,6 +48,7 @@ return [
 		'ids' => [
 			'approve_internship_applications' => 'approve_applications_form',
 			'finalize_internships_form' => 'finalize_internships_form',
+			'sgis_internship_final_opinion_form' => 'sgis_internship_final_opinion_form',
 		],
 	],
 
