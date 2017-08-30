@@ -891,6 +891,9 @@ EOF;
 
     }
 
+    //todo: work on contents of site evaluation accordion and student evaluations accordions
+
+    //todo:work on sgis opinions, form and display.
     // internship SGIS final opinion form
     private static function generateAdminInternshipSGISOpinionForm($internship)
     {
