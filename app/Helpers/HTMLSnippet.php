@@ -89,72 +89,74 @@ EOF;
         $missing_assignments = [];
         $tag_content = '';
         $float_card_div = '<div class="col-md-10 col-md-offset-1 float-card">';
-        if($tag_title != '')
-        {
-        	if($tag_title == config('constants.card_tags.missing_assignments'))
-	        {
+
+	    if($tag_title == config('constants.card_tags.missing_assignments'))
+	    {
 
 
 
-                foreach ($internship->journals as $journal)
-		        {
-		        	if($journal->intern_journal_submitted_on == null)
-			        {
-			        	$missing_assignments[] = 'Journal-' . $journal->id;
-			        }
-		        }
+		    foreach ($internship->journals as $journal)
+		    {
+			    if($journal->intern_journal_submitted_on == null)
+			    {
+				    $missing_assignments[] = 'Journal-' . $journal->id;
+			    }
+		    }
 
-		        foreach ($internship->studentEvaluations as $student_evaluation)
-		        {
-		        	if($student_evaluation->intern_student_evaluation_submitted_on == null)
-			        {
-			        	if($student_evaluation->intern_student_evaluation_is_midterm == 1)
-				        {
-				        	$missing_assignments[] = 'Midterm Evaluation';
-				        }
-				        else
-				        {
-				        	$missing_assignments[] = 'Final Evaluation';
-				        }
-			        }
-		        }
+		    foreach ($internship->studentEvaluations as $student_evaluation)
+		    {
+			    if($student_evaluation->intern_student_evaluation_submitted_on == null)
+			    {
+				    if($student_evaluation->intern_student_evaluation_is_midterm == 1)
+				    {
+					    $missing_assignments[] = 'Midterm Evaluation';
+				    }
+				    else
+				    {
+					    $missing_assignments[] = 'Final Evaluation';
+				    }
+			    }
+		    }
 
-		        if($internship->reflection->intern_reflection_submitted_on == null)
-		        {
-		        	$missing_assignments[] = 'Reflection';
-		        }
+		    if($internship->reflection->intern_reflection_submitted_on == null)
+		    {
+			    $missing_assignments[] = 'Reflection';
+		    }
 
-		        if($internship->siteEvaluation->intern_site_evaluation_submitted_on == null)
-		        {
-			        $missing_assignments[] = 'Site Evaluation';
-		        }
+		    if($internship->siteEvaluation->intern_site_evaluation_submitted_on == null)
+		    {
+			    $missing_assignments[] = 'Site Evaluation';
+		    }
 
-		        $tag_content = '<ul>';
-	        	foreach ($missing_assignments as $missing_assignment)
-		        {
-		        	$tag_content .= '<li>' . $missing_assignment . '</li>';
-		        }
+		    $tag_content = '<ul>';
+		    foreach ($missing_assignments as $missing_assignment)
+		    {
+			    $tag_content .= '<li>' . $missing_assignment . '</li>';
+		    }
 
-		        $tag_content .= '</ul>';
+		    $tag_content .= '</ul>';
 
-	        	$title_icon = 'fa-minus-square';
-	        }
-	        elseif($tag_title == config('constants.card_tags.archived'))
-            {
-                $title_icon = 'fa-archive';
-            }
+		    $title_icon = 'fa-minus-square';
 
-        	$tag = "<P>$tag_title</P>" . $tag_content;
+		    $tag = "<P>$tag_title</P>" . $tag_content;
 
-            $float_card_div = '<div class="col-md-10 col-md-offset-1 float-card tooltips missing_assignments_tooltips"'
-                . ' data-toggle="tooltip"'
-                . ' data-tooltip="tooltip"'
-                . ' data-placement="right"'
-                . ' data-html="true"'
-                . ' data-title="'
-                . $tag
-                . '">';
-        }
+		    $float_card_div = '<div class="col-md-10 col-md-offset-1 float-card tooltips missing_assignments_tooltips"'
+			    . ' data-toggle="tooltip"'
+			    . ' data-tooltip="tooltip"'
+			    . ' data-placement="right"'
+			    . ' data-html="true"'
+			    . ' data-title="'
+			    . $tag
+			    . '">';
+	    }
+	    elseif($tag_title == config('constants.card_tags.archived'))
+	    {
+		    $title_icon = 'fa-archive';
+	    }
+	    else
+	    {
+		    $title_icon = 'fa-check-square';
+	    }
 
         // information displayed on cards
 
