@@ -13,7 +13,7 @@
 {{-- page level styles --}}
 @section('header_styles')
 
-    <link rel="stylesheet" href="{{ asset('assets/css/pages/tab.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/css/pages/finished_internships_tab.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/float-card.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/pages/buttons.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/font-awesome.min.css') }}" />
@@ -23,6 +23,10 @@
             .popover.left{
                 width:100px !important;
             }
+        }
+        .panel-title
+        {
+            color: white;
         }
     </style>
 @stop
@@ -67,14 +71,14 @@
                                     <span>
                                         Finished Internships with <strong>all required assignments submitted</strong> as of {{ $today }}
                                     </span>
-                                    <button id="button_approve" type="button" class="btn btn-sm btn-warning" data-ajax--url="{{ config('constants.ajax.urls.finalize_internship') }}" disabled>
-                                        <span class="glyphicon glyphicon-check"></span> Finalize
-                                    </button>
+                                    {{--<button id="button_approve" type="button" class="btn btn-sm btn-warning" data-ajax--url="{{ config('constants.ajax.urls.finalize_internship') }}" disabled>--}}
+                                        {{--<span class="glyphicon glyphicon-check"></span> Finalize--}}
+                                    {{--</button>--}}
                                 </h4>
                                 {{--here are applications' float cards--}}
                                 <div class="row">
                                     <?php
-//                                        echo $submitted_application_cards;
+                                        echo $cards_fiac;
                                     ?>
                                 </div>
 
@@ -84,14 +88,15 @@
                                     <span>
                                         Finished Internships with <strong>at least 1 required assignments missing</strong> as of {{ $today }}
                                     </span>
-                                    <button id="button_approve" type="button" class="btn btn-sm btn-warning" data-ajax--url="{{ config('constants.ajax.urls.finalize_internship') }}" disabled>
-                                        <span class="glyphicon glyphicon-check"></span> Finalize
-                                    </button>
+                                    {{--<button id="button_approve" type="button" class="btn btn-sm btn-warning" data-ajax--url="{{ config('constants.ajax.urls.finalize_internship') }}" disabled>--}}
+                                        {{--<span class="glyphicon glyphicon-check"></span> Finalize--}}
+                                    {{--</button>--}}
                                 </h4>
                                 {{--here are applications' float cards--}}
                                 <div class="row">
                                     <?php
-//                                        echo $approved_application_cards;
+                                    echo $cards_fiai;
+
                                     ?>
                                 </div>
                             </div>
@@ -100,7 +105,7 @@
                                 {{--here are applications' float cards--}}
                                 <div class="row">
                                     <?php
-                                    //                                        echo $approved_application_cards;
+                                        echo $cards_ci
                                     ?>
                                 </div>
                             </div>

@@ -54,6 +54,11 @@
                             <!-- CSRF Token -->
                             <input type="hidden" name="_token" value="{{ csrf_token() }}" />
 {{--                            {!! Form::hidden('internship_id', $internship_id) !!}--}}
+                            <?php
+                                // for debug, should delete once done
+                                $portal_id = 1;
+                                $student_evaluation_id = 1;
+                            ?>
                             {!! Form::hidden('portal_id', $portal_id) !!}
                             {!! Form::hidden('student_evaluation_id', $student_evaluation_id) !!}
 

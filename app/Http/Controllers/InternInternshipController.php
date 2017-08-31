@@ -43,7 +43,6 @@ class InternInternshipController extends Controller
         //get data
         $finished_internships_assignments_complete = $internships->getFinishedUnclosedInternshipsWithAssignmentComplete();
         $finished_internships_assignments_incomplete = $internships->getFinishedUnclosedInternshipsWithAssignmentIncomplete();
-        dd($finished_internships_assignments_incomplete);
         $closed_internships = $internships->getFinishedClosedInternships();
         //make cards: fiac => finished_internships_assignments_complete
 	    $cards_fiac = $this->getFiacCards($finished_internships_assignments_complete);
@@ -112,13 +111,16 @@ class InternInternshipController extends Controller
 
 
 	//
-	private function getInternshipCards($internships, $tag = '')
+	private function getInternshipCards($internships, $tag)
 	{
 
+		$cards = '';
 		foreach ($internships as $internship)
 		{
+			$cards .= HTMLSnippet::generateInternshipFloatCardWithModal($internship, $tag);
 		}
-		return 'yoho! just a temporary stub';
+//		return 'yoho! just a temporary stub';
+		return $cards;
 	}
 
 	//ajax

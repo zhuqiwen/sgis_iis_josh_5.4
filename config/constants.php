@@ -52,4 +52,30 @@ return [
 		],
 	],
 
+	'labels_fields' => [
+		'site_evaluation' => [
+			"How did you locate this internship?"  => "how_did_locate",
+			"Provide brief description of the internship site" => "site_description",
+			"What were your tasks and responsibilities as an intern?" => "task_description",
+			"How does this internship site fit into the scope of your studies at IU?" => "fit_into_study",
+			"What were the strengths of the internship site?" => "site_strength",
+			"What were weaknesses of the internship site?" => "site_weakness",
+			"What skills and knowledge did you gain by participating in this internship site?" => "gained_skills",
+			"Any other brief comment?" => "brief_comment",
+			"Would you recommend this internship site?" => "willing_to_recommend",
+		],
+		'student_evaluation' => [
+			"Compared to other current and former interns, how would you rate this student’s overall performance?" => "intern_student_evaluation_performance_comment",
+			"How would you rate this student’s overall performance?" => "intern_student_evaluation_performance_rating",
+			"Are there any aspects of the student’s performance during the internship that you consider to be particularly noteworthy?" => "intern_student_evaluation_noteworthy_aspects",
+			"Did the intern do anything unusually well or put in extra effort in any area?" => "intern_student_evaluation_noteworthy_examples",
+			"Are there any aspects of the student’s performance during the internship in which you think the student needs improvement?" => "intern_student_evaluation_weakness",
+			"Did the intern do anything poorly?" => "intern_student_evaluation_weakness_examples",
+			"How might this be remedied?" => "intern_student_evaluation_weakness_remedy",
+			"How would you rate this student’s suitability to a career in your field?" => "intern_student_evaluation_suitability",
+			"Please provide any advice that will assist the student in improving his/her preparedness for a permanent, full-time position." => "intern_student_evaluation_job_advice",
+			"How would you rate the student’s development during the internship?" => "intern_student_evaluation_development_rating",
+		],
+	],
+
 ];

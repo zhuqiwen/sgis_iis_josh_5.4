@@ -90,7 +90,7 @@ EOF;
         $tag_content = '';
         if($tag != '')
         {
-        	if($tag == 'Missing Assignments: ')
+        	if($tag == 'Missing Assignments:')
 	        {
 	        	foreach ($internship->journals as $journal)
 		        {
@@ -142,18 +142,18 @@ EOF;
 
 	    $applicant = $internship->application->load('applicant')->applicant;
 
-	    foreach ($internship->application as $key => $value)
+	    foreach ($internship->application->getAttributes() as $key => $value)
 	    {
 	    	$$key = $value;
 	    }
 
 	    $organization = $internship->application->load('organization')->organization;
-	    foreach ($organization as $key => $value)
+	    foreach ($organization->getAttributes() as $key => $value)
 	    {
 	    	$$key = $value;
 	    }
 	    $supervisor = $internship->application->load('supervisor')->supervisor;
-	    foreach ($supervisor as $key => $value)
+	    foreach ($supervisor->getAttributes() as $key => $value)
 	    {
 	    	$$key = $value;
 	    }
@@ -161,8 +161,8 @@ EOF;
 
         $card = <<< EOF
 		<div class="col-md-4" style="margin-bottom: 5%;">
-            <a id="float_card_a" href="#" style="text-decoration: none" data-toggle="modal" data-target="#myModalInternshipId_$internship->id">
-                <div id="float-card" class="col-md-10 col-md-offset-1 float-card">
+            <a id="float_card" href="#" style="text-decoration: none" data-toggle="modal" data-target="#myModalInternshipId_$internship->id">
+                <div class="col-md-10 col-md-offset-1 float-card">
                     <div class="title" id="$internship->id">
 	                    <div class="row">
 	                        <div class="col-md-8">
@@ -264,7 +264,6 @@ EOF;
         $accordion_site_evaluation = self::generateAdminInternshipSiteEvaluationAccordion($internship);
         $accordion_student_evaluation = self::generateAdminInternshipStudentEvaluationOutsideAccordion($internship);
 
-//        $form_sgis_opinion = self::generateAdminInternshipSGISOpinionForm($internship);
 
 
         $approval_notes = "<p>Application approval note: <br />$internship->intern_internship_application_approval_notes</p>";
@@ -281,9 +280,10 @@ EOF;
 
 	    $applicant = $internship->application->load('applicant')->applicant;
 
-	    foreach ($internship->application as $key => $value)
+	    foreach ($internship->application->getAttributes() as $key => $value)
 	    {
 		    $$key = $value;
+
 	    }
 
 	    if($intern_application_paid_internship != 1)
@@ -309,24 +309,24 @@ EOF;
 	    $end = Carbon::createFromFormat('Y-m-d', $intern_application_end_date);
 	    $internship_duration = $end->diffInDays($start);
 	    $internship_duration_without_weekends = $end->diffInDaysFiltered(function(Carbon $date){
-	    	return $date->isWeekend();
+	    	return !$date->isWeekend();
 	    }, $start);
 
 
 	    $organization = $internship->application->load('organization')->organization;
-	    foreach ($organization as $key => $value)
+	    foreach ($organization->getAttributes() as $key => $value)
 	    {
 		    $$key = $value;
 	    }
 	    $supervisor = $internship->application->load('supervisor')->supervisor;
-	    foreach ($supervisor as $key => $value)
+	    foreach ($supervisor->getAttributes() as $key => $value)
 	    {
 		    $$key = $value;
 	    }
 
         $modal =<<<EOF
-			<div id="myModalInternshipId_$internship->internship_id" class="modal fade" role="dialog">
-                <div class="modal-dialog">
+			<div id="myModalInternshipId_$internship->id" class="modal fade" role="dialog">
+                <div class="modal-dialog" style="width: 80%;">
                       <div class="modal-content">
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -335,7 +335,6 @@ EOF;
                             </div>
                             <div class="modal-body">
                                 <div id="internship_details">
-                                    <h4>Internship Details</h4>
                                    
                                     <div>
 	                                    <h4>Internship Location: 
@@ -469,9 +468,9 @@ EOF;
                                     <hr>
                                 </div>
                                 <div id="internship_for_sgis_use_only">
-                                <h4>SGIS Opinions</h4>
-                                $sgis_opinions
-                                </div>
+                                    <h4>SGIS Opinions</h4>
+                                    $sgis_opinions
+                                    </div>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
@@ -489,81 +488,81 @@ EOF;
 
 
     // tab list container
-    public static function generateTabListContainer($grouped_profiles)
-    {
-        $cnt = 0;
-        $tabs = '';
-        $tab_panes = '';
-        foreach($grouped_profiles as $tab_name => $profiles)
-        {
-            if ($cnt == 0)
-            {
-                //
-                $tabs .= HTMLSnippet::generateProfileGroupTab($tab_name, TRUE);
-                $tab_panes .=  '<div class="tab-pane fade in active" id="'.$tab_name.'">'
-                    .'<div class="row">'
-                    .'<div class="col-md-12">';
-            }
-            else
-            {
-                $tabs .= HTMLSnippet::generateProfileGroupTab($tab_name, FALSE);
-                $tab_panes .= '<div class="tab-pane fade" id="'.$tab_name.'">'
-                    .'<div class="row">'
-                    .'<div class="col-md-12">';
-            }
-
-
-            // add cards
-            foreach ($profiles as $key => $profile)
-            {
-                if($profile->profile_type == 'internship')
-                {
-                    $tab_panes .= HTMLSnippet::generateInternshipFloatCardWithModal($profile);
-                }
-                else
-                {
-                    $tab_panes .= HTMLSnippet::generateApplicationFloatCardWithModal($profile);
-                }
-
-
-            }
-
-
-            $tab_panes .= '</div></div></div>';
-
-            $cnt ++;
-
-
-        }
-
-
-        $content = <<<EOF
-        <div class="row">
-            <div class="col-md-12" style="padding-bottom: 30px;">
-                <div class="panel with-nav-tabs panel-default">
-                    <div class="panel-heading">
-                        <ul id="tabs" class="nav nav-tabs">
-
-                            $tabs
-
-                        </ul>
-                    </div>
-                    <div class="panel-body" style="height: 70vh; overflow: scroll;">
-                        <div id="tab-contents" class="tab-content">
-
-                            $tab_panes
-
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-EOF;
-        return $content;
-
-    }
+//    public static function generateTabListContainer($grouped_profiles)
+//    {
+//        $cnt = 0;
+//        $tabs = '';
+//        $tab_panes = '';
+//        foreach($grouped_profiles as $tab_name => $profiles)
+//        {
+//            if ($cnt == 0)
+//            {
+//                //
+//                $tabs .= HTMLSnippet::generateProfileGroupTab($tab_name, TRUE);
+//                $tab_panes .=  '<div class="tab-pane fade in active" id="'.$tab_name.'">'
+//                    .'<div class="row">'
+//                    .'<div class="col-md-12">';
+//            }
+//            else
+//            {
+//                $tabs .= HTMLSnippet::generateProfileGroupTab($tab_name, FALSE);
+//                $tab_panes .= '<div class="tab-pane fade" id="'.$tab_name.'">'
+//                    .'<div class="row">'
+//                    .'<div class="col-md-12">';
+//            }
+//
+//
+//            // add cards
+//            foreach ($profiles as $key => $profile)
+//            {
+//                if($profile->profile_type == 'internship')
+//                {
+//                    $tab_panes .= HTMLSnippet::generateInternshipFloatCardWithModal($profile);
+//                }
+//                else
+//                {
+//                    $tab_panes .= HTMLSnippet::generateApplicationFloatCardWithModal($profile);
+//                }
+//
+//
+//            }
+//
+//
+//            $tab_panes .= '</div></div></div>';
+//
+//            $cnt ++;
+//
+//
+//        }
+//
+//
+//        $content = <<<EOF
+//        <div class="row">
+//            <div class="col-md-12" style="padding-bottom: 30px;">
+//                <div class="panel with-nav-tabs panel-default">
+//                    <div class="panel-heading">
+//                        <ul id="tabs" class="nav nav-tabs">
+//
+//                            $tabs
+//
+//                        </ul>
+//                    </div>
+//                    <div class="panel-body" style="height: 70vh; overflow: scroll;">
+//                        <div id="tab-contents" class="tab-content">
+//
+//                            $tab_panes
+//
+//
+//                        </div>
+//                    </div>
+//                </div>
+//            </div>
+//        </div>
+//
+//EOF;
+//        return $content;
+//
+//    }
 
 
     /*
@@ -586,7 +585,7 @@ EOF;
         }
 
         $accordion = <<<EOF
-        <div class="panel panel-default">
+        <div class="panel panel-primary">
             <div class="panel-heading">
                 <div class="row">
                     <div class="col-sm-6">
@@ -639,32 +638,33 @@ EOF;
             }
 
 
-            $accordion .= '<div class="panel panel-default">'
-                . '<div class="panel-heading">'
-                . '<div class="row">'
-                . '<div class="col-sm-10">'
-                . '<h4 class="panel-title">'
-                . '<a data-toggle="collapse" data-parent="#journal_accordion" href="#journal_'
-                . $journal->id
-                . '">'
-                . 'Journal ' . $journal->intern_journal_serial_num . '/' . $journal->intern_journal_required_total_num
-                . ' due: ' . $journal->intern_journal_due_date
-                . ' | submitted: ' . $journal->intern_journal_submitted_on
-                . '</a>'
-                . '</h4>'
-                . '</div>'
-                . '<div class="col-sm-1 col-sm-offset-1">'
-                . $submission_mark
-                . '</div>'
-                . '</div>'
-                . '<div id="journal_'
-                . $journal->id
-                . '" class="panel-collapse collapse">'
-                . '<div class="panel-body">'
-                . $journal_content
-                . '</div>'
-                . '</div>'
-                . '</div>'
+            $accordion .=
+	            '<div class="panel panel-primary">'
+                    . '<div class="panel-heading">'
+                        . '<div class="row">'
+                            . '<div class="col-sm-10">'
+                                . '<h4 class="panel-title">'
+                                    . '<a data-toggle="collapse" data-parent="#journal_accordion" href="#journal_'
+                                    . $journal->id
+	                                . '">'
+                                    . 'Journal ' . $journal->intern_journal_serial_num . '/' . $journal->intern_journal_required_total_num
+                                    . ' due: ' . $journal->intern_journal_due_date
+                                    . ' | submitted: ' . $journal->intern_journal_submitted_on
+                                    . '</a>'
+                                . '</h4>'
+                            . '</div>'
+                            . '<div class="col-sm-1 col-sm-offset-1">'
+                                . $submission_mark
+                            . '</div>'
+                        . '</div>'
+	                . '</div>'
+                    . '<div id="journal_'
+                    . $journal->id
+                    . '" class="panel-collapse collapse">'
+                        . '<div class="panel-body">'
+                            . $journal_content
+                        . '</div>'
+                    . '</div>'
                 . '</div>';
         }
 
@@ -694,7 +694,7 @@ EOF;
 
 
         $accordion = <<<EOF
-        <div class="panel panel-default">
+        <div class="panel panel-primary">
             <div class="panel-heading">
                 <div class="row">
                     <div class="col-sm-6">
@@ -727,7 +727,7 @@ EOF;
 
         $site_evaluation = $internship->siteEvaluation;
 
-        $site_eval_contents = 'detailed contents of site evaluation';
+        $site_eval_contents = self::generateAdminInternshipSiteEvaluationDisplay($site_evaluation);
 
         if($site_evaluation->intern_site_evaluation_submitted_on > $site_evaluation->intern_site_evaluation_due_date)
         {
@@ -741,7 +741,7 @@ EOF;
         }
 
         $accordion = <<<EOF
-        <div class="panel panel-default">
+        <div class="panel panel-primary">
             <div class="panel-heading">
                 <div class="row">
                     <div class="col-sm-6">
@@ -774,8 +774,9 @@ EOF;
 
         $inner_accordion = self::generateAdminInternshipStudentEvaluationInsideAccordion($internship->studentEvaluations);
 
-	    $midterm_evaluation = $internship->studentEvaluations->where('intern_student_evaluation_is_midterm', 1);
-	    $final_evaluation = $internship->studentEvaluations->where('intern_student_evaluation_is_midterm', 0);
+	    $midterm_evaluation = $internship->studentEvaluations->where('intern_student_evaluation_is_midterm', 1)->first();
+	    $final_evaluation = $internship->studentEvaluations->where('intern_student_evaluation_is_midterm', 0)->first();
+
 
         if(!is_null($midterm_evaluation->intern_student_evaluation_submitted_on)
             && !is_null($final_evaluation->intern_student_evaluation_submitted_on))
@@ -793,7 +794,7 @@ EOF;
         }
 
         $accordion = <<<EOF
-        <div class="panel panel-default">
+        <div class="panel panel-primary">
             <div class="panel-heading">
                 <div class="row">
                     <div class="col-sm-6">
@@ -822,7 +823,9 @@ EOF;
     private static function generateAdminInternshipStudentEvaluationInsideAccordion($evaluations)
     {
         $accordion = '<div class="panel-group" id="student_evaluation_accordion">';
-        $eval_contents = 'student evaluation';
+
+
+
         $submission_mark = '<i class="fa fa-check" aria-hidden="true"></i>';
 
 
@@ -830,14 +833,14 @@ EOF;
         foreach ($evaluations as $evaluation)
         {
 
+	        $eval_contents = self::generateAdminInternshipStudentEvaluationDisplay($evaluation);
 
-
-            if($evaluation->intern_student_evaluation_submitted_on > $evaluation->intern_student_evaluation_due_date)
+	        if($evaluation->intern_student_evaluation_submitted_on > $evaluation->intern_student_evaluation_due_date)
             {
                 $submission_mark = '<i class="fa fa-clock-o" aria-hidden="true"></i>';
             }
 
-            if(is_null($evaluation->submitted_at))
+            if(is_null($evaluation->intern_student_evaluation_submitted_on))
             {
                 $submission_mark = '<i class="fa fa-times" aria-hidden="true"></i>';
                 $eval_contents = 'No Submission';
@@ -853,30 +856,31 @@ EOF;
                 $inner_title = 'Final Evaluation';
             }
 
-            $accordion .= '<div class="panel panel-default">'
-                . '<div class="panel-heading">'
-                . '<div class="row">'
-                . '<div class="col-sm-6">'
-                . '<h4 class="panel-title">'
-                . '<a data-toggle="collapse" data-parent="#student_evaluation_accordion" href="#student_eval_'
-                . $evaluation->id
-                . '">'
-                . $inner_title
-                . '</a>'
-                . '</h4>'
-                . '</div>'
-                . '<div class="col-sm-1 col-sm-offset-5">'
-                . $submission_mark
-                . '</div>'
-                . '</div>'
-                . '<div id="student_eval_'
-                . $evaluation->id
-                . '" class="panel-collapse collapse">'
-                . '<div class="panel-body">'
-                . $eval_contents
-                . '</div>'
-                . '</div>'
-                . '</div>'
+            $accordion .=
+	            '<div class="panel panel-primary">'
+                    . '<div class="panel-heading">'
+                        . '<div class="row">'
+                            . '<div class="col-sm-6">'
+                                . '<h4 class="panel-title">'
+                                    . '<a data-toggle="collapse" data-parent="#student_evaluation_accordion" href="#student_eval_'
+                                    . $evaluation->id
+                                    . '">'
+                                    . $inner_title
+                                    . '</a>'
+                                . '</h4>'
+	                        . '</div>'
+                            . '<div class="col-sm-1 col-sm-offset-5">'
+                                . $submission_mark
+                            . '</div>'
+                        . '</div>'
+	                . '</div>'
+                    . '<div id="student_eval_'
+                    . $evaluation->id
+                    . '" class="panel-collapse collapse">'
+                        . '<div class="panel-body">'
+                            . $eval_contents
+                        . '</div>'
+                    . '</div>'
                 . '</div>';
         }
 
@@ -893,7 +897,55 @@ EOF;
 
     //todo: work on contents of site evaluation accordion and student evaluations accordions
 
-    //todo:work on sgis opinions, form and display.
+
+	private static function generateAdminInternshipEvaluationDisplay($evaluation, $labels_fields_configuration)
+	{
+		$labels_fields = config($labels_fields_configuration);
+		$display = '';
+		foreach ($labels_fields as $label => $field)
+		{
+			$display .= "<p>$label</p>";
+			$display .= "<p>" . $evaluation[$field] . "</p>";
+		}
+
+		return $display;
+	}
+
+	private static function generateAdminInternshipStudentEvaluationDisplay($student_evaluation)
+	{
+//		$labels_fields = config('constants.labels_fields.student_evaluation');
+//		$display = '';
+//		foreach ($labels_fields as $label => $field)
+//		{
+//			$display .= "<p>$label</p>";
+//			$display .= "<p>" . $student_evaluation[$field] . "</p>";
+//		}
+//
+//		return $display;
+		return self::generateAdminInternshipEvaluationDisplay($student_evaluation, 'constants.labels_fields.student_evaluation');
+
+	}
+
+	private static function generateAdminInternshipSiteEvaluationDisplay($site_evaluation)
+	{
+//		$labels_fields = config('constants.labels_fields.site_evaluation');
+//
+//
+//		$display = '';
+//
+//		foreach ($labels_fields as $label => $field)
+//		{
+//			$display .= "<p>$label</p>";
+//			$display .= "<p>" . $site_evaluation[$field] . "</p>";
+//		}
+//
+//		return $display;
+		return self::generateAdminInternshipEvaluationDisplay($site_evaluation, 'constants.labels_fields.site_evaluation');
+
+
+	}
+
+
     // internship SGIS final opinion form
     private static function generateAdminInternshipSGISOpinionForm($internship)
     {
@@ -905,10 +957,14 @@ EOF;
 
         $form = <<<EOF
         <form action="$action" method="post" id="$form_id">
-        <input type="hidden" name="internship_id" value="$internship->id">
-        <input type="hidden" name="case_closed" value="1">
-        <label for="final_notes">Final Notes</label>
-        <textarea name="final_notes" id="final_notes" placeholder="Final note for this internship"></textarea>
+	        <input type="hidden" name="internship_id" value="$internship->id">
+	        <input type="hidden" name="case_closed" value="1">
+	        <div class="form-group">
+	            <label class="col-md-12" for="final_notes">Final Notes</label>
+	            <div class="col-md-12">
+	                <textarea style="width:100%;" rows="20" name="final_notes" id="final_notes" placeholder="Final note for this internship"></textarea>
+	            </div>
+	        </div>
         </form>
 
 EOF;
