@@ -39,15 +39,21 @@ class InternInternshipController extends Controller
 
     public function adminIndexFinishedInternships()
     {
-        $internships = new InternInternship();
-        //get data
-        $finished_internships_assignments_complete = $internships->getFinishedUnclosedInternshipsWithAssignmentComplete();
-        $finished_internships_assignments_incomplete = $internships->getFinishedUnclosedInternshipsWithAssignmentIncomplete();
-        $closed_internships = $internships->getFinishedClosedInternships();
-        //make cards: fiac => finished_internships_assignments_complete
-	    $cards_fiac = $this->getFiacCards($finished_internships_assignments_complete);
-	    $cards_fiai = $this->getFiaiCards($finished_internships_assignments_incomplete);
-	    $cards_ci = $this->getCiCards($closed_internships);
+//        $internships = new InternInternship();
+//        //get data
+//        $finished_internships_assignments_complete = $internships->getFinishedUnclosedInternshipsWithAssignmentComplete();
+//        $finished_internships_assignments_incomplete = $internships->getFinishedUnclosedInternshipsWithAssignmentIncomplete();
+//        $closed_internships = $internships->getFinishedClosedInternships();
+//        //make cards: fiac => finished_internships_assignments_complete
+//	    $cards_fiac = $this->getFiacCards($finished_internships_assignments_complete);
+//	    $cards_fiai = $this->getFiaiCards($finished_internships_assignments_incomplete);
+//	    $cards_ci = $this->getCiCards($closed_internships);
+
+
+
+        $cards_fiac = $this->generateCardsHtml()['cards_fiac'];
+        $cards_fiai = $this->generateCardsHtml()['cards_fiai'];
+        $cards_ci = $this->generateCardsHtml()['cards_ci'];
 	    return view('admin.internships.finished_internships')
 		    ->withCardsFiac($cards_fiac)
 		    ->withCardsFiai($cards_fiai)
@@ -101,12 +107,29 @@ class InternInternshipController extends Controller
 
 	public function getFiaiCards($internships)
 	{
-		return $this->getInternshipCards($internships, 'Missing: ');
+		return $this->getInternshipCards($internships, config('constants.card_tags.missing_assignments'));
 	}
 
 	public function getCiCards($internships)
 	{
-		return $this->getInternshipCards($internships, 'Closed!');
+		return $this->getInternshipCards($internships, config('constants.card_tags.archived'));
+	}
+
+
+    public function generateCardsHtml()
+    {
+        $internships = new InternInternship();
+        //get data
+        $finished_internships_assignments_complete = $internships->getFinishedUnclosedInternshipsWithAssignmentComplete();
+        $finished_internships_assignments_incomplete = $internships->getFinishedUnclosedInternshipsWithAssignmentIncomplete();
+        $closed_internships = $internships->getFinishedClosedInternships();
+        //make cards: fiac => finished_internships_assignments_complete
+        $cards_fiac = $this->getFiacCards($finished_internships_assignments_complete);
+        $cards_fiai = $this->getFiaiCards($finished_internships_assignments_incomplete);
+        $cards_ci = $this->getCiCards($closed_internships);
+
+        return compact('cards_ci','cards_fiai', 'cards_fiac');
+
 	}
 
 
@@ -130,6 +153,31 @@ class InternInternshipController extends Controller
         // internship_id => object(internship)
         $internship_options = $internships->getApprovedNotClosedInternshipsByApplicantId($request->user()->id);
         return $this->getInternshipCollapsePanels($internship_options);
+	}
+
+    public function ajaxArchiveInternship(Request $request)
+    {
+
+        $today = Carbon::today(config('constants.current_time_zone'))->toDateString();
+        $request->request->add([
+            'intern_internship_case_closed_date' => $today,
+            'intern_internship_closed_by' => $request->user()->id,
+        ]);
+
+        $result = InternInternship::where('id', $request->internship_id)
+            ->update($request->except([
+                'internship_id',
+            ]));
+
+//        $result = true;
+        if($result)
+        {
+            return json_encode($this->generateCardsHtml());
+        }
+        else
+        {
+            return redirect('admin/404');
+        }
 	}
 
 

@@ -166,10 +166,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin', 'as' => 'admin.'], f
     Route::post('approve_internship_applications', 'InternApplicationController@ajaxApproveApplications');
 
 
-    Route::get('close_internships', 'InternInternshipController@adminIndexFinishedInternships');
-    Route::post('close_internships', function(){
-        return 'close internship POST result';
-    });
+    Route::get('archive_internships', 'InternInternshipController@adminIndexFinishedInternships');
+    Route::post('archive_internships', 'InternInternshipController@ajaxArchiveInternship');
     # Remaining pages will be called from below controller method
     # in real world scenario, you may be required to define all routes manually
 

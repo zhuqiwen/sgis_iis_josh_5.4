@@ -88,9 +88,9 @@ EOF;
         $tag = '';
         $missing_assignments = [];
         $tag_content = '';
-        if($tag != '')
+        if($tag_title != '')
         {
-        	if($tag == 'Missing Assignments:')
+        	if($tag_title == config('constants.card_tags.missing_assignments'))
 	        {
 	        	foreach ($internship->journals as $journal)
 		        {
@@ -100,7 +100,7 @@ EOF;
 			        }
 		        }
 
-		        foreach ($internship->studentEvaluation as $student_evaluation)
+		        foreach ($internship->studentEvaluations as $student_evaluation)
 		        {
 		        	if($student_evaluation->intern_student_evaluation_submitted_on == null)
 			        {
@@ -133,7 +133,12 @@ EOF;
 
 		        $tag_content .= '</ul>';
 
+	        	$title_icon = 'fa-minus-square';
 	        }
+	        elseif($tag_title == config('constants.card_tags.archived'))
+            {
+                $title_icon = 'fa-archive';
+            }
 
         	$tag = "<P>$tag_title</P>" . $tag_content;
         }
@@ -173,8 +178,9 @@ EOF;
 	                                    <br/><small>Application ID: $internship->application_id</small>
 	                                </h4>
 	                        </div>
-	                        <div id="iconCheck_$internship->id" class="col-md-4 hide" style="margin-top:5%;">
-	                            <i class="fa fa-check fa-2x"></i>
+	                        <!--<div id="iconCheck_$internship->id" class="col-md-4 hide" style="margin-top:5%;">-->
+	                        <div id="title_icon" class="col-md-4" style="margin-top:5%;">
+	                            <i class="fa $title_icon fa-4x"></i>
 	                        </div>
 	                    </div>
                     </div>
@@ -270,11 +276,13 @@ EOF;
         if($internship->intern_internship_case_closed_date == NULL)
         {
         	$sgis_opinions = $approval_notes . self::generateAdminInternshipSGISOpinionForm($internship);
+        	$submit_button = '<button form=' . config('constants.forms.ids.sgis_internship_final_opinion_form') . ' type="submit" class="btn btn-info archive_internship_utton" data-dismiss="modal">Archive</button>';
         }
         else
         {
         	$final_note = "<p>Final note: <br />$internship->intern_internship_final_notes</p>";
         	$sgis_opinions = $approval_notes . $final_note;
+            $submit_button = '';
         }
 
 
@@ -473,8 +481,8 @@ EOF;
                                     </div>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                                <button form="sgis_opinions_form" id="close_internship_$internship->internship_id" type="button" class="btn btn-info closeInternship" data-dismiss="modal">Close and Archive</button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                $submit_button
                             </div>
                       </div>
                 </div>
@@ -913,33 +921,14 @@ EOF;
 
 	private static function generateAdminInternshipStudentEvaluationDisplay($student_evaluation)
 	{
-//		$labels_fields = config('constants.labels_fields.student_evaluation');
-//		$display = '';
-//		foreach ($labels_fields as $label => $field)
-//		{
-//			$display .= "<p>$label</p>";
-//			$display .= "<p>" . $student_evaluation[$field] . "</p>";
-//		}
-//
-//		return $display;
+
 		return self::generateAdminInternshipEvaluationDisplay($student_evaluation, 'constants.labels_fields.student_evaluation');
 
 	}
 
 	private static function generateAdminInternshipSiteEvaluationDisplay($site_evaluation)
 	{
-//		$labels_fields = config('constants.labels_fields.site_evaluation');
-//
-//
-//		$display = '';
-//
-//		foreach ($labels_fields as $label => $field)
-//		{
-//			$display .= "<p>$label</p>";
-//			$display .= "<p>" . $site_evaluation[$field] . "</p>";
-//		}
-//
-//		return $display;
+
 		return self::generateAdminInternshipEvaluationDisplay($site_evaluation, 'constants.labels_fields.site_evaluation');
 
 
@@ -950,19 +939,18 @@ EOF;
     private static function generateAdminInternshipSGISOpinionForm($internship)
     {
 
-        $action = '/test_ajax_close_internship';
-
+        $action = config('constants.ajax.urls.archive_internships');
 
         $form_id = config('constants.forms.ids.sgis_internship_final_opinion_form');
 
+        $today = Carbon::today(config('constants.current_time_zone'));
         $form = <<<EOF
         <form action="$action" method="post" id="$form_id">
 	        <input type="hidden" name="internship_id" value="$internship->id">
-	        <input type="hidden" name="case_closed" value="1">
 	        <div class="form-group">
-	            <label class="col-md-12" for="final_notes">Final Notes</label>
+	            <label class="col-md-12" for="intern_internship_final_notes">Final Notes</label>
 	            <div class="col-md-12">
-	                <textarea style="width:100%;" rows="20" name="final_notes" id="final_notes" placeholder="Final note for this internship"></textarea>
+	                <textarea style="width:100%;" rows="20" name="intern_internship_final_notes" id="final_notes" placeholder="Final note for this internship"></textarea>
 	            </div>
 	        </div>
         </form>

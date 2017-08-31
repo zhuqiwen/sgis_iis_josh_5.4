@@ -44,7 +44,6 @@
                     <div class="panel-heading">
 
                         <h3 class="panel-title">
-                            {{--<i class="livicon" data-name="piggybank" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>--}}
                             Finished Internships as of {{ $today }}
                         </h3>
 
@@ -58,24 +57,20 @@
                                     <a href="#tab2" data-toggle="tab">Assignment Incomplete</a>
                                 </li>
                                 <li id="tab_finalized">
-                                    <a href="#tab3" data-toggle="tab">Closed Internships</a>
+                                    <a href="#tab3" data-toggle="tab">Archived Internships</a>
                                 </li>
                             </ul>
                         </div>
                     </div>
                     <div class="panel-body">
-                        <form id="{{ config('constants.forms.ids.finalize_internships_form') }}" method="post" action="#">
                         <div class="tab-content" id="slim1">
                             <div class="tab-pane text-justify active" id="tab1">
                                 <h4>
                                     <span>
                                         Finished Internships with <strong>all required assignments submitted</strong> as of {{ $today }}
                                     </span>
-                                    {{--<button id="button_approve" type="button" class="btn btn-sm btn-warning" data-ajax--url="{{ config('constants.ajax.urls.finalize_internship') }}" disabled>--}}
-                                        {{--<span class="glyphicon glyphicon-check"></span> Finalize--}}
-                                    {{--</button>--}}
                                 </h4>
-                                {{--here are applications' float cards--}}
+                                {{--float cards--}}
                                 <div class="row">
                                     <?php
                                         echo $cards_fiac;
@@ -88,11 +83,9 @@
                                     <span>
                                         Finished Internships with <strong>at least 1 required assignments missing</strong> as of {{ $today }}
                                     </span>
-                                    {{--<button id="button_approve" type="button" class="btn btn-sm btn-warning" data-ajax--url="{{ config('constants.ajax.urls.finalize_internship') }}" disabled>--}}
-                                        {{--<span class="glyphicon glyphicon-check"></span> Finalize--}}
-                                    {{--</button>--}}
+
                                 </h4>
-                                {{--here are applications' float cards--}}
+                                {{--float cards--}}
                                 <div class="row">
                                     <?php
                                     echo $cards_fiai;
@@ -110,7 +103,6 @@
                                 </div>
                             </div>
                         </div>
-                        </form>
 
                     </div>
                 </div>

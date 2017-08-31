@@ -77,11 +77,11 @@ $(document).ready(function () {
         }
     });
 
+    // attach application approval note form
     var modals = $('.modal-body');
-    console.log(modals);
     modals.append(
         '<div class="row">'
-        + '<div class="col-md-10 col-md-offset-1">'
+        + '<div class="col-md-12">'
         + '<label>Approval Note</label>'
         + '<textarea style="width: 100%;" rows="10"></textarea>'
     );

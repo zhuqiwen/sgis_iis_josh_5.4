@@ -40,7 +40,7 @@ return [
             'submit_internship_assignment_reflection' => '/submit/assignment/reflection',
             'submit_internship_assignment_site_evaluation' => '/submit/assignment/site_evaluation',
             'submit_internship_assignment_student_evaluation' => '/submit/assignment/student_evaluation',
-            'finalize_internship' => '/admin/finalize_internships',
+            'archive_internships' => '/admin/archive_internships',
 		],
 	],
 
@@ -77,5 +77,10 @@ return [
 			"How would you rate the student’s development during the internship?" => "intern_student_evaluation_development_rating",
 		],
 	],
+
+    'card_tags' => [
+        'missing_assignments' => 'Missing Assignments:',
+        'archived' => 'Archived',
+    ],
 
 ];

@@ -12,8 +12,8 @@
                 Approve Applications
             </a>
         </li>
-        <li {!! (Request::is('admin/close_internships') ? 'class="active"' : '') !!}>
-            <a href="{{ URL::to('admin/close_internships') }}">
+        <li {!! (Request::is('admin/archive_internships') ? 'class="active"' : '') !!}>
+            <a href="{{ URL::to('admin/archive_internships') }}">
                 <i class="fa fa-angle-double-right"></i>
                 Review Internships
             </a>
