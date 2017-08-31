@@ -124,5 +124,6 @@
 
 {{-- page level scripts --}}
 @section('footer_scripts')
+    <script src="{{ asset('assets/js/frontend/ajax_init.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/js/pages/finished_internships.js') }}" type="text/javascript"></script>
 @stop
