@@ -67,3 +67,15 @@
     margin-top : -20px;
     font-size  : 15px;
 }
+
+
+.missing_assignments_tooltips + .tooltip > .tooltip-inner
+{
+    background-color: #990000;
+    color: #EDEBEB;
+    width: 250px;
+}
+.missing_assignments_tooltips + .tooltip > .tooltip-arrow
+{
+    border-right-color: #990000;
+}

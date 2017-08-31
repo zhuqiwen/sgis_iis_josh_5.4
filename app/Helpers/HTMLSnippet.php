@@ -85,14 +85,18 @@ EOF;
     public static function generateInternshipFloatCardWithModal($internship, $tag_title = '')
     {
         $modal = self::generateInternshipModal($internship);
-        $tag = '';
+//        $tag = '';
         $missing_assignments = [];
         $tag_content = '';
+        $float_card_div = '<div class="col-md-10 col-md-offset-1 float-card">';
         if($tag_title != '')
         {
         	if($tag_title == config('constants.card_tags.missing_assignments'))
 	        {
-	        	foreach ($internship->journals as $journal)
+
+
+
+                foreach ($internship->journals as $journal)
 		        {
 		        	if($journal->intern_journal_submitted_on == null)
 			        {
@@ -106,11 +110,11 @@ EOF;
 			        {
 			        	if($student_evaluation->intern_student_evaluation_is_midterm == 1)
 				        {
-				        	$missing_assignments[] = 'Midterm Student Evaluation';
+				        	$missing_assignments[] = 'Midterm Evaluation';
 				        }
 				        else
 				        {
-				        	$missing_assignments[] = 'Final Student Evaluation';
+				        	$missing_assignments[] = 'Final Evaluation';
 				        }
 			        }
 		        }
@@ -141,6 +145,15 @@ EOF;
             }
 
         	$tag = "<P>$tag_title</P>" . $tag_content;
+
+            $float_card_div = '<div class="col-md-10 col-md-offset-1 float-card tooltips missing_assignments_tooltips"'
+                . ' data-toggle="tooltip"'
+                . ' data-tooltip="tooltip"'
+                . ' data-placement="right"'
+                . ' data-html="true"'
+                . ' data-title="'
+                . $tag
+                . '">';
         }
 
         // information displayed on cards
@@ -167,11 +180,10 @@ EOF;
         $card = <<< EOF
 		<div class="col-md-4" style="margin-bottom: 5%;">
             <a id="float_card" href="#" style="text-decoration: none" data-toggle="modal" data-target="#myModalInternshipId_$internship->id">
-                <div class="col-md-10 col-md-offset-1 float-card">
+                $float_card_div
                     <div class="title" id="$internship->id">
 	                    <div class="row">
 	                        <div class="col-md-8">
-	                        		$tag
 	                                <h4 id="applicant_name">
 	                                    $applicant->last_name, $applicant->first_name
 	                                    <br/><small>Internship ID: $internship->id</small>
