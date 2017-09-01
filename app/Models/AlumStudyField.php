@@ -14,10 +14,10 @@ class AlumStudyField extends Model
     public $timestamps = true;
 
     protected $fillable = [
-        'field'
+        'study_field'
     ];
 
     protected $guarded = [];
 
-        
+
 }

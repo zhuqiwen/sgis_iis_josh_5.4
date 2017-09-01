@@ -49,6 +49,9 @@ return [
 			'approve_internship_applications' => 'approve_applications_form',
 			'finalize_internships_form' => 'finalize_internships_form',
 			'sgis_internship_final_opinion_form' => 'sgis_internship_final_opinion_form',
+			//alum
+			// study field
+			'study_field_creation_form' => 'study_field_creation_form',
 		],
 	],
 

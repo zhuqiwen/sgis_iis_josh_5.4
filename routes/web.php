@@ -171,6 +171,15 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin', 'as' => 'admin.'], f
     # Remaining pages will be called from below controller method
     # in real world scenario, you may be required to define all routes manually
 
+
+
+	// Alum module
+	// Alum Study Fields
+	Route::get('alum_study_fields/data', 'AlumStudyFieldController@data');
+
+	Route::resource('alum_study_fields', 'AlumStudyFieldController');
+
+
     Route::get('{name?}', 'JoshController@showView');
 
 });

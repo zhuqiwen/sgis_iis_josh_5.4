@@ -1,6 +1,7 @@
 <ul id="menu" class="page-sidebar-menu">
     @include('admin.layouts.partials.left_menu_items.dashboard')
     @include('admin.layouts.partials.left_menu_items.internship')
+    @include('admin.layouts.partials.left_menu_items.overseas_study_funding')
 {{--    @include('admin.layouts.partials.left_menu_items.funding')--}}
 {{--    @include('admin.layouts.partials.left_menu_items.alumni')--}}
     <!-- Original menus shipped with Josh -->
