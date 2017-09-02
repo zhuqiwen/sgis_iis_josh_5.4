@@ -26,8 +26,7 @@ class AlumStudyFieldController extends Controller
 
 		return  Datatables::of($records)
 			->add_column('edit', '<a class="edit" href="javascript:;">Edit</a>')
-			->add_column('delete', '<a class="delete" href="#" data-target="#deleteConfirmModal" data-toggle="modal">Delete</a>')
-			->rawColumns(['edit','delete'])
+			->rawColumns(['edit'])
 			->make(true);
 
 	}
@@ -50,7 +49,7 @@ class AlumStudyFieldController extends Controller
      */
     public function store(Request $request)
     {
-        //
+	    return AlumStudyField::create($request->all());
     }
 
     /**
@@ -84,7 +83,9 @@ class AlumStudyFieldController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        return AlumStudyField::where('id', $id)
+	        ->update($request->except('_token'));
+
     }
 
     /**
