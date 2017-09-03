@@ -87,4 +87,23 @@ class Controller extends BaseController
 
 		return $assignments;
 	}
+
+
+	public function getColumnsForDataTables()
+	{
+		$objects_array = [];
+		foreach ($this->fields_titles as $field => $title)
+		{
+			$object = [
+				'title' => $title,
+				'column' => [
+					'data' => $field,
+					'name' => $field
+				]
+			];
+			$objects_array[] = $object;
+		}
+
+		return json_encode($objects_array);
+	}
 }

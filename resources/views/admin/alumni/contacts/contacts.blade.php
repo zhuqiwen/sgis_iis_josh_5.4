@@ -2,7 +2,7 @@
 
 {{-- Page title --}}
 @section('title')
-    Alumni Study Fields
+    Alumni Contacts
     @parent
 @stop
 
@@ -44,7 +44,7 @@
                                     <span>
                                     <i class="livicon" data-name="edit" data-size="16" data-loop="true" data-c="#fff"
                                        data-hc="white"></i>
-                                    Study Fields</span>
+                                    Contacts</span>
                         </h3>
                     </div>
                     <div class="panel-body">
@@ -57,28 +57,7 @@
 
 
                             <div class="table-responsive" id="responsive_table_div">
-                            {{--<table class="table table-striped table-bordered table-hover dataTable no-footer sample_editable"--}}
-                                   {{--id="sample_editable_1" role="grid">--}}
-                                {{--<thead>--}}
-                                {{--<tr role="row">--}}
-                                    {{--<th class="sorting_asc" tabindex="0" aria-controls="sample_editable_1" rowspan="1"--}}
-                                        {{--colspan="1" style="width: 25px;">ID--}}
-                                    {{--</th>--}}
-                                    {{--<th class="sorting_asc" tabindex="0" aria-controls="sample_editable_1" rowspan="1"--}}
-                                        {{--colspan="1">Study Field--}}
-                                    {{--</th>--}}
-                                    {{--<th class="sorting" tabindex="0" aria-controls="sample_editable_1" rowspan="1"--}}
-                                        {{--colspan="1" aria-label="--}}
-                                                 {{--Edit--}}
-                                            {{--: activate to sort column ascending" style="width: 20px;">Edit--}}
-                                    {{--</th>--}}
-
-                                {{--</tr>--}}
-                                {{--</thead>--}}
-                                {{--<tbody>--}}
-
-                                {{--</tbody>--}}
-                            {{--</table>--}}
+                                {{--insert table here--}}
                             </div>
                         </div>
                         <!-- END EXAMPLE TABLE PORTLET-->
@@ -132,9 +111,7 @@
     <script src="{{ asset('assets/vendors/sweetalert/js/sweetalert.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/vendors/sweetalert/js/sweetalert-dev.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/js/frontend/ajax_init.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('assets/js/pages/alumni_study_fields.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('assets/js/pages/alum_datatables_init.js') }}" type="text/javascript"></script>
-
+    <script src="{{ asset('assets/js/pages/alumni_contacts.js') }}" type="text/javascript"></script>
 
 
 

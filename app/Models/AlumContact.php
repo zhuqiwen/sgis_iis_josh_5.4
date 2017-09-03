@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * Class AlumContact
@@ -14,26 +15,31 @@ class AlumContact extends Model
     public $timestamps = true;
 
     protected $fillable = [
-        'first_name',
-        'middle_name',
-        'last_name',
-        'email',
-        'phone_home',
-        'phone_mobile',
-        'address_country',
-        'address_state',
-        'address_city',
-        'address_line1',
-        'address_line2',
-        'address_zip',
-        'no_email',
-        'no_phone_call',
-        'no_mail',
-        'iuaa_member',
-        'share_with_iuaa'
+	    "contact_first_name",
+	    "contact_middle_name",
+	    "contact_last_name",
+	    "contact_email",
+	    "contact_phone_home",
+	    "contact_phone_mobile",
+	    "contact_country",
+	    "contact_state",
+	    "contact_city",
+	    "contact_line1",
+	    "contact_line2",
+	    "contact_zip",
+	    "contact_no_email",
+	    "contact_no_phone_call",
+	    "contact_no_mail",
+	    "contact_iuaa_member",
+	    "contact_share_with_iuaa",
     ];
 
-    protected $guarded = [];
+    protected $guarded = ['id'];
 
-        
+	use SoftDeletes;
+
+	protected $dates = ['deleted_at'];
+
+
+
 }

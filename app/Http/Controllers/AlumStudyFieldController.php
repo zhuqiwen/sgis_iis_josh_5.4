@@ -8,6 +8,11 @@ use Datatables;
 
 class AlumStudyFieldController extends Controller
 {
+
+	protected $fields_titles = [
+		"id" => "ID",
+		"study_field" => "Study Field",
+	];
     /**
      * Display a listing of the resource.
      *
@@ -30,6 +35,7 @@ class AlumStudyFieldController extends Controller
 			->make(true);
 
 	}
+
 
     /**
      * Show the form for creating a new resource.

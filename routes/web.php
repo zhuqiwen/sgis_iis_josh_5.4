@@ -175,12 +175,25 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin', 'as' => 'admin.'], f
 
 	// Alum module
 	// Alum Study Fields
+	Route::get('alum_study_fields/getColumns', 'AlumStudyFieldController@getColumnsForDataTables');
 	Route::get('alum_study_fields/data', 'AlumStudyFieldController@data');
-
 	Route::resource('alum_study_fields', 'AlumStudyFieldController');
 
+	Route::get('alum_contacts/getColumns', 'AlumContactController@getColumnsForDataTables');
+	Route::get('alum_contacts/data', 'AlumContactController@data');
+	Route::resource('alum_contacts', 'AlumContactController');
+//
+//	Route::get('alum_study_fields/data', 'AlumStudyFieldController@data');
+//	Route::resource('alum_study_fields', 'AlumStudyFieldController');
+//
+//	Route::get('alum_study_fields/data', 'AlumStudyFieldController@data');
+//	Route::resource('alum_study_fields', 'AlumStudyFieldController');
+//
+//	Route::get('alum_study_fields/data', 'AlumStudyFieldController@data');
+//	Route::resource('alum_study_fields', 'AlumStudyFieldController');
 
-    Route::get('{name?}', 'JoshController@showView');
+
+	Route::get('{name?}', 'JoshController@showView');
 
 });
 
