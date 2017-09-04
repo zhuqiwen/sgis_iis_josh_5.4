@@ -1,4 +1,11 @@
+
+
+
 var table_id = 'alum_datatable';
+
+
+
+
 
 function insertDatatablesTableHead(data) {
     //construct table
@@ -13,6 +20,13 @@ function insertDatatablesTableHead(data) {
         ' id="' + table_id + '" role="grid">' +
             '<thead>' +
                 '<tr role="row">';
+
+
+    // if child row, add an extra th in the beginning
+    if (window.dtChildRow)
+    {
+        table_html += '<th></th>';
+    }
 
     for(var i = 0; i < data.length; i++)
     {
@@ -48,6 +62,14 @@ function drawTable(data) {
     }
     // don't forget edit button
     columns.push({data: 'edit', name: 'edit', orderable: false, searchable: false});
+
+
+    // //if any extra column definition
+    if (window.dtChildRow)
+    {
+        columns.splice(0, 0, window.dtChildRow );
+
+    }
     //draw table
     window.datatable = $('#' + table_id)
         .DataTable({
@@ -60,11 +82,13 @@ function drawTable(data) {
         ],
         ajax: window.location.pathname + '/data',
         columns: columns,
+        order: window.dtOrder,
         columnDefs: window.dtColumnDefs
     });
 }
 
 $( document ).ready(function() {
+    window.fields_titles = [];
     console.log($(location).attr('href'));
     console.log(window.location.pathname);
     // var columnsDT;
@@ -74,7 +98,7 @@ $( document ).ready(function() {
         data:{},
         dataType: 'json',
         success: function (returned_data) {
-            console.log(returned_data);
+            window.fields_titles = returned_data;
 
             insertDatatablesTableHead(returned_data);
             drawTable(returned_data);
@@ -90,7 +114,9 @@ $( document ).ready(function() {
 $(document).on('click', '#public_modal_submit_button', function (e) {
     e.preventDefault();
 
+
     var form = $(this.form);
+    console.log(form.attr('action'));
     $.ajax({
         type: form.attr('method'),
         url: form.attr('action'),
@@ -104,4 +130,52 @@ $(document).on('click', '#public_modal_submit_button', function (e) {
             e.document.write(xhr.responseText);
         }
     });
+});
+
+
+$(document).on('click', '#add_button', function () {
+    // change modal submit button attribute
+    $('#public_modal_submit_button')
+        .addClass('btn-primary')
+        .attr('form', 'create_form')
+        .text('Add');
+
+    // construct form and fill form with row data
+    // var form = '<form action="/admin/alum_study_fields" method="post" id="' + form_id + '">'
+    //     + '<label for="study_field">Study Field</label>'
+    //     + '<input class="form-control" type="text" id="study_field" name="study_field"></input>'
+    //     + '</form>';
+
+    // insert form and title into modal
+    $('#alum_study_field_public_modal .modal-title').text(window.modal.add.title);
+    $('#alum_study_field_public_modal .modal-body').html(window.modal.add.form);
+    $('#alum_study_field_public_modal').modal('toggle');
+});
+
+
+
+// function for showing child rows
+// why details-control cannot receive click?
+// $(document).on('click', 'td.details-control', function () {
+$(document).on('click', 'td', function () {
+
+    if (window.dtChildRow)
+    {
+        var tr = $(this).closest('tr');
+        var row = window.datatable.row( tr );
+
+        if ( row.child.isShown() ) {
+            // This row is already open - close it
+            row.child.hide();
+            tr.removeClass('shown');
+        }
+        else {
+            // Open this row
+            row.child( format(row.data()) ).show();
+            tr.addClass('shown');
+        }
+    }
+    else {
+        return;
+    }
 });

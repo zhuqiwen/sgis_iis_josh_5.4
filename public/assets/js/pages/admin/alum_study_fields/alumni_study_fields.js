@@ -4,6 +4,19 @@ window.dtColumnDefs = [
     //     "visible": false
     // }
 ];
+
+
+var add_form = '<form action="/admin/alum_study_fields" method="post" id="create_form">'
+    + '<label for="study_field">Study Field</label>'
+    + '<input class="form-control" type="text" id="study_field" name="study_field"></input>'
+
+window.modal= {
+    add:{
+        title: "Add Study Field"
+        , form: add_form
+    }
+};
+
 $(document).on('click', '.edit', function (e) {
     e.preventDefault();
 
@@ -29,23 +42,3 @@ $(document).on('click', '.edit', function (e) {
     $('#alum_study_field_public_modal').modal('toggle');
 });
 
-
-$(document).on('click', '#add_study_field', function () {
-    var form_id = 'create_form';
-    // change modal submit button attribute
-    $('#public_modal_submit_button')
-        .addClass('btn-primary')
-        .attr('form', form_id)
-        .text('Add');
-
-    // construct form and fill form with row data
-    var form = '<form action="/admin/alum_study_fields" method="post" id="' + form_id + '">'
-        + '<label for="study_field">Study Field</label>'
-        + '<input class="form-control" type="text" id="study_field" name="study_field"></input>'
-        + '</form>';
-
-    // insert form and title into modal
-    $('#alum_study_field_public_modal .modal-title').text('Add A Study Field');
-    $('#alum_study_field_public_modal .modal-body').html(form);
-    $('#alum_study_field_public_modal').modal('toggle');
-});

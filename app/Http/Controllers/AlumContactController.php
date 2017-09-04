@@ -108,7 +108,7 @@ class AlumContactController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return AlumContact::create($request->all());
     }
 
     /**

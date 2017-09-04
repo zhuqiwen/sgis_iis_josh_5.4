@@ -24,13 +24,14 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendors/datatables/css/buttons.bootstrap.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendors/datatables/css/scroller.bootstrap.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/pages/tables.css') }}"/>
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/pages/admin/contacts.css') }}"/>
 @stop
 
 {{-- Page content --}}
 @section('content')
 
     <section class="content-header">
-        <h1>Alumni Study Fields</h1>
+        <h1>Alumni Contacts</h1>
     </section>
     <!-- Main content -->
     <section class="content">
@@ -51,7 +52,7 @@
                         <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
                         <div id="sample_editable_1_wrapper" class="">
                             {{--Add button and modal--}}
-                            <button id="add_study_field" type="button" class="btn btn-responsive button-alignment btn-primary">Add study field</button>
+                            <button id="add_button" type="button" class="btn btn-responsive button-alignment btn-primary">Add Contact</button>
                             {{--END Add button and modal--}}
 
 
@@ -111,7 +112,10 @@
     <script src="{{ asset('assets/vendors/sweetalert/js/sweetalert.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/vendors/sweetalert/js/sweetalert-dev.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/js/frontend/ajax_init.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('assets/js/pages/alumni_contacts.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/js/pages/admin/alum_contacts/alumni_contacts.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/js/pages/admin/alum_datatables_init.js') }}" type="text/javascript"></script>
+
+    {{--<script src="{{ asset('assets/js/pages/alumni_contacts.js') }}" type="text/javascript"></script>--}}
 
 
 

@@ -168,6 +168,7 @@ function format ( d ) {
         "order": [[1, 'asc']],
         "responsive":true
     } );
+    console.log(table2.columns);
 
     // Add event listener for opening and closing details
     $('#table2 tbody').on('click', 'td', function () {

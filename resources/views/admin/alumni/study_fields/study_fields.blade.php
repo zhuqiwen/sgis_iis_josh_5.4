@@ -51,7 +51,7 @@
                         <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
                         <div id="sample_editable_1_wrapper" class="">
                             {{--Add button and modal--}}
-                            <button id="add_study_field" type="button" class="btn btn-responsive button-alignment btn-primary">Add study field</button>
+                            <button id="add_button" type="button" class="btn btn-responsive button-alignment btn-primary">Add study field</button>
                             {{--END Add button and modal--}}
 
 
@@ -123,7 +123,7 @@
     <script type="text/javascript" src="{{ asset('assets/vendors/datatables/js/buttons.html5.js') }}"></script>
     <script type="text/javascript" src="{{ asset('assets/vendors/datatables/js/buttons.print.js') }}"></script>
     <script type="text/javascript" src="{{ asset('assets/vendors/datatables/js/buttons.bootstrap.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('assets/vendors/datatables/js/buttons.print.js') }}"></script>
+    {{--<script type="text/javascript" src="{{ asset('assets/vendors/datatables/js/buttons.print.js') }}"></script>--}}
     <script type="text/javascript" src="{{ asset('assets/vendors/datatables/js/pdfmake.js') }}"></script>
     <script type="text/javascript" src="{{ asset('assets/vendors/datatables/js/vfs_fonts.js') }}"></script>
     <script type="text/javascript" src="{{ asset('assets/vendors/datatables/js/dataTables.scroller.js') }}"></script>
@@ -132,8 +132,8 @@
     <script src="{{ asset('assets/vendors/sweetalert/js/sweetalert.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/vendors/sweetalert/js/sweetalert-dev.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/js/frontend/ajax_init.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('assets/js/pages/alumni_study_fields.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('assets/js/pages/alum_datatables_init.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/js/pages/admin/alum_study_fields/alumni_study_fields.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/js/pages/admin/alum_datatables_init.js') }}" type="text/javascript"></script>
 
 
 
