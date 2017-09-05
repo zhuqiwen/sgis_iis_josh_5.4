@@ -43,8 +43,8 @@
                     <div class="panel-heading">
                         <h3 class="panel-title">
                                     <span>
-                                    <i class="livicon" data-name="edit" data-size="16" data-loop="true" data-c="#fff"
-                                       data-hc="white"></i>
+                                    {{--<i class="livicon" data-name="edit" data-size="16" data-loop="true" data-c="#fff"--}}
+                                       {{--data-hc="white"></i>--}}
                                     Contacts</span>
                         </h3>
                     </div>
@@ -55,6 +55,12 @@
                             <button id="add_button" type="button" class="btn btn-responsive button-alignment btn-primary">Add Contact</button>
                             {{--END Add button and modal--}}
 
+                            <strong>
+                                Toggle column:
+                            </strong>
+                            <div class="btn-group" style="margin:10px 0;">
+                                <button type="button" class="toggle-vis btn btn-default" data-column="4">Middle Name</button>
+                            </div>
 
 
                             <div class="table-responsive" id="responsive_table_div">

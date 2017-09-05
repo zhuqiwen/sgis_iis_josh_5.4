@@ -16,6 +16,7 @@ class CreateAlumContactsTable extends Migration
         //
 	    Schema::create('alum_contacts', function (Blueprint $table) {
 		    $table->increments('id');
+		    $table->string('contact_salutation')->nullable();
 		    $table->string('contact_first_name')->nullable();
 		    $table->string('contact_middle_name')->nullable();
 		    $table->string('contact_last_name')->nullable();

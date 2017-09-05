@@ -12,6 +12,7 @@ class AlumContactController extends Controller
 
 	protected $fields_titles = [
 		"id" =>  "ID",
+		"contact_salutation" => "Salutation",
 		"contact_first_name" => "First Name",
 		"contact_middle_name" => "Middle Namd",
 		"contact_last_name" => "Last Name",

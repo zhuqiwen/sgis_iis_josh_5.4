@@ -253,3 +253,12 @@ $(document).on('click', '.edit', function (e) {
     $('#alum_study_field_public_modal').modal('toggle');
 });
 
+
+// toggle column display
+$(document).on('click', 'button.toggle-vis', function (e) {
+    e.preventDefault();
+    var column = window.datatable.column($(this).attr('data-column'));
+    console.log(column);
+    column.visible(!column.visible());
+
+});
