@@ -4,7 +4,7 @@
 
 window.dtColumnDefs = [
     {
-        "targets": [2, 5, 7, 8, 9, 10, 11, 12],
+        "targets": [3, 5, 7, 8, 9, 10, 11, 12],
         "visible": false
     }
 ];
@@ -18,19 +18,22 @@ window.dtChildRow = {
 
 window.dtOrder = [[1, 'asc']];
 
+
+
+
 // function used for child row
 function format ( d ) {
     // `d` is the original data object for the row
     return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'+
-        '<tr>'+
-        '<td>Country:</td>'+
-        '<td>'+d.contact_country+'</td>'+
-        '</tr>'+
-        '<tr>'+
-        '<td>Home Phone:</td>'+
-        '<td>'+d.contact_phone_home+'</td>'+
-        '</tr>'+
-        '</table>';
+                    '<tr>'+
+                        '<td><strong>Country:</strong></td>'+
+                        '<td style="padding: 0 30px;">' + d.contact_country + '</td>' +
+                    // '</tr>'+
+                    // '<tr>'+
+                        '<td><strong>Home Phone:</strong></td>'+
+                        '<td style="padding: 0 30px;">'+d.contact_phone_home+'</td>'+
+                    '</tr>'+
+            '</table>';
 }
 
 

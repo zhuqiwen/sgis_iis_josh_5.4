@@ -22,22 +22,26 @@ function insertDatatablesTableHead(data) {
                 '<tr role="row">';
 
 
+    var table_foot = '';
     // if child row, add an extra th in the beginning
     if (window.dtChildRow)
     {
-        table_html += '<th></th>';
+        table_html += '<th id="details_control_header"></th>';
+        table_foot = '<th></th>';
     }
 
     for(var i = 0; i < data.length; i++)
     {
         var title = data[i].title;
-        var th = '<th class="sorting_asc" ' +
-            'tabindex="0" ' +
-            'aria-controls="' + table_id + '" ' +
-            'rowspan="1" ' +
-            'colspan="1">' +
-                title +
-                '</th>';
+        // var th = '<th class="sorting_asc" ' +
+        //     'tabindex="0" ' +
+        //     'aria-controls="' + table_id + '" ' +
+        //     'rowspan="1" ' +
+        //     'colspan="1">' +
+        //         title +
+        //         '</th>';
+        var th = '<th>' + title + '</th>';
+        table_foot += '<th></th>';
         table_html += th;
     }
 
@@ -48,7 +52,8 @@ function insertDatatablesTableHead(data) {
         'colspan="1" ' +
         'aria-label="Edit: activate to sort column ascending" ' +
         'style="width: 20px;">Edit</th>';
-    table_html += column_edit + '</th></tr></thead><tbody></tbody></table>';
+    table_foot += '<th></th>';
+    table_html += column_edit + '</tr></thead><tbody></tbody><tfoot><tr>' + table_foot + '</tr></tfoot></table>';
 
     //insert table into target div
     $('#responsive_table_div').html(table_html);
@@ -83,8 +88,46 @@ function drawTable(data) {
         ajax: window.location.pathname + '/data',
         columns: columns,
         order: window.dtOrder,
-        columnDefs: window.dtColumnDefs
+        columnDefs: window.dtColumnDefs,
+        initComplete: function () {
+            this.api().columns().every(function ()
+            {
+                console.log(this.footer());
+                var header = this.header();
+                console.log($(header).attr('id'));
+                if ($(header).text() !== 'Edit' && $(header).attr('id') !== 'details_control_header')
+                {
+                    var column = this;
+                    // var br = document.createElement("br");
+                    var input = document.createElement("input");
+                    // $(br).appendTo($(column.header()));
+                    $(input).appendTo($(column.footer()))
+                        .on('change', function () {
+                            column.search($(this).val(), false, false, true).draw();
+                        });
+                }
+
+            });
+        }
     });
+
+
+    // Add event listener for opening and closing details
+    $('#'+ table_id +' tbody').on('click', 'td.details-control', function () {
+        var tr = $(this).closest('tr');
+        var row = table.row( tr );
+
+        if ( row.child.isShown() ) {
+            // This row is already open - close it
+            row.child.hide();
+            tr.removeClass('shown');
+        }
+        else {
+            // Open this row
+            row.child( format(row.data()) ).show();
+            tr.addClass('shown');
+        }
+    } );
 }
 
 $( document ).ready(function() {
@@ -109,6 +152,7 @@ $( document ).ready(function() {
             e.document.write(xhr.responseText);
         }
     });
+
 });
 
 $(document).on('click', '#public_modal_submit_button', function (e) {
@@ -156,9 +200,9 @@ $(document).on('click', '#add_button', function () {
 
 // function for showing child rows
 // why details-control cannot receive click?
-// $(document).on('click', 'td.details-control', function () {
-$(document).on('click', 'td', function () {
-
+// no answer as for 20170904
+// use double click on tr with role=row
+$(document).on('dblclick', '#'+table_id+' tbody tr[role="row"]', function () {
     if (window.dtChildRow)
     {
         var tr = $(this).closest('tr');
@@ -176,6 +220,8 @@ $(document).on('click', 'td', function () {
         }
     }
     else {
-        return;
+        console.log('child');
     }
 });
+
+
