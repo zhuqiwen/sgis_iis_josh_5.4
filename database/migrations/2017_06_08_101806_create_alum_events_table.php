@@ -20,6 +20,7 @@ class CreateAlumEventsTable extends Migration
 		    $table->string('event_country')->nullable();
 		    $table->string('event_state')->nullable();
 		    $table->string('event_city')->nullable();
+		    $table->string('event_location')->nullable();
 		    $table->timestamps();
 		    $table->softDeletes();
 	    });

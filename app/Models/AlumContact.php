@@ -15,6 +15,7 @@ class AlumContact extends Model
     public $timestamps = true;
 
     protected $fillable = [
+	    "contact_salutation",
 	    "contact_first_name",
 	    "contact_middle_name",
 	    "contact_last_name",

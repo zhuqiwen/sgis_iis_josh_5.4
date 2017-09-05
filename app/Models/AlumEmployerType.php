@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * Class AlumEmployerType
@@ -14,10 +15,15 @@ class AlumEmployerType extends Model
     public $timestamps = true;
 
     protected $fillable = [
-        'type'
+        'employer_type'
     ];
 
-    protected $guarded = [];
+    protected $guarded = ['id'];
 
-        
+    use SoftDeletes;
+
+    protected $dates = ['deleted_at'];
+
+
+
 }

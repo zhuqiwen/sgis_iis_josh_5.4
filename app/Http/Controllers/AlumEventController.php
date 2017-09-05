@@ -2,16 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\AlumStudyField;
+use App\Models\AlumEvent;
 use Illuminate\Http\Request;
 use Datatables;
 
-class AlumStudyFieldController extends Controller
+class AlumEventController extends Controller
 {
 
 	protected $fields_titles = [
 		"id" => "ID",
-		"study_field" => "Study Field",
+		"event_name" => "Event",
+		"event_date" => "Date",
+		"event_country" => "Country",
+		"event_state" => "State/Province",
+		"event_city" => "City",
+		"event_location" => "Location",
 	];
     /**
      * Display a listing of the resource.
@@ -21,16 +26,23 @@ class AlumStudyFieldController extends Controller
     public function index()
     {
         //
-        return view('admin.alumni.independent_tables.independent_table')
-            ->withPageTitle('Alumni Study Fields')
-            ->withPageSpecificJs(asset('assets/js/pages/admin/alum_study_fields/alumni_study_fields.js'));
-
+	    return view('admin.alumni.independent_tables.independent_table')
+            ->withPageTitle('Alumni Events')
+            ->withPageSpecificJs(asset('assets/js/pages/admin/alum_events/alumni_events.js'));
 
     }
 
 	public function data()
 	{
-		$records = AlumStudyField::get(['id','study_field']);
+		$records = AlumEvent::get([
+		    'id',
+            'event_name',
+            'event_date',
+            'event_country',
+            'event_state',
+            'event_city',
+            'event_location',
+        ]);
 
 		return  Datatables::of($records)
 			->add_column('edit', '<a class="edit" href="javascript:;">Edit</a>')
@@ -58,7 +70,7 @@ class AlumStudyFieldController extends Controller
      */
     public function store(Request $request)
     {
-	    return AlumStudyField::create($request->all());
+	    return AlumEvent::create($request->all());
     }
 
     /**
@@ -92,7 +104,7 @@ class AlumStudyFieldController extends Controller
      */
     public function update(Request $request, $id)
     {
-        return AlumStudyField::where('id', $id)
+        return AlumEvent::where('id', $id)
 	        ->update($request->except('_token'));
 
     }

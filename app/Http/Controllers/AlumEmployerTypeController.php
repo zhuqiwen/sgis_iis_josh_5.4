@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AlumEmployerType;
 use App\Models\AlumStudyField;
 use Illuminate\Http\Request;
 use Datatables;
 
-class AlumStudyFieldController extends Controller
+class AlumEmployerTypeController extends Controller
 {
 
 	protected $fields_titles = [
 		"id" => "ID",
-		"study_field" => "Study Field",
+		"employer_type" => "Employer Type",
 	];
     /**
      * Display a listing of the resource.
@@ -21,16 +22,15 @@ class AlumStudyFieldController extends Controller
     public function index()
     {
         //
-        return view('admin.alumni.independent_tables.independent_table')
-            ->withPageTitle('Alumni Study Fields')
-            ->withPageSpecificJs(asset('assets/js/pages/admin/alum_study_fields/alumni_study_fields.js'));
-
+	    return view('admin.alumni.independent_tables.independent_table')
+            ->withPageTitle('Alumni Employer Types')
+            ->withPageSpecificJs(asset('assets/js/pages/admin/alum_employer_types/alumni_employer_types.js'));
 
     }
 
 	public function data()
 	{
-		$records = AlumStudyField::get(['id','study_field']);
+		$records = AlumEmployerType::get(['id','employer_type']);
 
 		return  Datatables::of($records)
 			->add_column('edit', '<a class="edit" href="javascript:;">Edit</a>')
@@ -58,7 +58,7 @@ class AlumStudyFieldController extends Controller
      */
     public function store(Request $request)
     {
-	    return AlumStudyField::create($request->all());
+	    return AlumEmployerType::create($request->all());
     }
 
     /**
@@ -92,7 +92,7 @@ class AlumStudyFieldController extends Controller
      */
     public function update(Request $request, $id)
     {
-        return AlumStudyField::where('id', $id)
+        return AlumEmployerType::where('id', $id)
 	        ->update($request->except('_token'));
 
     }

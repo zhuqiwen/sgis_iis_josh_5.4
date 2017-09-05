@@ -42,13 +42,16 @@ class AlumContactController extends Controller
 	public function index()
 	{
 		//
-		return view('admin.alumni.contacts.contacts');
+        return view('admin.alumni.independent_tables.independent_table')
+            ->withPageTitle('Alumni Contacts')
+            ->withPageSpecificJs(asset('assets/js/pages/admin/alum_contacts/alumni_contacts.js'));
 
-	}
+
+
+    }
 
 	public function data()
 	{
-//		$display_fields = $this->getDisplayFieldsForDataTables();
 		$display_fields = array_keys($this->fields_titles);
 
 		$records = AlumContact::get($display_fields);

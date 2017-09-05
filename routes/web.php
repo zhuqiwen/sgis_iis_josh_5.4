@@ -179,19 +179,25 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin', 'as' => 'admin.'], f
 	Route::get('alum_study_fields/data', 'AlumStudyFieldController@data');
 	Route::resource('alum_study_fields', 'AlumStudyFieldController');
 
+	// Alum Contacts
 	Route::get('alum_contacts/getColumns', 'AlumContactController@getColumnsForDataTables');
 	Route::get('alum_contacts/data', 'AlumContactController@data');
 	Route::resource('alum_contacts', 'AlumContactController');
-//
-//	Route::get('alum_study_fields/data', 'AlumStudyFieldController@data');
-//	Route::resource('alum_study_fields', 'AlumStudyFieldController');
-//
-//	Route::get('alum_study_fields/data', 'AlumStudyFieldController@data');
-//	Route::resource('alum_study_fields', 'AlumStudyFieldController');
-//
-//	Route::get('alum_study_fields/data', 'AlumStudyFieldController@data');
-//	Route::resource('alum_study_fields', 'AlumStudyFieldController');
 
+    // Alum Employer Types
+    Route::get('alum_employer_types/getColumns', 'AlumEmployerTypeController@getColumnsForDataTables');
+    Route::get('alum_employer_types/data', 'AlumEmployerTypeController@data');
+    Route::resource('alum_employer_types', 'AlumEmployerTypeController');
+
+    // Alum Engagement Indicators
+    Route::get('alum_engagement_indicators/getColumns', 'AlumEngagementIndicatorController@getColumnsForDataTables');
+    Route::get('alum_engagement_indicators/data', 'AlumEngagementIndicatorController@data');
+    Route::resource('alum_engagement_indicators', 'AlumEngagementIndicatorController');
+
+    // Alum Engagement Indicators
+    Route::get('alum_events/getColumns', 'AlumEventController@getColumnsForDataTables');
+    Route::get('alum_events/data', 'AlumEventController@data');
+    Route::resource('alum_events', 'AlumEventController');
 
 	Route::get('{name?}', 'JoshController@showView');
 

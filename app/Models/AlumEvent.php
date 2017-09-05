@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * Class AlumEvent
@@ -14,14 +15,18 @@ class AlumEvent extends Model
     public $timestamps = true;
 
     protected $fillable = [
-        'name',
-        'date',
-        'country',
-        'state',
-        'city'
+        'event_name',
+        'event_date',
+        'event_country',
+        'event_state',
+        'event_city',
+        'event_location',
     ];
 
-    protected $guarded = [];
+    protected $guarded = ['id'];
+
+    use SoftDeletes;
+    protected $dates = ['deleted_at'];
 
         
 }

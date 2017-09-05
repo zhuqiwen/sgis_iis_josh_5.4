@@ -94,6 +94,8 @@ function drawTable(data) {
     window.datatable = $('#' + table_id)
         .DataTable({
         processing: true,
+        pageLength: 25,
+        search: {caseInsensitive: true},
         serverSide: true,
         rowReorder: true,
         "dom": '<"m-t-10 pull-right"B><"m-t-10 pull-left"l><"m-t-10 pull-right"f>rt<"pull-left m-t-10"i><"m-t-10 pull-right"p>',

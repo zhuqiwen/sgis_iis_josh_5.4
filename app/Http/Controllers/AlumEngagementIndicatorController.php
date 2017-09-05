@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\AlumStudyField;
+use App\Models\AlumEngagementIndicator;
 use Illuminate\Http\Request;
 use Datatables;
 
-class AlumStudyFieldController extends Controller
+class AlumEngagementIndicatorController extends Controller
 {
 
 	protected $fields_titles = [
 		"id" => "ID",
-		"study_field" => "Study Field",
+		"engagement_indicator_name" => "Engagement Indicator",
 	];
     /**
      * Display a listing of the resource.
@@ -21,16 +21,15 @@ class AlumStudyFieldController extends Controller
     public function index()
     {
         //
-        return view('admin.alumni.independent_tables.independent_table')
-            ->withPageTitle('Alumni Study Fields')
-            ->withPageSpecificJs(asset('assets/js/pages/admin/alum_study_fields/alumni_study_fields.js'));
-
+	    return view('admin.alumni.independent_tables.independent_table')
+            ->withPageTitle('Alumni Engagement Indicators')
+            ->withPageSpecificJs(asset('assets/js/pages/admin/alum_engagement_indicators/alumni_engagement_indicators.js'));
 
     }
 
 	public function data()
 	{
-		$records = AlumStudyField::get(['id','study_field']);
+		$records = AlumEngagementIndicator::get(['id','engagement_indicator_name']);
 
 		return  Datatables::of($records)
 			->add_column('edit', '<a class="edit" href="javascript:;">Edit</a>')
@@ -58,7 +57,7 @@ class AlumStudyFieldController extends Controller
      */
     public function store(Request $request)
     {
-	    return AlumStudyField::create($request->all());
+	    return AlumEngagementIndicator::create($request->all());
     }
 
     /**
@@ -92,7 +91,7 @@ class AlumStudyFieldController extends Controller
      */
     public function update(Request $request, $id)
     {
-        return AlumStudyField::where('id', $id)
+        return AlumEngagementIndicator::where('id', $id)
 	        ->update($request->except('_token'));
 
     }
