@@ -23,27 +23,39 @@ function insertDatatablesTableHead(data) {
 
 
     var table_foot = '';
+
+    var table_column_toggles = '<strong>Toggle Columns</strong>' +
+            '<div id="column_toggles_div" class="btn-group" style="margin:10px 0;"></div>';
+
     // if child row, add an extra th in the beginning
+    var column_toggle_index_offset = 0;
     if (window.dtChildRow)
     {
         table_html += '<th id="details_control_header"></th>';
         table_foot = '<th></th>';
+        column_toggle_index_offset = 1;
     }
 
+    var column_toggle_buttons = '';
     for(var i = 0; i < data.length; i++)
     {
+        // generate table head columns
         var title = data[i].title;
-        // var th = '<th class="sorting_asc" ' +
-        //     'tabindex="0" ' +
-        //     'aria-controls="' + table_id + '" ' +
-        //     'rowspan="1" ' +
-        //     'colspan="1">' +
-        //         title +
-        //         '</th>';
         var th = '<th>' + title + '</th>';
         table_foot += '<th></th>';
         table_html += th;
+
+        // generate column toggle buttons
+        var column_index = i + column_toggle_index_offset;
+        column_toggle_buttons += '<button type="button" class="toggle-vis btn btn-default" data-column="' +
+            column_index +
+            '">' +
+            title +
+            '</button>';
     }
+
+    // add a restore-all-column button
+    column_toggle_buttons += '<button id="restore_all_columns_button" type="button" class="btn btn-primary">Restore All Columns</button>';
 
     var column_edit = '<th class="sorting" ' +
         'tabindex="0" ' +
@@ -54,6 +66,9 @@ function insertDatatablesTableHead(data) {
         'style="width: 20px;">Edit</th>';
     table_foot += '<th></th>';
     table_html += column_edit + '</tr></thead><tbody></tbody><tfoot><tr>' + table_foot + '</tr></tfoot></table>';
+
+    $('#toggles_div_wrapper').html(table_column_toggles);
+    $('#column_toggles_div').html(column_toggle_buttons);
 
     //insert table into target div
     $('#responsive_table_div').html(table_html);
@@ -224,4 +239,20 @@ $(document).on('dblclick', '#'+table_id+' tbody tr[role="row"]', function () {
     }
 });
 
+// toggle column display
+$(document).on('click', 'button.toggle-vis', function (e) {
+    e.preventDefault();
+    var column = window.datatable.column($(this).attr('data-column'));
+    console.log(column);
+    column.visible(!column.visible());
+    console.log(this);
+    $(this).toggleClass('clicked').toggleClass('btn-default');
 
+});
+
+
+$(document).on('click', '#restore_all_columns_button', function(){
+    var table = window.datatable;
+    table.columns().visible(true);
+    $('button.toggle-vis').removeClass('clicked').addClass('btn-default');
+});

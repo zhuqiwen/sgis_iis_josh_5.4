@@ -24,6 +24,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendors/datatables/css/buttons.bootstrap.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendors/datatables/css/scroller.bootstrap.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/pages/tables.css') }}"/>
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/pages/admin/alum_datatable.css') }}"/>
 @stop
 
 {{-- Page content --}}
@@ -54,31 +55,11 @@
                             <button id="add_button" type="button" class="btn btn-responsive button-alignment btn-primary">Add study field</button>
                             {{--END Add button and modal--}}
 
-
+                            <div id="toggles_div_wrapper">
+                            </div>
 
                             <div class="table-responsive" id="responsive_table_div">
-                            {{--<table class="table table-striped table-bordered table-hover dataTable no-footer sample_editable"--}}
-                                   {{--id="sample_editable_1" role="grid">--}}
-                                {{--<thead>--}}
-                                {{--<tr role="row">--}}
-                                    {{--<th class="sorting_asc" tabindex="0" aria-controls="sample_editable_1" rowspan="1"--}}
-                                        {{--colspan="1" style="width: 25px;">ID--}}
-                                    {{--</th>--}}
-                                    {{--<th class="sorting_asc" tabindex="0" aria-controls="sample_editable_1" rowspan="1"--}}
-                                        {{--colspan="1">Study Field--}}
-                                    {{--</th>--}}
-                                    {{--<th class="sorting" tabindex="0" aria-controls="sample_editable_1" rowspan="1"--}}
-                                        {{--colspan="1" aria-label="--}}
-                                                 {{--Edit--}}
-                                            {{--: activate to sort column ascending" style="width: 20px;">Edit--}}
-                                    {{--</th>--}}
 
-                                {{--</tr>--}}
-                                {{--</thead>--}}
-                                {{--<tbody>--}}
-
-                                {{--</tbody>--}}
-                            {{--</table>--}}
                             </div>
                         </div>
                         <!-- END EXAMPLE TABLE PORTLET-->

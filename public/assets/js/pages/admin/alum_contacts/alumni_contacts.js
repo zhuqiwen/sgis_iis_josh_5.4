@@ -3,10 +3,10 @@
  */
 
 window.dtColumnDefs = [
-    {
-        "targets": [3, 5, 7, 8, 9, 10, 11, 12],
-        "visible": false
-    }
+    // {
+    //     "targets": [3, 5, 7, 8, 9, 10, 11, 12],
+    //     "visible": false
+    // }
 ];
 
 window.dtChildRow = {
@@ -254,11 +254,3 @@ $(document).on('click', '.edit', function (e) {
 });
 
 
-// toggle column display
-$(document).on('click', 'button.toggle-vis', function (e) {
-    e.preventDefault();
-    var column = window.datatable.column($(this).attr('data-column'));
-    console.log(column);
-    column.visible(!column.visible());
-
-});

@@ -24,7 +24,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendors/datatables/css/buttons.bootstrap.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendors/datatables/css/scroller.bootstrap.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/pages/tables.css') }}"/>
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/pages/admin/contacts.css') }}"/>
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/pages/admin/alum_datable.css') }}"/>
 @stop
 
 {{-- Page content --}}
@@ -55,11 +55,7 @@
                             <button id="add_button" type="button" class="btn btn-responsive button-alignment btn-primary">Add Contact</button>
                             {{--END Add button and modal--}}
 
-                            <strong>
-                                Toggle column:
-                            </strong>
-                            <div class="btn-group" style="margin:10px 0;">
-                                <button type="button" class="toggle-vis btn btn-default" data-column="4">Middle Name</button>
+                            <div id="toggles_div_wrapper">
                             </div>
 
 
