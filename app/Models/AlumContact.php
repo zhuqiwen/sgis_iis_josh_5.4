@@ -42,5 +42,11 @@ class AlumContact extends Model
 	protected $dates = ['deleted_at'];
 
 
+	public function events()
+	{
+		return $this->belongsToMany('App\Models\AlumEvent', 'alum_event_attendance', 'contact_id', 'event_id');
+	}
+
+
 
 }
