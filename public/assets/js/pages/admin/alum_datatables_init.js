@@ -6,7 +6,6 @@ var table_id = 'alum_datatable';
 
 
 
-
 function insertDatatablesTableHead(data) {
     //construct table
     var table_html = '<table class="' +
@@ -96,7 +95,8 @@ function drawTable(data) {
         processing: true,
         pageLength: 25,
         search: {caseInsensitive: true},
-        serverSide: true,
+        // serverSide: true,
+        serverSide: false,
         rowReorder: true,
         "dom": '<"m-t-10 pull-right"B><"m-t-10 pull-left"l><"m-t-10 pull-right"f>rt<"pull-left m-t-10"i><"m-t-10 pull-right"p>',
         buttons: [
@@ -115,9 +115,7 @@ function drawTable(data) {
                 if ($(header).text() !== 'Edit' && $(header).attr('id') !== 'details_control_header')
                 {
                     var column = this;
-                    // var br = document.createElement("br");
                     var input = document.createElement("input");
-                    // $(br).appendTo($(column.header()));
                     $(input).appendTo($(column.footer()))
                         .on('change', function () {
                             column.search($(this).val(), false, false, true).draw();
@@ -125,9 +123,9 @@ function drawTable(data) {
                 }
 
             });
+
         }
     });
-
 
     // Add event listener for opening and closing details
     $('#'+ table_id +' tbody').on('click', 'td.details-control', function () {
@@ -163,6 +161,9 @@ $( document ).ready(function() {
             insertDatatablesTableHead(returned_data);
             drawTable(returned_data);
 
+            // for column filter, only fire after enter is pressed
+            // $('.dataTable').dataTable().fnFilterOnReturn();
+
         },
         error: function (xhr, ajaxOptions, thrownError) {
             var e = window.open();
@@ -184,7 +185,9 @@ $(document).on('click', '#public_modal_submit_button', function (e) {
         data: form.serialize(),
         success: function (returned_data) {
             console.log(returned_data);
-            window.datatable.draw(false);
+            // window.datatable.draw(false);
+            // keep where user were after reload data from server
+            window.datatable.ajax.reload(null, false);
         },
         error: function (xhr, ajaxOptions, thrownError) {
             var e = window.open();

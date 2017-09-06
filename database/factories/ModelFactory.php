@@ -71,3 +71,5 @@ $factory->define(App\Models\AlumEvent::class, function (Faker\Generator $faker){
 		"event_location" => $faker->streetAddress,
 	];
 });
+
+

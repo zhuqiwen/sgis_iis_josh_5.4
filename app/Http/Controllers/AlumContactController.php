@@ -146,7 +146,8 @@ class AlumContactController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+	    return AlumContact::where('id', $id)
+		    ->update($request->except('_token'));
     }
 
     /**

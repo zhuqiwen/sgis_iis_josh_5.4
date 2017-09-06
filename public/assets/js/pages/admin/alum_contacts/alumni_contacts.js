@@ -164,8 +164,8 @@ $(document).on('click', '.edit', function (e) {
             + '<div class="row">'
             + '<div class="col-md-6">'
             + '<div class="form-group">'
-            + '<label for="salutation">Salutation</label>'
-            + '<input value="' + aData.contact_salutation + '" type="text" class="form-control" id="salutation" name="contact_salutation" placeholder="Salutation" />'
+            + '<label for="contact_salutation">Salutation</label>'
+            + '<input value="' + aData.contact_salutation + '" type="text" class="form-control" id="contact_salutation" name="contact_salutation" placeholder="Salutation" />'
             + '</div>'
             + '<div class="form-group">'
             + '<label for="first_name">First Name</label>'
@@ -250,7 +250,7 @@ $(document).on('click', '.edit', function (e) {
             + '</form>';
 
     // insert form and title into modal
-    $('#alum_study_field_public_modal .modal-title').text('Edit Study Field');
+    $('#alum_study_field_public_modal .modal-title').text('Edit Contact');
     $('#alum_study_field_public_modal .modal-body').html(form);
     // check those of value 1
     var checkboxes = ['contact_no_email', 'contact_no_phone_call', 'contact_share_with_iuaa', 'contact_iuaa_member'];

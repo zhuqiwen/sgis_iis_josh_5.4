@@ -17,8 +17,12 @@ class SentinelAdmin
      */
     public function handle($request, Closure $next)
     {
-        if(!Sentinel::check())
-            return redirect('admin/signin')->with('info', 'You must be logged in!');
+
+
+    	if(!Sentinel::check())
+	    {
+		    return redirect('admin/signin')->with('info', 'You must be logged in!');
+	    }
         elseif(!Sentinel::inRole('admin'))
             return redirect('my-account');
 
