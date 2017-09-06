@@ -28,5 +28,9 @@ class AlumEvent extends Model
     use SoftDeletes;
     protected $dates = ['deleted_at'];
 
-        
+
+	public function contacts()
+	{
+		return $this->belongsToMany('App\Models\AlumContact', 'alum_event_attendance', 'event_id', 'contact_id');
+    }
 }

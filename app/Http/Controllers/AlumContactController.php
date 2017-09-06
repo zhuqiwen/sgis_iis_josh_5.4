@@ -54,7 +54,8 @@ class AlumContactController extends Controller
 	{
 		$display_fields = array_keys($this->fields_titles);
 
-		$records = AlumContact::get($display_fields);
+
+		$records = AlumContact::with('events')->get($display_fields);
 
 		return  Datatables::of($records)
 			->add_column('edit', '<a class="edit" href="javascript:;">Edit</a>')

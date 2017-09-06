@@ -47,6 +47,11 @@ class AlumContact extends Model
 		return $this->belongsToMany('App\Models\AlumEvent', 'alum_event_attendance', 'contact_id', 'event_id');
 	}
 
+	public function engagements()
+	{
+		return $this->belongsToMany('App\Models\AlumEngagementIndicator', 'alum_engagement_indicators', 'contact_id', 'engagement_indicator_id');
+	}
+
 
 
 }

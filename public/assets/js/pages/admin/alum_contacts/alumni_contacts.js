@@ -24,6 +24,13 @@ window.dtOrder = [[1, 'asc']];
 // function used for child row
 function format ( d ) {
     // `d` is the original data object for the row
+    var events = d.events;
+    var event_names = '';
+    for(var i = 0; i < events.length; i++)
+    {
+        event_names += events[i].event_name;
+        event_names += '----';
+    }
     return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'+
                     '<tr>'+
                         '<td><strong>Country:</strong></td>'+
@@ -32,6 +39,8 @@ function format ( d ) {
                     // '<tr>'+
                         '<td><strong>Home Phone:</strong></td>'+
                         '<td style="padding: 0 30px;">'+d.contact_phone_home+'</td>'+
+                        '<td><strong>Events:</strong></td>'+
+                        '<td style="padding: 0 30px;">'+event_names+'</td>'+
                     '</tr>'+
             '</table>';
 }
