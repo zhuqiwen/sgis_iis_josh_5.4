@@ -24,6 +24,9 @@ class AlumEmployerType extends Model
 
     protected $dates = ['deleted_at'];
 
-
+	public function employers()
+	{
+		return $this->hasMany('App\Models\AlumEmployer', 'employer_type_id');
+	}
 
 }

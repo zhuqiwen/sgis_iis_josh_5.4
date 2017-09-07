@@ -24,5 +24,14 @@ class AlumEmployment extends Model
 
     protected $guarded = [];
 
-        
+	public function contact()
+	{
+		return $this->belongsTo('App\Models\AlumContact', 'contact_id');
+	}
+
+	public function employer()
+	{
+		return $this->belongsTo('App\Models\AlumEmployer', 'employer_id');
+	}
+
 }

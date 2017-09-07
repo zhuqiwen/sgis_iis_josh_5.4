@@ -52,6 +52,21 @@ class AlumContact extends Model
 		return $this->belongsToMany('App\Models\AlumEngagementIndicator', 'alum_engagement_indicators', 'contact_id', 'engagement_indicator_id');
 	}
 
+	public function socialAccounts()
+	{
+		return $this->hasMany('App\Models\AlumContactSocialAccount', 'contact_id');
+	}
+
+	public function academicInfo()
+	{
+		return $this->hasMany('App\Models\AlumAcademicInfo', 'contact_id');
+	}
+
+	public function employments()
+	{
+		return $this->hasMany('App\Models\AlumEmployment', 'contact_id');
+	}
+
 
 
 }

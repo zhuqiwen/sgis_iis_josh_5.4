@@ -19,5 +19,8 @@ class AlumStudyField extends Model
 
     protected $guarded = [];
 
-
+	public function academicInfo()
+	{
+		return $this->hasMany('App\Models\AlumAcademicInfo', 'study_field_id');
+	}
 }

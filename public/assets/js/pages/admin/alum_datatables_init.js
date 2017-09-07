@@ -261,3 +261,8 @@ $(document).on('click', '#restore_all_columns_button', function(){
     table.columns().visible(true);
     $('button.toggle-vis').removeClass('clicked').addClass('btn-default');
 });
+
+
+$(document).on('dblclick', 'h3.panel-title', function () {
+    window.datatable.ajax.reload();
+})

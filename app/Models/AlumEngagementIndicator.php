@@ -23,5 +23,9 @@ class AlumEngagementIndicator extends Model
     use SoftDeletes;
     protected $dates = ['deleted_at'];
 
-        
+
+	public function contacts()
+	{
+		return $this->belongsToMany('App\Models\AlumContact', 'alum_engagements', 'engagement_indicator_id', 'contact_id');
+	}
 }

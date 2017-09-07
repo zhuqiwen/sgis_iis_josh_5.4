@@ -22,5 +22,14 @@ class AlumAcademicInfo extends Model
 
     protected $guarded = [];
 
-        
+
+	public function contact()
+	{
+		return $this->belongsTo('App\Models\AlumContact', 'contact_id');
+	}
+
+	public function studyField()
+	{
+		return $this->belongsTo('App\Models\AlumStudyField', 'study_field_id');
+	}
 }
