@@ -7,6 +7,10 @@ window.dtColumnDefs = [
     //     "targets": [3, 5, 7, 8, 9, 10, 11, 12],
     //     "visible": false
     // }
+    // {
+    //     "targets": 0,
+    //     "width": "20px"
+    // }
 ];
 
 // window.dtChildRow = {
