@@ -146,7 +146,10 @@ $(document).on('click', '.edit', function (e) {
 
 
 $(document).on('click', '#modal_launcher',function () {
-    console.log('hhhhhhh');
+
+    attendance = $(this).text().split('/')[0];
+    total_num_contacts = $(this).text().split('/')[1];
+
     //prepare modal for visualizaton
     var modal = '<div class="modal fade" id="visualization_event_attendance_modal" role="dialog">' +
                     '<div class="modal-dialog modal-lg">' +
@@ -184,8 +187,8 @@ $(document).on('shown.bs.modal', '#visualization_event_attendance_modal', functi
         data: {
             // iris data from R
             columns: [
-                ['Attendance', attendance],
-                ['Total Number of Alumni', total_num_contacts - attendance]
+                ['Attending', attendance],
+                ['not Showing up', total_num_contacts - attendance]
             ],
             type : 'pie'
         }
@@ -193,5 +196,12 @@ $(document).on('shown.bs.modal', '#visualization_event_attendance_modal', functi
         //     width: 450,
         //     height: 450
         // }
+        , tooltip: {
+            format: {
+                value: function (value, ratio, id, index) { return value; }
+            }
+
+        }
+
     });
 });
