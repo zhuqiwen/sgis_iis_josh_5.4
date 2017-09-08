@@ -28,9 +28,18 @@ class AlumEvent extends Model
     use SoftDeletes;
     protected $dates = ['deleted_at'];
 
+	protected $appends = [
+		'number_of_active_contacts',
+	];
+
 
 	public function contacts()
 	{
 		return $this->belongsToMany('App\Models\AlumContact', 'alum_event_attendance', 'event_id', 'contact_id');
+    }
+
+	public function getNumberOfActiveContactsAttribute()
+	{
+		return AlumContact::whereNull('deleted_at')->get()->count();
     }
 }

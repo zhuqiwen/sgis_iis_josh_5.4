@@ -34,15 +34,20 @@ class AlumEventController extends Controller
 
 	public function data()
 	{
-		$records = AlumEvent::get([
-		    'id',
-            'event_name',
-            'event_date',
-            'event_country',
-            'event_state',
-            'event_city',
-            'event_location',
-        ]);
+
+//		$records = AlumEvent::with('contacts')->get([
+//		    'id',
+//            'event_name',
+//            'event_date',
+//            'event_country',
+//            'event_state',
+//            'event_city',
+//            'event_location',
+//			'number_of_active_contacts',
+//        ]);
+
+		$records = AlumEvent::with('contacts')->get()->toArray();
+
 
 		return  Datatables::of($records)
 			->add_column('edit', '<a class="edit" href="javascript:;">Edit</a>')

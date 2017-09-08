@@ -9,29 +9,30 @@ window.dtColumnDefs = [
     // }
 ];
 
-// window.dtChildRow = {
-//     "className":      'details-control',
-//     "orderable":      false,
-//     "data":           null,
-//     "defaultContent": ''
-// };
+window.dtChildRow = {
+    "className":      'details-control',
+    "orderable":      false,
+    "data":           null,
+    "defaultContent": ''
+};
 
 window.dtOrder = [[1, 'asc']];
 
-
+var attendance, total_num_contacts;
 
 
 // function used for child row
 function format ( d ) {
+
+
     // `d` is the original data object for the row
+    var num_contacts = d.contacts.length;
+    attendance = num_contacts;
+    total_num_contacts = d.number_of_active_contacts;
     return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'+
                     '<tr>'+
-                        '<td><strong>Country:</strong></td>'+
-                        '<td style="padding: 0 30px;">' + d.contact_country + '</td>' +
-                    // '</tr>'+
-                    // '<tr>'+
-                        '<td><strong>Home Phone:</strong></td>'+
-                        '<td style="padding: 0 30px;">'+d.contact_phone_home+'</td>'+
+                        '<td><strong>Attendance:</strong></td>'+
+                        '<td style="padding: 0 30px;"><a id="modal_launcher" href="#">' + num_contacts + '/' + total_num_contacts + '</a></td>' +
                     '</tr>'+
             '</table>';
 }
@@ -144,3 +145,53 @@ $(document).on('click', '.edit', function (e) {
 });
 
 
+$(document).on('click', '#modal_launcher',function () {
+    console.log('hhhhhhh');
+    //prepare modal for visualizaton
+    var modal = '<div class="modal fade" id="visualization_event_attendance_modal" role="dialog">' +
+                    '<div class="modal-dialog modal-lg">' +
+                        '<div class="modal-content">' +
+                            '<div class="modal-header">' +
+                                '<button type="button" class="close" data-dismiss="modal">&times;</button>' +
+                                '<h3>Attendance proportion</h3>' +
+                            '</div>' +
+                            '<div class="modal-body">' +
+                                '<div class="row">' +
+                                    '<div class="col-md-12">' +
+                                            '<div id="attendance_chart"></div>' +
+                                    '</div>' +
+                                '</div>' +
+                            '</div>' +
+                        '</div>' +
+                    '</div>' +
+                '</div>';
+
+    $('#visualization_modal_container').html(modal);
+
+
+
+    $('#visualization_event_attendance_modal').modal();
+
+
+});
+
+
+$(document).on('shown.bs.modal', '#visualization_event_attendance_modal', function (e) {
+    // do something...
+    console.log('hahahahahahaah');
+    var chart = c3.generate({
+        bindto: '#attendance_chart',
+        data: {
+            // iris data from R
+            columns: [
+                ['Attendance', attendance],
+                ['Total Number of Alumni', total_num_contacts - attendance]
+            ],
+            type : 'pie'
+        }
+        // , size: {
+        //     width: 450,
+        //     height: 450
+        // }
+    });
+});

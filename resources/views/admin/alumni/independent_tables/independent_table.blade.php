@@ -25,6 +25,9 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendors/datatables/css/scroller.bootstrap.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/pages/tables.css') }}"/>
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/pages/admin/alum_datatable.css') }}"/>
+
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendors/c3/c3.min.css') }}" rel="stylesheet" type="text/css" />
+{{--    <link href="{{ asset('assets/css/pages/piecharts.css') }}" rel="stylesheet" type="text/css" />--}}
 @stop
 
 {{-- Page content --}}
@@ -89,6 +92,7 @@
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
     </div>
+    <div id="visualization_modal_container"></div>
 @stop
 
 {{-- page level scripts --}}
@@ -115,6 +119,10 @@
     <script src="{{ asset('assets/js/frontend/ajax_init.js') }}" type="text/javascript"></script>
     <script src="{{ $page_specific_js}}" type="text/javascript"></script>
     <script src="{{ asset('assets/js/pages/admin/alum_datatables_init.js') }}" type="text/javascript"></script>
+
+    <script language="javascript" type="text/javascript" src="{{ asset('assets/vendors/d3/d3.min.js') }}"></script>
+    <script language="javascript" type="text/javascript" src="{{ asset('assets/vendors/d3pie/d3pie.min.js') }}"></script>
+    <script language="javascript" type="text/javascript" src="{{ asset('assets/vendors/c3/c3.min.js') }}"></script>
 
 
 
