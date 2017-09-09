@@ -42,6 +42,12 @@ class AlumContact extends Model
 	protected $dates = ['deleted_at'];
 
 
+
+	protected $appends = [
+		'current_employer_type',
+		'geo_info',
+	];
+
 	public function events()
 	{
 		return $this->belongsToMany('App\Models\AlumEvent', 'alum_event_attendance', 'contact_id', 'event_id');
@@ -67,6 +73,41 @@ class AlumContact extends Model
 		return $this->hasMany('App\Models\AlumEmployment', 'contact_id');
 	}
 
+
+
+	public function getCurrentEmployerTypeAttribute()
+	{
+		$current_employment = $this->employments()->where('employment_end_date', null)->first();
+		if($current_employment)
+		{
+			$current_employer_id = $current_employment->employer_id;
+			$current_employer = AlumEmployer::find($current_employer_id);
+			return AlumEmployerType::find($current_employer->employer_type_id)->employer_type;
+		}
+		else
+		{
+			return 'No current employment information';
+		}
+
+
+	}
+
+
+	public function getGeoInfoAttribute()
+	{
+		$attribute = 'contact_country';
+
+		$num_contact_countries = $this->distinct($attribute)->count($attribute);
+		$countries = $this-> distinct($attribute)->pluck($attribute)->toArray();
+		$countries_num_array = [];
+		foreach ($countries as $country)
+		{
+			$countries_num_array[$country] = $this->where($attribute, $country)
+				->whereNUll('deleted_at')->count();
+		}
+
+		return compact('num_contact_countries', 'countries_num_array');
+	}
 
 
 }

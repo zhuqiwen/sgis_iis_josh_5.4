@@ -181,7 +181,6 @@ $(document).on('click', '#modal_launcher',function () {
 
 $(document).on('shown.bs.modal', '#visualization_event_attendance_modal', function (e) {
     // do something...
-    console.log('hahahahahahaah');
     var chart = c3.generate({
         bindto: '#attendance_chart',
         data: {
@@ -192,10 +191,6 @@ $(document).on('shown.bs.modal', '#visualization_event_attendance_modal', functi
             ],
             type : 'pie'
         }
-        // , size: {
-        //     width: 450,
-        //     height: 450
-        // }
         , tooltip: {
             format: {
                 value: function (value, ratio, id, index) { return value; }

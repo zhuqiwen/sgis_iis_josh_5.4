@@ -25,6 +25,7 @@ class AlumEmployer extends Model
 	use SoftDeletes;
 	protected $dates = ['deleted_at'];
 
+
 	public function employments()
 	{
 		return $this->hasMany('App\Models\AlumEmployment', 'employer_id');
@@ -34,4 +35,5 @@ class AlumEmployer extends Model
 	{
 		return $this->belongsTo('App\Models\AlumEmployerType', 'employer_type_id');
 	}
+
 }

@@ -24,6 +24,8 @@ class AlumEmployment extends Model
 
     protected $guarded = [];
 
+
+
 	public function contact()
 	{
 		return $this->belongsTo('App\Models\AlumContact', 'contact_id');
@@ -33,5 +35,6 @@ class AlumEmployment extends Model
 	{
 		return $this->belongsTo('App\Models\AlumEmployer', 'employer_id');
 	}
+
 
 }

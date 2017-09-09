@@ -20,7 +20,7 @@ class CreateAlumEmploymentsTable extends Migration
 		    $table->string('employment_state')->nullable();
 		    $table->string('employment_city')->nullable();
 		    $table->date('employment_start_date')->nullable();
-		    $table->date('employment_end-date')->nullable();
+		    $table->date('employment_end_date')->nullable();
 		    $table->integer('contact_id')->unsigned();
 		    $table->integer('employer_id')->unsigned();
 		    $table->timestamps();
