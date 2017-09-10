@@ -19,6 +19,8 @@ class AlumContact extends Model
 	    "contact_first_name",
 	    "contact_middle_name",
 	    "contact_last_name",
+	    "contact_last_name",
+	    "contact_age_group",
 	    "contact_email",
 	    "contact_phone_home",
 	    "contact_phone_mobile",
@@ -53,9 +55,9 @@ class AlumContact extends Model
 		return $this->belongsToMany('App\Models\AlumEvent', 'alum_event_attendance', 'contact_id', 'event_id');
 	}
 
-	public function engagements()
+	public function engagementIndicators()
 	{
-		return $this->belongsToMany('App\Models\AlumEngagementIndicator', 'alum_engagement_indicators', 'contact_id', 'engagement_indicator_id');
+		return $this->belongsToMany('App\Models\AlumEngagementIndicator', 'alum_engagements', 'contact_id', 'engagement_indicator_id');
 	}
 
 	public function socialAccounts()
@@ -73,6 +75,10 @@ class AlumContact extends Model
 		return $this->hasMany('App\Models\AlumEmployment', 'contact_id');
 	}
 
+	public function donations()
+	{
+		return $this->hasMany('App\Models\AlumDonation', 'contact_id');
+	}
 
 
 	public function getCurrentEmployerTypeAttribute()
@@ -95,8 +101,8 @@ class AlumContact extends Model
 
 	public function getGeoInfoAttribute()
 	{
+		// data for world map
 		$attribute = 'contact_country';
-
 		$num_contact_countries = $this->distinct($attribute)->count($attribute);
 		$countries = $this-> distinct($attribute)->pluck($attribute)->toArray();
 		$countries_num_array = [];
@@ -106,7 +112,18 @@ class AlumContact extends Model
 				->whereNUll('deleted_at')->count();
 		}
 
-		return compact('num_contact_countries', 'countries_num_array');
+		// data for usa map
+		$us_states = $this->where('contact_country', 'United States')
+			->distinct('contact_state')->pluck('contact_state')->toArray();
+
+		$us_states_num_array = [];
+		foreach ($us_states as $state)
+		{
+			$us_states_num_array[$state] = $this->where('contact_country', 'United States')
+				->where('contact_state', $state)->whereNull('deleted_at')->count();
+		}
+
+		return compact('num_contact_countries', 'countries_num_array', 'us_states_num_array');
 	}
 
 

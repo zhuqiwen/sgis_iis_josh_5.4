@@ -20,6 +20,7 @@ class CreateAlumContactsTable extends Migration
 		    $table->string('contact_first_name')->nullable();
 		    $table->string('contact_middle_name')->nullable();
 		    $table->string('contact_last_name')->nullable();
+		    $table->string('contact_age_group')->nullable();
 		    $table->string('contact_email')->nullable();
 		    $table->string('contact_phone_home')->nullable();
 		    $table->string('contact_phone_mobile')->nullable();

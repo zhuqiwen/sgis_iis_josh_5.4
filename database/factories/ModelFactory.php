@@ -37,15 +37,26 @@ $factory->define(App\Models\AlumContact::class, function(Faker\Generator $faker)
 		$gender = 'female';
 	}
 
+	$age_groups = config('constants.tables.alum_contacts.age_groups');
+
+	if(random_int(0, 9) >= 4)
+	{
+		$country = 'United States of America';
+	}
+	else
+	{
+		$country = $faker->country;
+	}
 	return [
 		"contact_salutation" => $faker->title($gender),
 		"contact_first_name" => $faker->firstName($gender),
 		"contact_middle_name" => NULL,
 		"contact_last_name" => $faker->lastName,
+		"contact_age_group" => $age_groups[random_int(0, sizeof($age_groups) - 1)],
 		"contact_email" => $faker->email,
 		"contact_phone_home" => $faker->tollFreePhoneNumber,
 		"contact_phone_mobile"=> $faker->tollFreePhoneNumber,
-		"contact_country" => $faker->country,
+		"contact_country" => $country,
 		"contact_state" => $faker->state,
 		"contact_city" => $faker->city,
 		"contact_line1" => $faker->streetAddress,
@@ -71,5 +82,87 @@ $factory->define(App\Models\AlumEvent::class, function (Faker\Generator $faker){
 		"event_location" => $faker->streetAddress,
 	];
 });
+
+
+$factory->define(App\Models\AlumDonation::class, function (Faker\Generator $faker){
+
+	$num_contacts = \App\Models\AlumContact::count();
+	if($num_contacts)
+	{
+		$contact_id = random_int(1, $num_contacts);
+	}
+	else
+	{
+		return [];
+	}
+	return [
+		"contact_id" => $contact_id,
+		"donation_date" => $faker->date(),
+		"donation_form" => $faker->word(),
+		"donation_amount" => $faker->word(),
+		"donation_sum" => random_int(0, 100000),
+		"donation_note" => $faker->text(),
+	];
+});
+
+
+
+$factory->define(App\Models\AlumEmployer::class, function (Faker\Generator $faker){
+
+	$num_employer_types = \App\Models\AlumEmployerType::count();
+
+	if($num_employer_types)
+	{
+		$employer_type_id = random_int(1, $num_employer_types);
+	}
+	else
+	{
+		return [];
+	}
+	return [
+		"employer" => $faker->company(),
+		"employer_url" => $faker->domainName(),
+		"employer_type_id" => $employer_type_id,
+	];
+});
+$factory->define(App\Models\AlumEmployment::class, function (Faker\Generator $faker){
+
+	$num_employers = \App\Models\AlumEmployer::count();
+	$num_contacts = \App\Models\AlumContact::count();
+
+	if($num_employers)
+	{
+		$employer_id = random_int(1, $num_employers);
+	}
+	else
+	{
+		return [];
+	}
+
+	if($num_contacts)
+	{
+		$contact_id = random_int(1, $num_contacts);
+	}
+	else
+	{
+		return [];
+	}
+
+
+	return [
+		"employment_job_title" => $faker->jobTitle(),
+		"employment_country" => $faker->country(),
+		"employment_state" => $faker->state(),
+		"employment_city" => $faker->city(),
+		"employment_start_date" => $faker->date(),
+		"employment_end_date" => NULL,
+		"contact_id" => $contact_id,
+		"employer_id" => $employer_id,
+
+	];
+});
+
+
+
 
 

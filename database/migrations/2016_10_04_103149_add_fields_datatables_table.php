@@ -26,10 +26,10 @@ class AddFieldsDatatablesTable extends Migration
      */
     public function down()
     {
-        Schema::table('datatables', function(Blueprint $table)
-        {
-            // delete above columns
-            $table->dropColumn(array('age','job','gender'));
-        });
+//        Schema::table('datatables', function(Blueprint $table)
+//        {
+//            // delete above columns
+//            $table->dropColumn(array('age','job','gender'));
+//        });
     }
 }

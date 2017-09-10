@@ -15,9 +15,9 @@ class AlumEmployer extends Model
     public $timestamps = true;
 
     protected $fillable = [
-        'name',
-        'web_address',
-        'type_id'
+	    "employer",
+	    "employer_url",
+	    "employer_type_id",
     ];
 
     protected $guarded = ['id'];
