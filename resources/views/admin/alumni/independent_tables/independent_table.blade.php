@@ -58,12 +58,16 @@
                             <button id="add_button" type="button" class="btn btn-responsive button-alignment btn-primary">Add</button>
                             {{--END Add button and modal--}}
 
+                            {{--Columns Toggle wrapper--}}
                             <div id="toggles_div_wrapper">
                             </div>
+                            {{--END Columns Toggle wrapper--}}
 
+                            {{--Datatables--}}
                             <div class="table-responsive" id="responsive_table_div">
 
                             </div>
+                            {{--END Datatables--}}
                         </div>
                         <!-- END EXAMPLE TABLE PORTLET-->
                     </div>

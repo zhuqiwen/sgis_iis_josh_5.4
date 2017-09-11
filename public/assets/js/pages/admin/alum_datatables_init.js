@@ -110,9 +110,9 @@ function drawTable(data) {
         initComplete: function () {
             this.api().columns().every(function ()
             {
-                console.log(this.footer());
+                // console.log(this.footer());
                 var header = this.header();
-                console.log($(header).attr('id'));
+                // console.log($(header).attr('id'));
                 if ($(header).text() !== 'Edit' && $(header).attr('id') !== 'details_control_header')
                 {
                     var column = this;
@@ -125,25 +125,14 @@ function drawTable(data) {
 
             });
 
+            if (window.customFunction)
+            {
+                window.customFunction();
+            }
+
         }
     });
 
-    // Add event listener for opening and closing details
-    // $('#'+ table_id +' tbody').on('click', 'td.details-control', function () {
-    //     var tr = $(this).closest('tr');
-    //     var row = table.row( tr );
-    //
-    //     if ( row.child.isShown() ) {
-    //         // This row is already open - close it
-    //         row.child.hide();
-    //         tr.removeClass('shown');
-    //     }
-    //     else {
-    //         // Open this row
-    //         row.child( format(row.data()) ).show();
-    //         tr.addClass('shown');
-    //     }
-    // } );
 }
 
 $( document ).ready(function() {

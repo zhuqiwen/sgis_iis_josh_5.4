@@ -56,7 +56,18 @@ class AlumContactController extends Controller
 	{
 
 
-		$display_fields = array_keys($this->fields_titles);
+//		$display_fields = array_keys($this->fields_titles);
+
+
+		$age_groups = config('constants.tables.alum_contacts.age_groups');
+		$age_group_frequency = [];
+		foreach ($age_groups as $age_group)
+		{
+			$age_group_frequency[$age_group] = AlumContact::whereNull('deleted_at')
+				->where('contact_age_group', $age_group)->count();
+		}
+		$num_active_contacts = AlumContact::whereNull('deleted_at')->count('id');
+
 
 
 		$records = AlumContact::with([
@@ -69,9 +80,9 @@ class AlumContactController extends Controller
 //			->get($display_fields);
 //			->get();
 
-//		dd($records);
 		return  Datatables::of($records)
 			->add_column('edit', '<a class="edit" href="javascript:;">Edit</a>')
+			->with(compact('age_group_frequency', 'num_active_contacts'))
 			->rawColumns(['edit'])
 			->make(true);
 

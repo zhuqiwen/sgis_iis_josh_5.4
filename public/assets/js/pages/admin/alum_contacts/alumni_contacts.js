@@ -16,13 +16,17 @@ window.dtChildRow = {
     "defaultContent": ''
 };
 
-window.dtOrder = [[1, 'asc']];
+// window.dtOrder = [[1, 'asc']];
 
 
 
 
 // function used for child row
 function format ( d ) {
+
+    console.log('window.datatable extra response data test');
+    console.log(window.datatable.ajax.json().age_group_frequency);
+    console.log(window.datatable.ajax.json().num_active_contacts);
     // `d` is the original data object for the row
     var events = d.events;
     var event_names = '';
@@ -275,3 +279,81 @@ $(document).on('click', '.edit', function (e) {
 });
 
 
+// can add page specific components here, such as a button to launch a modal containing charts.
+window.customFunction = function () {
+    console.log('this is a page specified custom function');
+    // add button of visualization report
+    var visualization_button = '<button style="margin-left: 10px;" id="charts_launcher_button" type="button" class="btn btn-responsive button-alignment btn-primary">Charts</button>';
+    $('#add_button').after(visualization_button);
+
+    // add modal of charts
+    var modal = '<div class="modal fade" id="visualization_contacts_modal" role="dialog">' +
+                    '<div class="modal-dialog modal-lg" style="width: 90%;">' +
+                        '<div class="modal-content">' +
+                            '<div class="modal-header">' +
+                                '<button type="button" class="close" data-dismiss="modal">&times;</button>' +
+                                '<h3>Alumni in General</h3>' +
+                            '</div>' +
+                            '<div class="modal-body">' +
+                                '<ul class="nav nav-tabs" style="margin-bottom: 15px;">' +
+                                    '<li class="active">' +
+                                        '<a href="#age_groups_visualizations" data-toggle="tab">Age Groups</a>' +
+                                    '</li>' +
+                                '</ul>' +
+                                '<div id="myTabContent" class="tab-content">' +
+                                    '<div class="tab-pane fade active in" id="age_groups_visualizations">' +
+                                        '<div class="row">' +
+                                            '<div class="col-md-12">' +
+                                                '<div id="age_groups_pie_chart"></div>' +
+                                            '</div>' +
+                                        '</div>' +
+                                    '</div>' +
+                                '</div>' +
+                            '</div>' +
+                        '</div>' +
+                    '</div>';
+
+    $('#visualization_modal_container').html(modal);
+
+
+
+
+
+};
+
+
+$(document).on('click', '#charts_launcher_button', function () {
+
+    var data = window.datatable.ajax.json().age_group_frequency;
+
+    var age_groups = Object.keys(data);
+    var age_group_frequency = [];
+    for (var i = 0; i < age_groups.length; i++)
+    {
+        var k = age_groups[i];
+        var v = data[k];
+        var pair = [k, v];
+        age_group_frequency.push(pair);
+    }
+
+    console.log(age_group_frequency);
+
+    var chart = c3.generate({
+        bindto: '#age_groups_pie_chart',
+        data: {
+            columns: age_group_frequency,
+            type : 'pie'
+        }
+        , tooltip: {
+            format: {
+                value: function (value, ratio, id, index) { return value; }
+            }
+
+        }
+
+    });
+
+
+    $('#visualization_contacts_modal').modal();
+
+});

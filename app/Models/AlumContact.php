@@ -83,13 +83,11 @@ class AlumContact extends Model
 //
 	public function getCurrentEmployerTypeAttribute()
 	{
-//		$current_employment = $this->employments()->where('employment_end_date', null)->first();
 		$current_employment = $this->employments->where('employment_end_date', null)->first();
 		if($current_employment)
 		{
 			$current_employer_id = $current_employment->employer_id;
 			$current_employer = AlumEmployer::find($current_employer_id);
-//			return AlumEmployerType::find($current_employer->employer_type_id)->employer_type;
 			return $current_employer->employerType->employer_type;
 		}
 		else
@@ -97,7 +95,6 @@ class AlumContact extends Model
 			return 'No current employment information';
 		}
 
-//		return 'No current employment information';
 
 
 	}
