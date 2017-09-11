@@ -19,20 +19,27 @@ window.dtChildRow = {
 window.dtOrder = [[1, 'asc']];
 
 var attendance, total_num_contacts;
+var contacts_array = [];
 
 
 // function used for child row
 function format ( d ) {
 
+    console.log(d);
+    contacts_array[d.id] = d.contacts;
+
 
     // `d` is the original data object for the row
     var num_contacts = d.contacts.length;
     attendance = num_contacts;
-    total_num_contacts = d.number_of_active_contacts;
+    total_num_contacts = d.num_active_contacts;
+
+
+
     return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'+
                     '<tr>'+
                         '<td><strong>Attendance:</strong></td>'+
-                        '<td style="padding: 0 30px;"><a id="modal_launcher" href="#">' + num_contacts + '/' + total_num_contacts + '</a></td>' +
+                        '<td style="padding: 0 30px;"><a id="modal_launcher" href="#" data-row-id="' + d.id + '">' + num_contacts + '/' + total_num_contacts + '</a></td>' +
                     '</tr>'+
             '</table>';
 }
@@ -147,24 +154,64 @@ $(document).on('click', '.edit', function (e) {
 
 $(document).on('click', '#modal_launcher',function () {
 
+    var event_row_id = $(this).attr('data-row-id');
+
+    console.log($(this));
     attendance = $(this).text().split('/')[0];
     total_num_contacts = $(this).text().split('/')[1];
 
-    //prepare modal for visualizaton
+    //prepare modal for visualizaton and attendees datatable
     var modal = '<div class="modal fade" id="visualization_event_attendance_modal" role="dialog">' +
-                    '<div class="modal-dialog modal-lg">' +
+                    '<div class="modal-dialog modal-lg" style="width: 90%;">' +
                         '<div class="modal-content">' +
                             '<div class="modal-header">' +
                                 '<button type="button" class="close" data-dismiss="modal">&times;</button>' +
-                                '<h3>Attendance proportion</h3>' +
+                                '<h3>Attendance</h3>' +
                             '</div>' +
                             '<div class="modal-body">' +
-                                '<div class="row">' +
-                                    '<div class="col-md-12">' +
-                                            '<div id="attendance_chart"></div>' +
+                                '<ul class="nav nav-tabs" style="margin-bottom: 15px;">' +
+                                    '<li class="active">' +
+                                        '<a href="#attendance_visualizations" data-toggle="tab">Charts</a>' +
+                                    '</li>' +
+                                    '<li>' +
+                                        '<a href="#attendees" data-toggle="tab">Attendees</a>' +
+                                    '</li>' +
+                                '</ul>' +
+                                '<div id="myTabContent" class="tab-content">' +
+                                    '<div class="tab-pane fade active in" id="attendance_visualizations">' +
+                                        '<div class="row">' +
+                                            '<div class="col-md-12">' +
+                                                    '<div id="attendance_pie_chart"></div>' +
+                                            '</div>' +
+                                        '</div>' +
                                     '</div>' +
+                                '<div class="tab-pane fade" id="attendees">' +
+                                    '<table id="attendees_table" data-row-id="' + event_row_id + '">' +
+                                        '<thead>' +
+                                            '<tr>' +
+                                                '<th>Salutation</th>' +
+                                                '<th>First Name</th>' +
+                                                '<th>Last Name</th>' +
+                                                '<th>Email</th>' +
+                                                '<th>Receive Email?</th>' +
+                                                '<th>Age Group</th>' +
+                                            '</tr>' +
+                                        '</thead>'+
+                                        '<tbody></tbody>'+
+                                        '<tfoot>' +
+                                            '<tr>' +
+                                                '<th>Salutation</th>' +
+                                                '<th>First Name</th>' +
+                                                '<th>Last Name</th>' +
+                                                '<th>Email</th>' +
+                                                '<th>Receive Email?</th>' +
+                                                '<th>Age Group</th>' +
+                                            '</tr>' +
+                                        '</tfoot>'+
+                                    '</table>' +
                                 '</div>' +
                             '</div>' +
+                            // '</div>' +
                         '</div>' +
                     '</div>' +
                 '</div>';
@@ -182,7 +229,7 @@ $(document).on('click', '#modal_launcher',function () {
 $(document).on('shown.bs.modal', '#visualization_event_attendance_modal', function (e) {
     // do something...
     var chart = c3.generate({
-        bindto: '#attendance_chart',
+        bindto: '#attendance_pie_chart',
         data: {
             // iris data from R
             columns: [
@@ -199,4 +246,54 @@ $(document).on('shown.bs.modal', '#visualization_event_attendance_modal', functi
         }
 
     });
+
+
+    var row_id = $(this).find('table').data('rowId');
+    var contacts = contacts_array[row_id];
+    console.log(contacts);
+    var attendees_table = $('#attendees_table')
+        .DataTable({
+            processing: true,
+            pageLength: 25,
+            search: {caseInsensitive: true},
+            // serverSide: true,
+            serverSide: false,
+            // rowReorder: true,
+            "dom": '<"m-t-10 pull-right"B><"m-t-10 pull-left"l><"m-t-10 pull-right"f>rt<"pull-left m-t-10"i><"m-t-10 pull-right"p>',
+            buttons: [
+                'copy', 'csv', 'pdf', 'print'
+            ],
+            data: contacts,
+            columns: [
+                {data: 'contact_salutation'},
+                {data: 'contact_first_name'},
+                {data: 'contact_last_name'},
+                {data: 'contact_email'},
+                {data: 'contact_no_email'},
+                {data: 'contact_age_group'}
+            ],
+            scrollX: true,
+            scrollY: '200px',
+            scrollCollapse: true,
+            paging: false,
+            initComplete: function () {
+                this.api().columns().every(function ()
+                {
+                    console.log(this.footer());
+                    var header = this.header();
+                    console.log($(header).attr('id'));
+                    var column = this;
+                    var br = document.createElement("br");
+                    var input = document.createElement("input");
+                    $(br).appendTo($(column.footer()));
+                    $(input).appendTo($(column.footer()))
+                        .on('change', function () {
+                            column.search($(this).val(), false, false, true).draw();
+                        });
+
+                });
+
+            }
+        });
+
 });

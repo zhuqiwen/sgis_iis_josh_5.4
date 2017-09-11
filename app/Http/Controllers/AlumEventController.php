@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AlumContact;
 use App\Models\AlumEvent;
 use Illuminate\Http\Request;
 use Datatables;
@@ -34,23 +35,14 @@ class AlumEventController extends Controller
 
 	public function data()
 	{
-
-//		$records = AlumEvent::with('contacts')->get([
-//		    'id',
-//            'event_name',
-//            'event_date',
-//            'event_country',
-//            'event_state',
-//            'event_city',
-//            'event_location',
-//			'number_of_active_contacts',
-//        ]);
+	    $num_active_contacts = AlumContact::whereNull('deleted_at')->count('id');
 
 		$records = AlumEvent::with('contacts')->get()->toArray();
 
 
 		return  Datatables::of($records)
 			->add_column('edit', '<a class="edit" href="javascript:;">Edit</a>')
+			->add_column('num_active_contacts', $num_active_contacts)
 			->rawColumns(['edit'])
 			->make(true);
 

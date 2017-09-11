@@ -129,21 +129,21 @@ function drawTable(data) {
     });
 
     // Add event listener for opening and closing details
-    $('#'+ table_id +' tbody').on('click', 'td.details-control', function () {
-        var tr = $(this).closest('tr');
-        var row = table.row( tr );
-
-        if ( row.child.isShown() ) {
-            // This row is already open - close it
-            row.child.hide();
-            tr.removeClass('shown');
-        }
-        else {
-            // Open this row
-            row.child( format(row.data()) ).show();
-            tr.addClass('shown');
-        }
-    } );
+    // $('#'+ table_id +' tbody').on('click', 'td.details-control', function () {
+    //     var tr = $(this).closest('tr');
+    //     var row = table.row( tr );
+    //
+    //     if ( row.child.isShown() ) {
+    //         // This row is already open - close it
+    //         row.child.hide();
+    //         tr.removeClass('shown');
+    //     }
+    //     else {
+    //         // Open this row
+    //         row.child( format(row.data()) ).show();
+    //         tr.addClass('shown');
+    //     }
+    // } );
 }
 
 $( document ).ready(function() {
@@ -229,6 +229,7 @@ $(document).on('dblclick', '#'+table_id+' tbody tr[role="row"]', function () {
         var tr = $(this).closest('tr');
         var row = window.datatable.row( tr );
 
+        console.log(row.data());
         if ( row.child.isShown() ) {
             // This row is already open - close it
             row.child.hide();
