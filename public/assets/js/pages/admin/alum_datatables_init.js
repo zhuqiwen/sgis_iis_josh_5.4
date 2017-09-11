@@ -63,8 +63,9 @@ function insertDatatablesTableHead(data) {
         'colspan="1" ' +
         'aria-label="Edit: activate to sort column ascending" ' +
         'style="width: 20px;">Edit</th>';
+
     table_foot += '<th></th>';
-    table_html += column_edit + '</tr></thead><tbody></tbody><tfoot><tr>' + table_foot + '</tr></tfoot></table>';
+    table_html +=  column_edit + '</tr></thead><tbody></tbody><tfoot><tr>' + table_foot + '</tr></tfoot></table>';
 
     $('#toggles_div_wrapper').html(table_column_toggles);
     $('#column_toggles_div').html(column_toggle_buttons);
@@ -97,7 +98,7 @@ function drawTable(data) {
         search: {caseInsensitive: true},
         // serverSide: true,
         serverSide: false,
-        rowReorder: true,
+        // rowReorder: true,
         "dom": '<"m-t-10 pull-right"B><"m-t-10 pull-left"l><"m-t-10 pull-right"f>rt<"pull-left m-t-10"i><"m-t-10 pull-right"p>',
         buttons: [
             'copy', 'csv', 'pdf', 'print'

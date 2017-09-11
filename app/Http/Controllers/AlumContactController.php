@@ -14,8 +14,9 @@ class AlumContactController extends Controller
 		"id" =>  "ID",
 		"contact_salutation" => "Salutation",
 		"contact_first_name" => "First Name",
-		"contact_middle_name" => "Middle Namd",
+		"contact_middle_name" => "Middle Name",
 		"contact_last_name" => "Last Name",
+		"contact_age_group" => "Age Group",
 		"contact_email" => "Email",
 		"contact_phone_home" => "Phone (home)",
 		"contact_phone_mobile" => "Phone (mobile)",
@@ -30,6 +31,7 @@ class AlumContactController extends Controller
 		"contact_no_mail" => "No Mail",
 		"contact_iuaa_member" => "IUAA Member",
 		"contact_share_with_iuaa" => "Share With IUAA",
+		"event_titles" => "Events",
 	];
 
 
@@ -52,11 +54,22 @@ class AlumContactController extends Controller
 
 	public function data()
 	{
+
+
 		$display_fields = array_keys($this->fields_titles);
 
 
-		$records = AlumContact::with('events')->get($display_fields);
+		$records = AlumContact::with([
+			'events',
+//			'employments',
+//			'socialAccounts',
+//			'donations',
+//			'engagementIndicators',
+		]);
+//			->get($display_fields);
+//			->get();
 
+//		dd($records);
 		return  Datatables::of($records)
 			->add_column('edit', '<a class="edit" href="javascript:;">Edit</a>')
 			->rawColumns(['edit'])
@@ -64,25 +77,6 @@ class AlumContactController extends Controller
 
 	}
 
-//	public function getColumnsForDataTables()
-//	{
-//		$objects_array = [];
-//		foreach ($this->fields_titles as $field => $title)
-//		{
-//			$object = [
-//				'title' => $title,
-//				'column' => [
-//					'data' => $field,
-//					'name' => $field
-//				]
-//			];
-//			$objects_array[] = $object;
-//		}
-//
-//		return json_encode($objects_array);
-//
-//
-//	}
 
 	protected function getDisplayFieldsForDataTables()
 	{

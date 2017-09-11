@@ -33,6 +33,7 @@ class AlumEvent extends Model
 	];
 
 
+
 	public function contacts()
 	{
 		return $this->belongsToMany('App\Models\AlumContact', 'alum_event_attendance', 'event_id', 'contact_id');
@@ -40,6 +41,7 @@ class AlumEvent extends Model
 
 	public function getNumberOfActiveContactsAttribute()
 	{
-		return AlumContact::whereNull('deleted_at')->get()->count();
+//		return AlumContact::whereNull('deleted_at')->get()->count();
+		return 150;
     }
 }

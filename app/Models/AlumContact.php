@@ -47,7 +47,7 @@ class AlumContact extends Model
 
 	protected $appends = [
 		'current_employer_type',
-		'geo_info',
+		'event_titles'
 	];
 
 	public function events()
@@ -80,51 +80,41 @@ class AlumContact extends Model
 		return $this->hasMany('App\Models\AlumDonation', 'contact_id');
 	}
 
-
+//
 	public function getCurrentEmployerTypeAttribute()
 	{
-		$current_employment = $this->employments()->where('employment_end_date', null)->first();
+//		$current_employment = $this->employments()->where('employment_end_date', null)->first();
+		$current_employment = $this->employments->where('employment_end_date', null)->first();
 		if($current_employment)
 		{
 			$current_employer_id = $current_employment->employer_id;
 			$current_employer = AlumEmployer::find($current_employer_id);
-			return AlumEmployerType::find($current_employer->employer_type_id)->employer_type;
+//			return AlumEmployerType::find($current_employer->employer_type_id)->employer_type;
+			return $current_employer->employerType->employer_type;
 		}
 		else
 		{
 			return 'No current employment information';
 		}
 
+//		return 'No current employment information';
+
 
 	}
 
-
-	public function getGeoInfoAttribute()
+	public function getEventTitlesAttribute()
 	{
-		// data for world map
-		$attribute = 'contact_country';
-		$num_contact_countries = $this->distinct($attribute)->count($attribute);
-		$countries = $this-> distinct($attribute)->pluck($attribute)->toArray();
-		$countries_num_array = [];
-		foreach ($countries as $country)
+
+		$events = $this->events()->get();
+		$string = '';
+		foreach ($events as $event)
 		{
-			$countries_num_array[$country] = $this->where($attribute, $country)
-				->whereNUll('deleted_at')->count();
+			$string .= $event->event_name . ' | ';
 		}
+		return $string;
 
-		// data for usa map
-		$us_states = $this->where('contact_country', 'United States')
-			->distinct('contact_state')->pluck('contact_state')->toArray();
-
-		$us_states_num_array = [];
-		foreach ($us_states as $state)
-		{
-			$us_states_num_array[$state] = $this->where('contact_country', 'United States')
-				->where('contact_state', $state)->whereNull('deleted_at')->count();
-		}
-
-		return compact('num_contact_countries', 'countries_num_array', 'us_states_num_array');
 	}
+
 
 
 }
