@@ -930,7 +930,6 @@ Scholarships
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
