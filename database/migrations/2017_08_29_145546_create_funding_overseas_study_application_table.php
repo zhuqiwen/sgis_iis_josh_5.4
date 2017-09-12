@@ -18,7 +18,7 @@ class CreateFundingOverseasStudyApplicationTable extends Migration
             $table->increments('id');
             $table->integer('intern_application_id')->unsigned()->nullable();
             $table->integer('user_id')->unsigned()->nullable();
-            $table->string('funding_name');
+            $table->integer('scholarship_id')->unsigned()->nullable();
             $table->integer('funding_requested_amount')->nullable();
             $table->boolean('other_funding_applied')->nullable()->default(0);
             $table->string('other_funding_name')->nullable();

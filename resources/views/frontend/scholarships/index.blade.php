@@ -10,10 +10,11 @@ Scholarships
 @section('header_styles')
     <!--page level css starts-->
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/font-awesome.min.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/frontend/portfolio.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendors/fancybox/jquery.fancybox.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendors/fancybox/helpers/jquery.fancybox-buttons.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/float-card.css') }}" />
+
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/frontend/portfolio.css') }}">
+{{--    <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendors/fancybox/jquery.fancybox.css') }}">--}}
+{{--    <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendors/fancybox/helpers/jquery.fancybox-buttons.css') }}">--}}
 
     <!--end of page level css-->
 @stop
@@ -36,7 +37,7 @@ Scholarships
                 {{--<i class="livicon icon3" data-name="briefcase" data-size="20" data-loop="true" data-c="#3d3d3d" data-hc="#3d3d3d"></i> Portfolio--}}
             {{--</div>--}}
         {{--</div>--}}
-    {{--</div>--}}
+    </div>
     @stop
 
 
@@ -942,10 +943,10 @@ Scholarships
 @section('footer_scripts')
     <!-- page level js starts-->
     <script type="text/javascript" src="{{ asset('assets/vendors/mixitup/jquery.mixitup.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('assets/vendors/fancybox/jquery.fancybox.pack.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('assets/vendors/fancybox/helpers/jquery.fancybox-buttons.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('assets/vendors/fancybox/helpers/jquery.fancybox-media.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('assets/js/frontend/portfolio.js') }}"></script>
+{{--    <script type="text/javascript" src="{{ asset('assets/vendors/fancybox/jquery.fancybox.pack.js') }}"></script>--}}
+{{--    <script type="text/javascript" src="{{ asset('assets/vendors/fancybox/helpers/jquery.fancybox-buttons.js') }}"></script>--}}
+{{--    <script type="text/javascript" src="{{ asset('assets/vendors/fancybox/helpers/jquery.fancybox-media.js') }}"></script>--}}
+    <script type="text/javascript" src="{{ asset('assets/js/frontend/scholarships_index.js') }}"></script>
     <!--page level js ends-->
 
 @stop
