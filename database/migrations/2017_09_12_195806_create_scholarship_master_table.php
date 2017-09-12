@@ -15,7 +15,7 @@ class CreateScholarshipMasterTable extends Migration
     {
         Schema::create('scholarship_master', function (Blueprint $table) {
             $table->increments('id');
-	        $table->text('scholarship_introduction')->nullable()->default('introduction');
+	        $table->text('scholarship_introduction')->nullable();
 	        $table->string('scholarship_award_amount')->nullable()->default('vary');
 	        $table->integer('scholarship_admin')->unsigned();
 	        $table->dateTime('scholarship_deadline')->nullable();

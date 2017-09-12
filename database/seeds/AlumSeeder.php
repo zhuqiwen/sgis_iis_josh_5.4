@@ -60,7 +60,7 @@ class AlumSeeder extends Seeder
 
 
 	    // seeding independent tables
-	    $num_contacts = random_int(50, 200);
+	    $num_contacts = random_int(50, 100);
 	    $num_events = random_int(7, 12);
 	    $num_donations = random_int(30, $num_contacts);
 	    $num_employers = random_int(30, 60);
