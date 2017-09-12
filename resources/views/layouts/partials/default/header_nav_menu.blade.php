@@ -34,16 +34,16 @@
     </li>
     {{--Funding: dropdown of Scholarships and Internship fundings--}}
         {{--requires student role--}}
-    <li class="dropdown {!! (Request::is('funding')
+    <li class="dropdown {!! (Request::is(config('constants.menu_path.front_end.scholarships_index'))
                             || Request::is(config('constants.menu_path.front_end.funding_overseas_internship'))
                             || Request::is(config('constants.menu_path.front_end.funding_scholarships')) ? 'active' : '') !!}">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"> Fundings</a>
-        <ul class="dropdown-menu" role="menu">
-            <li><a href="{{ URL::to(config('constants.menu_path.front_end.funding_overseas_internship')) }}">Internship Funding</a>
-            </li>
-            <li><a href="{{ URL::to(config('constants.menu_path.front_end.funding_scholarships')) }}">Scholarships</a>
-            </li>
-        </ul>
+        <a href="{{ URL::to(config('constants.menu_path.front_end.scholarships_index')) }}"> Scholarships</a>
+        {{--<ul class="dropdown-menu" role="menu">--}}
+            {{--<li><a href="{{ URL::to(config('constants.menu_path.front_end.funding_overseas_internship')) }}">Overseas Study Scholarships</a>--}}
+            {{--</li>--}}
+            {{--<li><a href="{{ URL::to(config('constants.menu_path.front_end.funding_scholarships')) }}">Other Scholarships</a>--}}
+            {{--</li>--}}
+        {{--</ul>--}}
     </li>
     {{--Alumni (in furture version | register, and update their informatio; new alum nees to apply and be approved to become an official alum)--}}
         {{--alumni can get contact with each other and receive help request from current student--}}

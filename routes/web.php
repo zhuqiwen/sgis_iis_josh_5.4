@@ -232,6 +232,7 @@ Route::group(array('middleware' => 'user'), function () {
 
     Route::get('internship_application_status', 'InternApplicationController@showApplicationStatus');
     Route::get('internship_assignments', 'InternInternshipController@showAssignmentView');
+    Route::get('scholarships', 'ScholarshipController@index');
 
     //ajax
     Route::get(config('constants.ajax.urls.get_internship_assignments'), 'InternInternshipController@ajaxGetAssignmentToSubmit');

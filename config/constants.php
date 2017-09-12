@@ -14,8 +14,9 @@ return [
 			'internship_assignments' => '/internship_assignments',
 			'internship_timeline' => '/timeline',
 
-			'funding_overseas_internship' => '/funding/internship',
-			'funding_scholarships' => '/funding/scholarships',
+			'scholarships_index' => '/scholarships',
+			'funding_overseas_internship' => '/overseas_study_scholarships',
+			'funding_scholarships' => '/other_scholarships',
 		],
 		'back_end' => [],
 	],

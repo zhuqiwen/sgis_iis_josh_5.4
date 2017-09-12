@@ -272,8 +272,9 @@ $(document).on('shown.bs.modal', '#visualization_event_attendance_modal', functi
                 {data: 'contact_no_email'},
                 {data: 'contact_age_group'}
             ],
+            columnDefs: [[1, 'asc']],
             scrollX: true,
-            scrollY: '200px',
+            scrollY: '400px',
             scrollCollapse: true,
             paging: false,
             initComplete: function () {
