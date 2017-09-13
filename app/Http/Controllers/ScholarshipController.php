@@ -11,6 +11,10 @@ use App\Models\ScholarshipMaterial;
 use App\Models\ScholarshipProcess;
 use App\Models\ScholarshipRequirement;
 
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Schema;
+use Datatables;
+
 class ScholarshipController extends Controller
 {
     public function frontendIndex()
@@ -103,7 +107,6 @@ class ScholarshipController extends Controller
 	 */
 	public function store(Request $request)
 	{
-		return Scholarship::create($request->all());
 	}
 
 	/**
@@ -137,8 +140,6 @@ class ScholarshipController extends Controller
 	 */
 	public function update(Request $request, $id)
 	{
-		return AlumContact::where('id', $id)
-			->update($request->except('_token'));
 	}
 
 	/**
