@@ -199,6 +199,18 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin', 'as' => 'admin.'], f
     Route::get('alum_events/data', 'AlumEventController@data');
     Route::resource('alum_events', 'AlumEventController');
 
+
+
+	// Scholarships module
+	Route::get('scholarships/getColumns', 'ScholarshipController@getColumnsForDataTables');
+	Route::get('scholarships/data', 'ScholarshipController@data');
+	Route::resource('scholarships', 'ScholarshipController');
+
+
+
+
+
+
 	Route::get('{name?}', 'JoshController@showView');
 
 });
@@ -232,7 +244,8 @@ Route::group(array('middleware' => 'user'), function () {
 
     Route::get('internship_application_status', 'InternApplicationController@showApplicationStatus');
     Route::get('internship_assignments', 'InternInternshipController@showAssignmentView');
-    Route::get('scholarships', 'ScholarshipController@index');
+    Route::get('scholarships', 'ScholarshipController@frontendIndex');
+    Route::get('scholarships/apply/{scholarship_name}', 'ScholarshipController@applicationForm');
 
     //ajax
     Route::get(config('constants.ajax.urls.get_internship_assignments'), 'InternInternshipController@ajaxGetAssignmentToSubmit');

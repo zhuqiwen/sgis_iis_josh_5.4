@@ -17,7 +17,7 @@ class CreateAlumEmployersTable extends Migration
 		    $table->increments('id');
 		    $table->string('employer')->nullable();
 		    $table->string('employer_url')->nullable();
-		    $table->integer('employer_type_id')->unsigned();
+		    $table->integer('employer_type_id')->unsigned()->nullable();
 		    $table->timestamps();
 		    $table->softDeletes();
 	    });
