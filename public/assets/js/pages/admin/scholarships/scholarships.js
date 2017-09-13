@@ -59,59 +59,90 @@ var add_form = '<form action="' + current_path + '" method="post" id="create_for
     '<div class="container-fluid">' +
         //scholarship basic
         '<div class="row">' +
+        // '<p>Basics</p>' +
             '<div class="col-md-12">' +
                 //introduction
                 '<div class="row">' +
                     '<div class="col-md-12">' +
+                        '<div class="form-group">' +
+                            '<label for="scholarship_introduction">Scholarship Introduction</label>' +
+                            '<textarea class="form-control" id="scholarship_introduction" rows="3" name="scholarship_introduction" placeholder="Introduction"></textarea>' +
+                        '</div>' +
                     '</div>' +
                 '</div>' +
                 //award amount and deadline
                 '<div class="row">' +
                     //award amoun
                     '<div class="col-md-6">' +
+                        '<div class="form-group">' +
+                            '<label for="scholarship_award_amount">Award Amount</label>' +
+                            '<input type="text"  class="form-control" id="scholarship_award_amount" name="scholarship_award_amount" placeholder="Award Amount" />' +
+                        '</div>' +
                     '</div>' +
                     //deadline
                     '<div class="col-md-6">' +
+                        '<div class="form-group">' +
+                            '<label for="scholarship_deadline">Application Deadline</label>' +
+                            '<input type="date" class="form-control" id="scholarship_deadline" name="scholarship_deadline" />' +
+                        '</div>' +
                     '</div>' +
                 '</div>' +
                 //donar
                 '<div class="row">' +
                     '<div class="col-md-12">' +
+                        '<div class="form-group">' +
+                            '<label for="scholarship_about_donar">About Donar</label>' +
+                            '<textarea class="form-control" id="scholarship_about_donar" name="scholarship_about_donar" placeholder="About Donar"></textarea>' +
+                        '</div>' +
                     '</div>' +
                 '</div>' +
                 //notes
                 '<div class="row">' +
                     '<div class="col-md-12">' +
+                        '<div class="form-group">' +
+                            '<label for="scholarship_notes">Scholarship Note, if any </label>' +
+                            '<textarea class="form-control" id="scholarship_notes" name="scholarship_notes" placeholder="Scholarship note, if any"></textarea>' +
+                        '</div>' +
                     '</div>' +
                 '</div>' +
             '</div>' +
         '</div>' +
         //criteria
+
         '<hr>' +
+        // '<p>Criteria</p>' +
         '<div class="row">' +
             '<div class="col-md-12">' +
+                '<div class="form-group">' +
+                    '<label for="criteria_content">Criteria</label>' +
+                    '<textarea class="form-control" id="criteria_content" name="criteria_content" placeholder="Selection Criteria, if any"></textarea>' +
+                '</div>' +
             '</div>' +
         '</div>' +
         //eligibility
         '<hr>' +
+        // '<p>Eligibility</p>' +
         '<div class="row">' +
             '<div class="col-md-12">' +
             '</div>' +
         '</div>' +
         //material
         '<hr>' +
+        // '<p>Application Materials</p>' +
         '<div class="row">' +
             '<div class="col-md-12">' +
             '</div>' +
         '</div>' +
         //process
         '<hr>' +
+        // '<p>Apply steps</p>' +
         '<div class="row">' +
             '<div class="col-md-12">' +
             '</div>' +
         '</div>' +
         //requirement
         '<hr>' +
+        // '<p>Requirements</p>' +
         '<div class="row">' +
             '<div class="col-md-12">' +
             '</div>' +
