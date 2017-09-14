@@ -88,7 +88,14 @@ class AlumContact extends Model
 		{
 			$current_employer_id = $current_employment->employer_id;
 			$current_employer = AlumEmployer::find($current_employer_id);
-			return $current_employer->employerType->employer_type;
+			if($current_employer)
+            {
+                return $current_employer->employerType->employer_type;
+            }
+            else
+            {
+                return 'No current employment information';
+            }
 		}
 		else
 		{
