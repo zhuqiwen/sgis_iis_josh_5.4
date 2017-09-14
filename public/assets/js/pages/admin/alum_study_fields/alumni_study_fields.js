@@ -5,8 +5,9 @@ window.dtColumnDefs = [
     // }
 ];
 
+var current_path = window.location.pathname;
 
-var add_form = '<form action="/admin/alum_study_fields" method="post" id="create_form">'
+var add_form = '<form action="' + current_path + '" method="post" id="create_form">'
     + '<label for="study_field">Study Field</label>'
     + '<input class="form-control" type="text" id="study_field" name="study_field"></input>'
 
@@ -31,7 +32,7 @@ $(document).on('click', '.edit', function (e) {
     var aData = window.datatable.row(nRow).data();
 
     // construct form and fill form with row data
-    var form = '<form action="/admin/alum_study_fields/' + aData.id + '" method="put" id="' + form_id + '">'
+    var form = '<form action="' + current_path + '/' + aData.id + '" method="put" id="' + form_id + '">'
         + '<label for="study_field">Study Field</label>'
         + '<input class="form-control" type="text" id="study_field" name="study_field" value="' + aData.study_field + '"></input>'
         + '</form>';
