@@ -49,8 +49,8 @@ class AlumSeeder extends Seeder
 	    AlumEventAttendance::truncate();
 	    $this->command->info('alum event attendance emptied successfully.');
 
-//	    AlumEngagementIndicator::truncate();
-//	    $this->command->info('alum engagement indicators emptied successfully.');
+	    AlumEngagementIndicator::truncate();
+	    $this->command->info('alum engagement indicators emptied successfully.');
 
 	    AlumEngagement::truncate();
 	    $this->command->info('alum engagements emptied successfully.');

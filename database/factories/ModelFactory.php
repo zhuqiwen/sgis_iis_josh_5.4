@@ -107,11 +107,13 @@ $factory->define(App\Models\AlumDonation::class, function (Faker\Generator $fake
 
 
 
-$factory->define(App\Models\AlumEmployerType::class, function (Faker\Generator $faker){
+$factory->define(App\Models\AlumStudyField::class, function (Faker\Generator $faker){
 
 	return [
 	];
 });
+
+
 $factory->define(App\Models\AlumEmployerType::class, function (Faker\Generator $faker){
 
 	return [
