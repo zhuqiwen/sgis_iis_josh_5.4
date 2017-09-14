@@ -107,6 +107,16 @@ $factory->define(App\Models\AlumDonation::class, function (Faker\Generator $fake
 
 
 
+$factory->define(App\Models\AlumEmployerType::class, function (Faker\Generator $faker){
+
+	return [
+	];
+});
+$factory->define(App\Models\AlumEmployerType::class, function (Faker\Generator $faker){
+
+	return [
+	];
+});
 $factory->define(App\Models\AlumEmployer::class, function (Faker\Generator $faker){
 
 	$num_employer_types = \App\Models\AlumEmployerType::count();
@@ -117,7 +127,11 @@ $factory->define(App\Models\AlumEmployer::class, function (Faker\Generator $fake
 	}
 	else
 	{
-		return [];
+		return [
+			"employer" => $faker->company(),
+			"employer_url" => $faker->domainName(),
+			"employer_type_id" => 1,
+		];
 	}
 	return [
 		"employer" => $faker->company(),

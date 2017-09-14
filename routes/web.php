@@ -295,6 +295,8 @@ Route::get('/', array('as' => 'home', function () {
     return view('index');
 }));
 
+
+
 Route::get('blog', array('as' => 'blog', 'uses' => 'FrontendBlogController@index'));
 Route::get('blog/{slug}/tag', 'FrontendBlogController@getBlogTag');
 Route::get('blogitem/{slug?}', 'FrontendBlogController@getBlog');

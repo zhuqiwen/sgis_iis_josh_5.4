@@ -34,8 +34,8 @@ class AlumSeeder extends Seeder
 	    AlumAcademicInfo::truncate();
 	    $this->command->info('alum academic info emptied successfully.');
 
-//	    AlumEmployerType::truncate();
-//	    $this->command->info('alum employer types emptied successfully.');
+	    AlumEmployerType::truncate();
+	    $this->command->info('alum employer types emptied successfully.');
 
 	    AlumEmployer::truncate();
 	    $this->command->info('alum employers emptied successfully.');
@@ -60,6 +60,43 @@ class AlumSeeder extends Seeder
 
 
 	    // seeding independent tables
+
+	    $employer_types = [
+	    	'Government',
+	    	'NGO',
+	    	'Non Profit',
+	    	'Private',
+	    	'Other',
+	    ];
+
+	    foreach ($employer_types as $employer_type)
+	    {
+		    factory(AlumEmployerType::class)->create(['employer_type' => $employer_type]);
+	    }
+
+	    $study_fields = [
+		    "International Studies",
+		    "Near Eastern Languages and Cultures",
+		    "East Asian Languages and Cultures",
+		    "Central Eurasian Studies",
+		    "Russian and East European Studies Institute",
+		    "African Studies",
+		    "Latin American and Caribbean Studies",
+		    "European Studies",
+		    "Chinese",
+		    "Japanese",
+		    "Chinese Language Pedagogy",
+		    "Japanese Language Pedagogy",
+		    "East Asian Studies",
+	    ];
+
+	    foreach ($study_fields as $study_field)
+	    {
+		    factory(AlumStudyField::class)->create(['study_field' => $study_field]);
+	    }
+
+
+
 	    $num_contacts = random_int(50, 100);
 	    $num_events = random_int(7, 12);
 	    $num_donations = random_int(30, $num_contacts);
