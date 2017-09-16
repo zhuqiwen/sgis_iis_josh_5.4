@@ -16,25 +16,13 @@ window.dtChildRow = {
     "defaultContent": ''
 };
 
-// window.dtOrder = [[1, 'asc']];
+window.dtOrder = [[1, 'asc']];
 
 
 
 
 // function used for child row
 function format ( d ) {
-
-    // console.log('window.datatable extra response data test');
-    // console.log(window.datatable.ajax.json().age_group_frequency);
-    // console.log(window.datatable.ajax.json().num_active_contacts);
-    // // `d` is the original data object for the row
-    // var events = d.events;
-    // var event_names = '';
-    // for(var i = 0; i < events.length; i++)
-    // {
-    //     event_names += events[i].event_name;
-    //     event_names += '----';
-    // }
     return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'+
                     '<tr>'+
                         '<td><strong>Country:</strong></td>'+
@@ -123,28 +111,76 @@ var add_form = '<form action="' + current_path + '" method="post" id="create_for
         '<hr>' +
         // '<p>Eligibility</p>' +
         '<div class="row">' +
-            '<div class="col-md-12">' +
-            '</div>' +
+                '<div id="eligibility" class="form-group">' +
+                    '<div class="col-md-5">' +
+                        '<label>How many items of eligibility?</label>' +
+                    '</div>' +
+                    '<div class="col-md-3">' +
+                        '<input type="number" class="form-control" min="0" value="1"></input>' +
+                    '</div>' +
+                    '<div class="col-md-2">' +
+                        '<button class="btn btn-primary generate_inputs">Generate</button>' +
+                    '</div>' +
+                    '<div class="col-md-2" hidden>' +
+                        '<button class="btn btn-primary destroy_inputs" hidden>Reset</button>' +
+                    '</div>' +
+                '</div>' +
         '</div>' +
         //material
         '<hr>' +
         // '<p>Application Materials</p>' +
         '<div class="row">' +
-            '<div class="col-md-12">' +
+            '<div id="material" class="form-group">' +
+            '<div class="col-md-5">' +
+            '<label>How many items of materials?</label>' +
+            '</div>' +
+            '<div class="col-md-3">' +
+            '<input type="number" class="form-control" min="0" value="1"></input>' +
+            '</div>' +
+            '<div class="col-md-2">' +
+            '<button class="btn btn-primary generate_inputs">Generate</button>' +
+            '</div>' +
+            '<div class="col-md-2" hidden>' +
+            '<button class="btn btn-primary destroy_inputs" hidden>Reset</button>' +
+            '</div>' +
             '</div>' +
         '</div>' +
         //process
         '<hr>' +
         // '<p>Apply steps</p>' +
         '<div class="row">' +
-            '<div class="col-md-12">' +
+            '<div id="process" class="form-group">' +
+            '<div class="col-md-5">' +
+            '<label>How many steps</label>' +
+            '</div>' +
+            '<div class="col-md-3">' +
+            '<input type="number" class="form-control" min="0" value="1"></input>' +
+            '</div>' +
+            '<div class="col-md-2">' +
+            '<button class="btn btn-primary generate_inputs">Generate</button>' +
+            '</div>' +
+            '<div class="col-md-2" hidden>' +
+            '<button class="btn btn-primary destroy_inputs" hidden>Reset</button>' +
+            '</div>' +
             '</div>' +
         '</div>' +
         //requirement
         '<hr>' +
         // '<p>Requirements</p>' +
         '<div class="row">' +
-            '<div class="col-md-12">' +
+            '<div id="requirement" class="form-group">' +
+            '<div class="col-md-5">' +
+            '<label>How many requirements?</label>' +
+            '</div>' +
+            '<div class="col-md-3">' +
+            '<input type="number" class="form-control" min="0" value="1"></input>' +
+            '</div>' +
+            '<div class="col-md-2">' +
+            '<button class="btn btn-primary generate_inputs">Generate</button>' +
+            '</div>' +
+            '<div class="col-md-2" hidden>' +
+            '<button class="btn btn-primary destroy_inputs" hidden>Reset</button>' +
+            '</div>' +
             '</div>' +
         '</div>' +
     '</div>' +
@@ -178,95 +214,151 @@ $(document).on('click', '.edit', function (e) {
     var nRow = $(this).parents('tr')[0];
     var aData = window.datatable.row(nRow).data();
 
+    console.log(aData);
+
     // construct form and fill form with row data
-    var form = '<form action="' + current_path + '/' + aData.id + '" method="put" id="' + form_id + '">'
-            + '<div class="row">'
-            + '<div class="col-md-6">'
-            + '<div class="form-group">'
-            + '<label for="contact_salutation">Salutation</label>'
-            + '<input value="' + aData.contact_salutation + '" type="text" class="form-control" id="contact_salutation" name="contact_salutation" placeholder="Salutation" />'
-            + '</div>'
-            + '<div class="form-group">'
-            + '<label for="first_name">First Name</label>'
-            + '<input value="' + aData.contact_first_name + '" type="text" class="form-control" id="first_name" name="contact_first_name" placeholder="First Name" />'
-            + '</div>'
-            + '<div class="form-group">'
-            + '<label for="middle_name">Middle Name</label>'
-            + '<input value="' + aData.contact_middle_name + '" type="text" class="form-control" id="middle_name" name="contact_middle_name" placeholder="Middle Name" />'
-            + '</div>'
-            + '<div class="form-group">'
-            + '<label for="last_name">Last Name</label>'
-            + '<input value="' + aData.contact_last_name + '" type="text" class="form-control" id="last_name" name="contact_last_name" placeholder="Last Name" />'
-            + '</div>'
-            + '<div class="form-group">'
-            + '<label for="email">Email</label>'
-            + '<input value="' + aData.contact_email + '" type="email" class="form-control" id="email" name="contact_email" placeholder="Email" />'
-            + '</div>'
-            + '<div class="checkbox">'
-            + '<label>'
-            + '<input type="hidden" name="contact_no_email" value="0" />'
-            + '<input id="contact_no_email" type="checkbox" name="contact_no_email" value="1" />'
-            + '<span>No Email</span>'
-            + '</label>'
-            + '</div>'
-            + '<div class="form-group">'
-            + '<label for="phone_mobile">Mobile Phone</label>'
-            + '<input value="' + aData.contact_phone_mobile + '" type="text" class="form-control" id="phone_mobile" name="contact_phone_mobile" placeholder="Mobile Phone" />'
-            + '</div>'
-            + '<div class="checkbox">'
-            + '<label>'
-            + '<input type="hidden" name="contact_no_phone_call" value="0" />'
-            + '<input id="contact_no_phone_call" type="checkbox" name="contact_no_phone_call" value="1" />'
-            + '<span>No Phone Call</span>'
-            + '</label>'
-            + '</div>'
+    var form = '<form action="' + current_path + '/' + aData.id + '" method="put" id="' + form_id + '">' +
+        '<div class="container-fluid">' +
+        //scholarship basic
+        '<div class="row">' +
+        '<div class="col-md-12">' +
+        //introduction
+        '<div class="row">' +
+        '<div class="col-md-12">' +
+        '<div class="form-group">' +
+        '<label for="scholarship_introduction">Scholarship Introduction</label>' +
+        '<textarea class="form-control" id="scholarship_introduction" rows="3" name="scholarship_introduction" placeholder="Introduction">' + aData.scholarship_introduction + '</textarea>' +
+        '</div>' +
+        '</div>' +
+        '</div>' +
+        //award amount and deadline
+        '<div class="row">' +
+        //award amoun
+        '<div class="col-md-6">' +
+        '<div class="form-group">' +
+        '<label for="scholarship_award_amount">Award Amount</label>' +
+        '<input type="text"  class="form-control" id="scholarship_award_amount" name="scholarship_award_amount" placeholder="Award Amount">' + aData.scholarship_award_amount + '</input>' +
+        '</div>' +
+        '</div>' +
+        //deadline
+        '<div class="col-md-6">' +
+        '<div class="form-group">' +
+        '<label for="scholarship_deadline">Application Deadline</label>' +
+        '<input type="date" class="form-control" id="scholarship_deadline" name="scholarship_deadline">' + aData.scholarship_deadline + '</input>' +
+        '</div>' +
+        '</div>' +
+        '</div>' +
+        //donar
+        '<div class="row">' +
+        '<div class="col-md-12">' +
+        '<div class="form-group">' +
+        '<label for="scholarship_about_donar">About Donar</label>' +
+        '<textarea class="form-control" id="scholarship_about_donar" name="scholarship_about_donar" placeholder="About Donar">' + aData.scholarship_about_donar + '</textarea>' +
+        '</div>' +
+        '</div>' +
+        '</div>' +
+        //notes
+        '<div class="row">' +
+        '<div class="col-md-12">' +
+        '<div class="form-group">' +
+        '<label for="scholarship_notes">Scholarship Note, if any </label>' +
+        '<textarea class="form-control" id="scholarship_notes" name="scholarship_notes" placeholder="Scholarship note, if any">' + aData.scholarship_notes + '</textarea>' +
+        '</div>' +
+        '</div>' +
+        '</div>' +
+        '</div>' +
+        '</div>' +
+        //criteria
 
-            + '</div>'
-
-            + '<div class="col-md-6">'
-            + '<div class="form-group">'
-            + '<label for="phone_home">Home Phone</label>'
-            + '<input value="' + aData.contact_phone_home + '" type="text" class="form-control" id="phone_home" name="contact_phone_home" placeholder="Home Phone" />'
-            + '</div>'
-            + '<div class="form-group">'
-            + '<label for="country">Country</label>'
-            + '<input value="' + aData.contact_country + '" type="text" class="form-control" id="country" name="contact_country" placeholder="Country" />'
-            + '</div>'
-            + '<div class="form-group">'
-            + '<label for="state">State</label>'
-            + '<input value="' + aData.contact_state + '" type="text" class="form-control" id="state" name="contact_state" placeholder="State" />'
-            + '</div>'
-            + '<div class="form-group">'
-            + '<label for="city">City</label>'
-            + '<input value="' + aData.contact_city + '" type="text" class="form-control" id="city" name="contact_city" placeholder="City" />'
-            + '</div>'
-            + '<div class="form-group">'
-            + '<label for="street_line_1">Street Line 1</label>'
-            + '<input value="' + aData.contact_line1 + '" type="text" class="form-control" id="street_line_1" name="contact_line1" placeholder="Street Line 1" />'
-            + '</div>'
-            + '<div class="form-group">'
-            + '<label for="street_line_2">Street Line 2</label>'
-            + '<input value="' + aData.contact_line2 + '" type="text" class="form-control" id="street_line_2" name="contact_line2" placeholder="Street Line 2" />'
-            + '</div>'
-            + '<div class="checkbox">'
-            + '<label>'
-            + '<input type="hidden" name="contact_iuaa_member" value="0" />'
-            + '<input id="contact_iuaa_member" type="checkbox" name="contact_iuaa_member" value="1"/>'
-            + '<span>IUAA Member?</span>'
-            + '</label>'
-            + '</div>'
-            + '<div class="checkbox">'
-            + '<label>'
-            + '<input type="hidden" name="contact_share_with_iuaa" value="0" />'
-            + '<input id="contact_share_with_iuaa" type="checkbox" name="contact_share_with_iuaa" value="1" />'
-            + '<span>Share with IUAA?</span>'
-            + '</label>'
-            + '</div>'
-
-            + '</div>'
-            + '</div>'
-
-            + '</form>';
+        '<hr>' +
+        // '<p>Criteria</p>' +
+        '<div class="row">' +
+        '<div class="col-md-12">' +
+        '<div class="form-group">' +
+        '<label for="criteria_content">Criteria</label>' +
+        '<input type="hidden" name="criteria_id" value="' + aData.criteria.id + '" />' +
+        '<textarea class="form-control" id="criteria_content" name="criteria_content" placeholder="Selection Criteria, if any">' + aData.criteria.criteria_content + '</textarea>' +
+        '</div>' +
+        '</div>' +
+        '</div>' +
+        //eligibility
+        '<hr>' +
+        // '<p>Eligibility</p>' +
+        '<div class="row">' +
+        '<div id="eligibility" class="form-group">' +
+        '<div class="col-md-5">' +
+        '<label>How many items of eligibility?</label>' +
+        '</div>' +
+        '<div class="col-md-3">' +
+        '<input type="number" class="form-control" min="0" value="1"></input>' +
+        '</div>' +
+        '<div class="col-md-2">' +
+        '<button class="btn btn-primary generate_inputs">Generate</button>' +
+        '</div>' +
+        '<div class="col-md-2" hidden>' +
+        '<button class="btn btn-primary destroy_inputs" hidden>Reset</button>' +
+        '</div>' +
+        '</div>' +
+        '</div>' +
+        //material
+        '<hr>' +
+        // '<p>Application Materials</p>' +
+        '<div class="row">' +
+        '<div id="material" class="form-group">' +
+        '<div class="col-md-5">' +
+        '<label>How many items of materials?</label>' +
+        '</div>' +
+        '<div class="col-md-3">' +
+        '<input type="number" class="form-control" min="0" value="1"></input>' +
+        '</div>' +
+        '<div class="col-md-2">' +
+        '<button class="btn btn-primary generate_inputs">Generate</button>' +
+        '</div>' +
+        '<div class="col-md-2" hidden>' +
+        '<button class="btn btn-primary destroy_inputs" hidden>Reset</button>' +
+        '</div>' +
+        '</div>' +
+        '</div>' +
+        //process
+        '<hr>' +
+        // '<p>Apply steps</p>' +
+        '<div class="row">' +
+        '<div id="process" class="form-group">' +
+        '<div class="col-md-5">' +
+        '<label>How many steps</label>' +
+        '</div>' +
+        '<div class="col-md-3">' +
+        '<input type="number" class="form-control" min="0" value="1"></input>' +
+        '</div>' +
+        '<div class="col-md-2">' +
+        '<button class="btn btn-primary generate_inputs">Generate</button>' +
+        '</div>' +
+        '<div class="col-md-2" hidden>' +
+        '<button class="btn btn-primary destroy_inputs" hidden>Reset</button>' +
+        '</div>' +
+        '</div>' +
+        '</div>' +
+        //requirement
+        '<hr>' +
+        // '<p>Requirements</p>' +
+        '<div class="row">' +
+        '<div id="requirement" class="form-group">' +
+        '<div class="col-md-5">' +
+        '<label>How many requirements?</label>' +
+        '</div>' +
+        '<div class="col-md-3">' +
+        '<input type="number" class="form-control" min="0" value="1"></input>' +
+        '</div>' +
+        '<div class="col-md-2">' +
+        '<button class="btn btn-primary generate_inputs">Generate</button>' +
+        '</div>' +
+        '<div class="col-md-2" hidden>' +
+        '<button class="btn btn-primary destroy_inputs" hidden>Reset</button>' +
+        '</div>' +
+        '</div>' +
+        '</div>' +
+        '</div>' +
+        '</form>';
 
     // insert form and title into modal
     $('#alum_study_field_public_modal .modal-title').text('Edit Scholarship');
@@ -292,3 +384,31 @@ window.customFunction = function () {
 };
 
 
+$(document).on('click', '.generate_inputs', function (e) {
+    e.preventDefault();
+    var num_items = $(this).parent().siblings().children('input').val();
+    var group_name = $(this).parent().parent().attr('id');
+    var group_div = $(this).parent().parent();
+    var items = '<div class="appended_div">';
+    for (var i = 0; i < num_items; i ++)
+    {
+        items += '<div class="col-md-12">';
+        items += '<label>' + group_name + ' ' + (i + 1) + '</label>';
+        items += '<input type="hidden" name="' + group_name + '_order[]" value="' + i + '" />';
+        items += '<input type="text" class="form-control" name="' + group_name + '_item[]" />';
+        items += '</div>';
+    }
+    items += '</div>';
+    group_div.append(items);
+    $(this).parent().toggle();
+    $(this).parent().siblings().children('.destroy_inputs').parent().toggle();
+
+});
+
+$(document).on('click', '.destroy_inputs', function (e) {
+    e.preventDefault();
+    var appended_div = $(this).parent().siblings().last();
+    appended_div.remove();
+    $(this).parent().toggle();
+    $(this).parent().siblings().children('.generate_inputs').parent().toggle();
+});

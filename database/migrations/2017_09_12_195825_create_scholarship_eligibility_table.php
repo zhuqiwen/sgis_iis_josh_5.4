@@ -17,7 +17,7 @@ class CreateScholarshipEligibilityTable extends Migration
             $table->increments('id');
 	        $table->integer('scholarship_id')->unsigned();
 	        $table->integer('eligibility_order')->nullable();
-	        $table->string('eligibility_content')->nullable();
+	        $table->string('eligibility_item')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

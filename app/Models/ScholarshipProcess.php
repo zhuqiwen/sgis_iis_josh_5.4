@@ -17,7 +17,7 @@ class ScholarshipProcess extends Model
     protected $fillable = [
 	    "scholarship_id",
 	    "process_order",
-	    "process_content",
+	    "process_item",
 
     ];
 

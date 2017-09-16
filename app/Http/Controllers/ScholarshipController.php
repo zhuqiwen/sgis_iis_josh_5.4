@@ -12,6 +12,7 @@ use App\Models\ScholarshipProcess;
 use App\Models\ScholarshipRequirement;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Schema;
 use Datatables;
 
@@ -107,6 +108,76 @@ class ScholarshipController extends Controller
 	 */
 	public function store(Request $request)
 	{
+		$request->request->add(['scholarship_admin' => $request->user()->id]);
+		$scholarship = Scholarship::create($request->all());
+
+		if($request->criteria_content)
+		{
+			$scholarship->criteria()->create($request->all());
+		}
+
+		if($request->eligibility_order)
+		{
+			$items = [];
+			foreach($request->eligibility_order as $order)
+			{
+				$items[] = [
+					// original order starts from 0
+					'eligibility_order' => $order + 1,
+					'eligibility_item' => $request->eligibility_item[$order],
+				];
+			}
+
+			$scholarship->eligibility()->createMany($items);
+		}
+
+
+		if($request->material_order)
+		{
+			$items = [];
+			foreach($request->material_order as $order)
+			{
+				$items[] = [
+					// original order starts from 0
+					'material_order' => $order + 1,
+					'material_item' => $request->material_item[$order],
+				];
+			}
+
+			$scholarship->materials()->createMany($items);
+		}
+
+		if($request->process_order)
+		{
+			$items = [];
+			foreach($request->process_order as $order)
+			{
+				$items[] = [
+					// original order starts from 0
+					'process_order' => $order + 1,
+					'process_item' => $request->process_item[$order],
+				];
+			}
+
+			$scholarship->process()->createMany($items);
+		}
+
+		if($request->requirement_order)
+		{
+			$items = [];
+			foreach($request->requirement_order as $order)
+			{
+				$items[] = [
+					// original order starts from 0
+					'requirement_order' => $order + 1,
+					'requirement_item' => $request->requirement_item[$order],
+				];
+			}
+
+			$scholarship->requirements()->createMany($items);
+		}
+
+		return $request->all();
 	}
 
 	/**

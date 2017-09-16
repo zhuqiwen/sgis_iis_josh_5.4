@@ -17,7 +17,7 @@ class ScholarshipEligibility extends Model
     protected $fillable = [
 	    "scholarship_id",
 	    "eligibility_order",
-	    "eligibility_content",
+	    "eligibility_item",
 
     ];
 

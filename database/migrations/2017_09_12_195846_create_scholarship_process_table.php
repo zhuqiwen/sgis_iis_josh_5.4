@@ -17,7 +17,7 @@ class CreateScholarshipProcessTable extends Migration
             $table->increments('id');
 	        $table->integer('scholarship_id')->unsigned();
 	        $table->integer('process_order')->nullable();
-	        $table->string('process_content')->nullable();
+	        $table->string('process_item')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

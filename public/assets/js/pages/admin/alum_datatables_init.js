@@ -136,9 +136,10 @@ function drawTable(data) {
 }
 
 $( document ).ready(function() {
+
     window.fields_titles = [];
-    console.log($(location).attr('href'));
-    console.log(window.location.pathname);
+    // console.log($(location).attr('href'));
+    // console.log(window.location.pathname);
     // var columnsDT;
     $.ajax({
         type: 'get',
@@ -194,11 +195,6 @@ $(document).on('click', '#add_button', function () {
         .attr('form', 'create_form')
         .text('Add');
 
-    // construct form and fill form with row data
-    // var form = '<form action="/admin/alum_study_fields" method="post" id="' + form_id + '">'
-    //     + '<label for="study_field">Study Field</label>'
-    //     + '<input class="form-control" type="text" id="study_field" name="study_field"></input>'
-    //     + '</form>';
 
     // insert form and title into modal
     $('#alum_study_field_public_modal .modal-title').text(window.modal.add.title);
