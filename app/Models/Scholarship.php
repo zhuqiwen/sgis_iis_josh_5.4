@@ -38,7 +38,7 @@ class Scholarship extends Model
 		return $this->hasMany('App\Models\ScholarshipEligibility', 'scholarship_id');
 	}
 
-	public function materials()
+	public function material()
 	{
 		return $this->hasMany('App\Models\ScholarshipMaterial', 'scholarship_id');
 	}
@@ -48,7 +48,7 @@ class Scholarship extends Model
 		return $this->hasMany('App\Models\ScholarshipProcess', 'scholarship_id');
 	}
 
-	public function requirements()
+	public function requirement()
 	{
 		return $this->hasMany('App\Models\ScholarshipRequirement', 'scholarship_id');
 	}

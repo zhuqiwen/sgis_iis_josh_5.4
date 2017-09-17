@@ -18,7 +18,26 @@ window.dtChildRow = {
 
 window.dtOrder = [[1, 'asc']];
 
+function generateGroupItems(data_array, group_name)
+{
+    var items = '';
+    var attribute_item = group_name + '_item';
+    for (var i = 0; i < data_array.length; i++)
+    {
+        items += '<div class="row">';
 
+        items += '<div class="col-md-12">';
+        items += '<label>' + (i + 1) + '</label>';
+        items += '<input type="hidden" name="' + group_name + '_id[]" value="' + data_array[i].id + '" />';
+        items += '<input type="text" class="form-control" name="' + group_name + '_item[]"  value="' + data_array[i][attribute_item] + '"/>';
+        items += '<button type="button" class="btn btn-warning delete_one_item">Delete</button>';
+        items += '</div>';
+
+        items += '</div>';
+    }
+
+    return items;
+}
 
 
 // function used for child row
@@ -214,7 +233,13 @@ $(document).on('click', '.edit', function (e) {
     var nRow = $(this).parents('tr')[0];
     var aData = window.datatable.row(nRow).data();
 
+    window.currentRowData = aData;
+
     console.log(aData);
+    var eligibility_items = generateGroupItems(aData.eligibility, 'eligibility');
+    var material_items = generateGroupItems(aData.material, 'material');
+    var process_items = generateGroupItems(aData.process, 'process');
+    var requirement_items = generateGroupItems(aData.requirement, 'requirement');
 
     // construct form and fill form with row data
     var form = '<form action="' + current_path + '/' + aData.id + '" method="put" id="' + form_id + '">' +
@@ -237,14 +262,14 @@ $(document).on('click', '.edit', function (e) {
         '<div class="col-md-6">' +
         '<div class="form-group">' +
         '<label for="scholarship_award_amount">Award Amount</label>' +
-        '<input type="text"  class="form-control" id="scholarship_award_amount" name="scholarship_award_amount" placeholder="Award Amount">' + aData.scholarship_award_amount + '</input>' +
+        '<input type="text"  class="form-control" id="scholarship_award_amount" name="scholarship_award_amount" value="' + aData.scholarship_award_amount + '"/>' +
         '</div>' +
         '</div>' +
         //deadline
         '<div class="col-md-6">' +
         '<div class="form-group">' +
         '<label for="scholarship_deadline">Application Deadline</label>' +
-        '<input type="date" class="form-control" id="scholarship_deadline" name="scholarship_deadline">' + aData.scholarship_deadline + '</input>' +
+        '<input type="date" class="form-control" id="scholarship_deadline" name="scholarship_deadline" value="' + aData.scholarship_deadline + '"/>' +
         '</div>' +
         '</div>' +
         '</div>' +
@@ -285,38 +310,28 @@ $(document).on('click', '.edit', function (e) {
         '<hr>' +
         // '<p>Eligibility</p>' +
         '<div class="row">' +
-        '<div id="eligibility" class="form-group">' +
-        '<div class="col-md-5">' +
-        '<label>How many items of eligibility?</label>' +
-        '</div>' +
-        '<div class="col-md-3">' +
-        '<input type="number" class="form-control" min="0" value="1"></input>' +
-        '</div>' +
-        '<div class="col-md-2">' +
-        '<button class="btn btn-primary generate_inputs">Generate</button>' +
-        '</div>' +
-        '<div class="col-md-2" hidden>' +
-        '<button class="btn btn-primary destroy_inputs" hidden>Reset</button>' +
-        '</div>' +
-        '</div>' +
+            '<div id="eligibility" class="form-group">' +
+                '<div class="col-md-6">' +
+                    '<label>Items of eligibility</label>' +
+                '</div>' +
+                '<div class="col-md-3 col-md-offset-3">' +
+                    '<button class="btn btn-primary append_one_item">Append</button>' +
+                '</div>' +
+                eligibility_items +
+            '</div>' +
         '</div>' +
         //material
         '<hr>' +
         // '<p>Application Materials</p>' +
         '<div class="row">' +
         '<div id="material" class="form-group">' +
-        '<div class="col-md-5">' +
-        '<label>How many items of materials?</label>' +
-        '</div>' +
-        '<div class="col-md-3">' +
-        '<input type="number" class="form-control" min="0" value="1"></input>' +
-        '</div>' +
-        '<div class="col-md-2">' +
-        '<button class="btn btn-primary generate_inputs">Generate</button>' +
-        '</div>' +
-        '<div class="col-md-2" hidden>' +
-        '<button class="btn btn-primary destroy_inputs" hidden>Reset</button>' +
-        '</div>' +
+            '<div class="col-md-6">' +
+            '<label>Materials needed for application</label>' +
+            '</div>' +
+            '<div class="col-md-3 col-md-offset-3">' +
+            '<button class="btn btn-primary append_one_item">Append</button>' +
+            '</div>' +
+            material_items +
         '</div>' +
         '</div>' +
         //process
@@ -324,18 +339,13 @@ $(document).on('click', '.edit', function (e) {
         // '<p>Apply steps</p>' +
         '<div class="row">' +
         '<div id="process" class="form-group">' +
-        '<div class="col-md-5">' +
-        '<label>How many steps</label>' +
-        '</div>' +
-        '<div class="col-md-3">' +
-        '<input type="number" class="form-control" min="0" value="1"></input>' +
-        '</div>' +
-        '<div class="col-md-2">' +
-        '<button class="btn btn-primary generate_inputs">Generate</button>' +
-        '</div>' +
-        '<div class="col-md-2" hidden>' +
-        '<button class="btn btn-primary destroy_inputs" hidden>Reset</button>' +
-        '</div>' +
+            '<div class="col-md-6">' +
+            '<label>Steps to apply</label>' +
+            '</div>' +
+            '<div class="col-md-3 col-md-offset-3">' +
+            '<button class="btn btn-primary append_one_item">Append</button>' +
+            '</div>' +
+            process_items +
         '</div>' +
         '</div>' +
         //requirement
@@ -343,18 +353,13 @@ $(document).on('click', '.edit', function (e) {
         // '<p>Requirements</p>' +
         '<div class="row">' +
         '<div id="requirement" class="form-group">' +
-        '<div class="col-md-5">' +
-        '<label>How many requirements?</label>' +
-        '</div>' +
-        '<div class="col-md-3">' +
-        '<input type="number" class="form-control" min="0" value="1"></input>' +
-        '</div>' +
-        '<div class="col-md-2">' +
-        '<button class="btn btn-primary generate_inputs">Generate</button>' +
-        '</div>' +
-        '<div class="col-md-2" hidden>' +
-        '<button class="btn btn-primary destroy_inputs" hidden>Reset</button>' +
-        '</div>' +
+            '<div class="col-md-6">' +
+            '<label>Requirements</label>' +
+            '</div>' +
+            '<div class="col-md-3 col-md-offset-3">' +
+            '<button class="btn btn-primary append_one_item">Append</button>' +
+            '</div>' +
+            requirement_items +
         '</div>' +
         '</div>' +
         '</div>' +
@@ -411,4 +416,32 @@ $(document).on('click', '.destroy_inputs', function (e) {
     appended_div.remove();
     $(this).parent().toggle();
     $(this).parent().siblings().children('.generate_inputs').parent().toggle();
+});
+
+
+$(document).on('click', '.delete_one_item', function (e) {
+    e.preventDefault();
+    console.log(current_path);
+    var table = $(this).parent().parent().parent().attr('id');
+
+    var url_base = '/' + current_path.split('/')[1] + '/';
+
+    var record_id = $(this).siblings('input[type="hidden"]').val();
+
+    var url = url_base + 'scholarship_' + table + '/' + record_id;
+
+    console.log(url);
+
+
+
+
+
+});
+
+$(document).on('click', '.append_one_item', function (e) {
+    e.preventDefault();
+    console.log(window.currentRowData);
+    var scholarship_id = window.currentRowData.id;
+    var table = $(this).parent().parent().attr('id');
+
 });

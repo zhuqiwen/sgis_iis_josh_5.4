@@ -65,9 +65,9 @@ class ScholarshipController extends Controller
 		$records = Scholarship::with([
 			'criteria',
 			'eligibility',
-			'materials',
+			'material',
 			'process',
-			'requirements',
+			'requirement',
 		]);
 
 
@@ -144,7 +144,7 @@ class ScholarshipController extends Controller
 				];
 			}
 
-			$scholarship->materials()->createMany($items);
+			$scholarship->material()->createMany($items);
 		}
 
 		if($request->process_order)
@@ -174,7 +174,7 @@ class ScholarshipController extends Controller
 				];
 			}
 
-			$scholarship->requirements()->createMany($items);
+			$scholarship->requirement()->createMany($items);
 		}
 
 		return $request->all();

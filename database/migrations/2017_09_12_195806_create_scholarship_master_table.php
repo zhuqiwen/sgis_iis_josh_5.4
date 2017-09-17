@@ -18,7 +18,7 @@ class CreateScholarshipMasterTable extends Migration
 	        $table->text('scholarship_introduction')->nullable();
 	        $table->string('scholarship_award_amount')->nullable()->default('vary');
 	        $table->integer('scholarship_admin')->unsigned();
-	        $table->dateTime('scholarship_deadline')->nullable();
+	        $table->date('scholarship_deadline')->nullable();
 	        $table->text('scholarship_about_donar')->nullable();
 	        $table->text('scholarship_notes')->nullable();
             $table->timestamps();

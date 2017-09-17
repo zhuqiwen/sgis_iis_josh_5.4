@@ -202,9 +202,42 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin', 'as' => 'admin.'], f
 
 
 	// Scholarships module
+	// Scholarships
 	Route::get('scholarships/getColumns', 'ScholarshipController@getColumnsForDataTables');
 	Route::get('scholarships/data', 'ScholarshipController@data');
 	Route::resource('scholarships', 'ScholarshipController');
+
+
+	// Scholarships module
+	// Scholarship_eligibility
+	Route::get('scholarship_eligibility/getColumns', 'ScholarshipEligibilityController@getColumnsForDataTables');
+	Route::get('scholarship_eligibility/data', 'ScholarshipEligibilityController@data');
+	Route::resource('scholarship_eligibility', 'ScholarshipEligibilityController');
+
+	// Scholarships module
+	// Scholarship_material
+	Route::get('scholarship_material/getColumns', 'ScholarshipMaterialController@getColumnsForDataTables');
+	Route::get('scholarship_material/data', 'ScholarshipMaterialController@data');
+	Route::resource('scholarship_material', 'ScholarshipMaterialController');
+
+
+	// Scholarships module
+	// Scholarship_process
+	Route::get('scholarship_process/getColumns', 'ScholarshipProcessController@getColumnsForDataTables');
+	Route::get('scholarship_process/data', 'ScholarshipProcessController@data');
+	Route::resource('scholarship_process', 'ScholarshipProcessController');
+
+
+	// Scholarships module
+	// Scholarship_requirement
+	Route::get('scholarship_requirement/getColumns', 'ScholarshipRequirementController@getColumnsForDataTables');
+	Route::get('scholarship_requirement/data', 'ScholarshipRequirementController@data');
+	Route::resource('scholarship_requirement', 'ScholarshipRequirementController');
+
+
+
+
+
 
 
 
