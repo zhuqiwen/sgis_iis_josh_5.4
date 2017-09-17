@@ -212,7 +212,7 @@ $factory->define(App\Models\ScholarshipCriteria::class, function (Faker\Generato
 $factory->define(App\Models\ScholarshipEligibility::class, function (Faker\Generator $faker){
 
 	return [
-		"eligibility_content" => "Eligibility: " . $faker->text(50),
+		"eligibility_item" => "Eligibility: " . $faker->text(50),
 	];
 });
 $factory->define(App\Models\ScholarshipMaterial::class, function (Faker\Generator $faker){
@@ -224,7 +224,7 @@ $factory->define(App\Models\ScholarshipMaterial::class, function (Faker\Generato
 $factory->define(App\Models\ScholarshipProcess::class, function (Faker\Generator $faker){
 
 	return [
-		"process_content" => "Process: " . $faker->text(50),
+		"process_item" => "Process: " . $faker->text(50),
 	];
 });
 $factory->define(App\Models\ScholarshipRequirement::class, function (Faker\Generator $faker){
