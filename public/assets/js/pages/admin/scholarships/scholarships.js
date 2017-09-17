@@ -424,7 +424,8 @@ $(document).on('click', '.delete_one_item', function (e) {
     console.log(current_path);
     var table = $(this).parent().parent().parent().attr('id');
 
-    var url_base = '/' + current_path.split('/')[1] + '/';
+    var split = current_path.split('/');
+    var url_base = '/' + split.slice(0, split.length - 2).join("/") + '/';
 
     var record_id = $(this).siblings('input[type="hidden"]').val();
 
