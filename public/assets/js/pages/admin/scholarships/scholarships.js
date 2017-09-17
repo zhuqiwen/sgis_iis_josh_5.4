@@ -430,8 +430,29 @@ $(document).on('click', '.delete_one_item', function (e) {
     var record_id = $(this).siblings('input[type="hidden"]').val();
 
     var url = url_base + 'scholarship_' + table + '/' + record_id;
+    var method = 'DELETE';
 
     console.log(url);
+
+    if (confirm('deleted this item?'))
+    {
+        var current_div = $(this).parent();
+        var current_item = $(this).siblings('input[type="text"]').val();
+        var current_num = $(this).siblings('label').text();
+        $.ajax({
+            type: method,
+            url: url,
+            success: function (returned_data) {
+                console.log(returned_data);
+                current_div.html('<p style="text-decoration: line-through;">' + current_num + '.' + current_item + '</p>');
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                var e = window.open();
+                e.document.write(xhr.responseText);
+            }
+        });
+        console.log('deleted');
+    }
 
 
 
@@ -444,5 +465,29 @@ $(document).on('click', '.append_one_item', function (e) {
     console.log(window.currentRowData);
     var scholarship_id = window.currentRowData.id;
     var table = $(this).parent().parent().attr('id');
+
+    var split = current_path.split('/');
+    var url_base = split.slice(0, split.length - 1).join("/") + '/';
+
+
+    var url = url_base + 'scholarship_' + table;
+    var method = 'POST';
+
+    var new_input = '';
+
+    $.ajax({
+        type: method,
+        url: url,
+        data: {scholarship_id: scholarship_id},
+        success: function (returned_data) {
+            console.log(returned_data);
+
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            var e = window.open();
+            e.document.write(xhr.responseText);
+        }
+
+    });
 
 });

@@ -35,6 +35,8 @@ class ScholarshipProcessController extends Controller
     public function store(Request $request)
     {
         //
+	    return response('a new record has been stored');
+
     }
 
     /**
@@ -80,5 +82,7 @@ class ScholarshipProcessController extends Controller
     public function destroy($id)
     {
         //
+	    return response($id . ' has been deleted');
+
     }
 }

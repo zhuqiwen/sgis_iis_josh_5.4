@@ -35,6 +35,8 @@ class ScholarshipEligibilityController extends Controller
     public function store(Request $request)
     {
         //
+	    return response($request->all());
+
     }
 
     /**
@@ -80,5 +82,6 @@ class ScholarshipEligibilityController extends Controller
     public function destroy($id)
     {
         //
+	    return response($id . ' has been deleted');
     }
 }
