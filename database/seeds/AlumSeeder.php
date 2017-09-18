@@ -61,6 +61,27 @@ class AlumSeeder extends Seeder
 
 	    // seeding independent tables
 
+
+	    $engagement_indicators = [
+		    'Direct Admit',
+		    'Study Aborad',
+		    'Internships',
+		    'Academic Award',
+		    'Student Ambassador',
+		    'GS7',
+		    'Sigma Iota Rho',
+		    'International Studies Undergraduate Association',
+		    'Turkish Flagship Student Association',
+		    'Arabic Flagship',
+		    'Chinese Flagship',
+	    ];
+
+	    foreach ($engagement_indicators as $indicator)
+	    {
+		    factory(AlumEngagementIndicator::class)->create(['engagement_indicator_name' => $indicator]);
+	    }
+
+
 	    $employer_types = [
 	    	'Government',
 	    	'NGO',

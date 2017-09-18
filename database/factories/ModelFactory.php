@@ -113,6 +113,12 @@ $factory->define(App\Models\AlumStudyField::class, function (Faker\Generator $fa
 	];
 });
 
+$factory->define(App\Models\AlumEngagementIndicator::class, function (Faker\Generator $faker){
+
+	return [
+	];
+});
+
 
 $factory->define(App\Models\AlumEmployerType::class, function (Faker\Generator $faker){
 

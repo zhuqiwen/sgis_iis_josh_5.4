@@ -120,6 +120,12 @@
     {{--<script type="text/javascript" src="{{ asset('assets/js/pages/table-editable.js') }}" ></script>--}}
     <script src="{{ asset('assets/vendors/sweetalert/js/sweetalert.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/vendors/sweetalert/js/sweetalert-dev.js') }}" type="text/javascript"></script>
+
+    <script src="{{ asset('assets/vendors/jqvmap/js/jquery.vmap.js') }}"  type="text/javascript"></script>
+    <script src="{{ asset('assets/vendors/jqvmap/js/jquery.vmap.world.js') }}"  type="text/javascript"></script>
+    <script src="{{ asset('assets/vendors/jqvmap/js/jquery.vmap.usa.js') }}"  type="text/javascript"></script>
+
+
     <script src="{{ asset('assets/js/frontend/ajax_init.js') }}" type="text/javascript"></script>
     <script src="{{ $page_specific_js}}" type="text/javascript"></script>
     <script src="{{ asset('assets/js/pages/admin/alum_datatables_init.js') }}" type="text/javascript"></script>

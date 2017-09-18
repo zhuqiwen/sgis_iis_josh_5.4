@@ -95,6 +95,9 @@
 {{-- page level scripts --}}
 @section('footer_scripts')
 
+    <script src="{{ asset('assets/js/frontend/ajax_init.js') }}" type="text/javascript"></script>
+
+
     <script type="text/javascript" src="{{ asset('assets/vendors/datatables/js/jquery.dataTables.js') }}"></script>
     <script type="text/javascript" src="{{ asset('assets/vendors/datatables/js/dataTables.bootstrap.js') }}"></script>
     <script type="text/javascript" src="{{ asset('assets/vendors/datatables/js/dataTables.buttons.js') }}"></script>
@@ -110,14 +113,55 @@
     <script type="text/javascript" src="{{ asset('assets/vendors/datatables/js/vfs_fonts.js') }}"></script>
     <script type="text/javascript" src="{{ asset('assets/vendors/datatables/js/dataTables.scroller.js') }}"></script>
     <script type="text/javascript" src="{{ asset('assets/vendors/select2/js/select2.js') }}"></script>
-    {{--<script type="text/javascript" src="{{ asset('assets/js/pages/table-editable.js') }}" ></script>--}}
     <script src="{{ asset('assets/vendors/sweetalert/js/sweetalert.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/vendors/sweetalert/js/sweetalert-dev.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('assets/js/frontend/ajax_init.js') }}" type="text/javascript"></script>
+
+
+
     <script src="{{ asset('assets/js/pages/admin/alum_contacts/alumni_contacts.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/js/pages/admin/alum_datatables_init.js') }}" type="text/javascript"></script>
 
-    {{--<script src="{{ asset('assets/js/pages/alumni_contacts.js') }}" type="text/javascript"></script>--}}
+
+{{--    <script src="{{ asset('assets/vendors/jqvmap/js/jquery.vmap.sampledata.js') }}" ></script>--}}
+
+    {{--<script type="text/javascript">--}}
+        {{--jQuery(document).ready(function() {--}}
+            {{--jQuery('#geo_distribution_world_map').vectorMap({--}}
+                {{--map: 'world_en',--}}
+                {{--backgroundColor: '#ffffff',--}}
+                {{--color: '#ffffff',--}}
+                {{--hoverOpacity: 0.7,--}}
+                {{--selectedColor: '#666666',--}}
+                {{--enableZoom: true,--}}
+                {{--showTooltip: true,--}}
+                {{--values: sample_data,--}}
+                {{--scaleColors: ['#045707', '#84F088'],--}}
+                {{--normalizeFunction: 'polynomial'--}}
+            {{--});--}}
+{{--//            jQuery('#vmapusa').vectorMap({--}}
+{{--//                map: 'usa_en',--}}
+{{--//                backgroundColor: '#ffffff',--}}
+{{--//                color: '#ffffff',--}}
+{{--//                hoverOpacity: 0.7,--}}
+{{--//                selectedColor: '#666666',--}}
+{{--//                enableZoom: true,--}}
+{{--//                showTooltip: true,--}}
+{{--//                values: sample_data,--}}
+{{--//                scaleColors: ['#5bc0de', '#D6DBDE'],--}}
+{{--//                normalizeFunction: 'polynomial'--}}
+{{--//            });--}}
+        {{--});--}}
+        {{--$('.map_size').closest('.panel-body').on('resize', function () {--}}
+            {{--$(window).trigger('resize');--}}
+        {{--});--}}
+{{--//        $('#slim1').slimscroll({--}}
+{{--//            height: '500px',--}}
+{{--//            size: '3px',--}}
+{{--//            color: '#D84A38',--}}
+{{--//            opacity: 1--}}
+{{--//        });--}}
+    {{--</script>--}}
+
 
 
 
