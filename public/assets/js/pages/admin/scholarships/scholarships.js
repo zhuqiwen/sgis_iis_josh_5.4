@@ -9,12 +9,12 @@ window.dtColumnDefs = [
     // }
 ];
 
-window.dtChildRow = {
-    "className":      'details-control',
-    "orderable":      false,
-    "data":           null,
-    "defaultContent": ''
-};
+// window.dtChildRow = {
+//     "className":      'details-control',
+//     "orderable":      false,
+//     "data":           null,
+//     "defaultContent": ''
+// };
 
 window.dtOrder = [[1, 'asc']];
 

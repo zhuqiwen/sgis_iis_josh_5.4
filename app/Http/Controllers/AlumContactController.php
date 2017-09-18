@@ -71,14 +71,17 @@ class AlumContactController extends Controller
 
 
 		$records = AlumContact::with([
+		    'academicInfo',
+		    'academicInfo.studyField',
 			'events',
-//			'employments',
-//			'socialAccounts',
-//			'donations',
-//			'engagementIndicators',
+			'employments',
+			'employments.employer',
+			'employments.employer.employerType',
+			'socialAccounts',
+			'donations',
+			'engagementIndicators',
 		]);
-//			->get($display_fields);
-//			->get();
+
 
 		return  Datatables::of($records)
 			->add_column('edit', '<a class="edit" href="javascript:;">Edit</a>')

@@ -25,28 +25,153 @@ window.dtColumnDefs = [
 function format ( d ) {
 
     console.log('window.datatable extra response data test');
-    console.log(window.datatable.ajax.json().age_group_frequency);
-    console.log(window.datatable.ajax.json().num_active_contacts);
+    // console.log(window.datatable.ajax.json().age_group_frequency);
+    // console.log(window.datatable.ajax.json().num_active_contacts);
     // `d` is the original data object for the row
-    var events = d.events;
-    var event_names = '';
-    for(var i = 0; i < events.length; i++)
+    // var events = d.events;
+    var events = '';
+    for(var i = 0; i < d.events.length; i++)
     {
-        event_names += events[i].event_name;
-        event_names += '----';
+        events += '<p>';
+        events += (i + 1) +'. ';
+        events += '<strong>' + d.events[i].event_name + '</strong>';
+        events += ' on ' + d.events[i].event_date;
+        events += ' at ' + d.events[i].event_location;
+        events += ' in ' + d.events[i].event_city;
+        events += ', ' + d.events[i].event_state;
+        events += ', ' + d.events[i].event_country;
+        events += '</p>';
     }
-    return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'+
-                    '<tr>'+
-                        '<td><strong>Country:</strong></td>'+
-                        '<td style="padding: 0 30px;">' + d.contact_country + '</td>' +
-                    // '</tr>'+
-                    // '<tr>'+
-                        '<td><strong>Home Phone:</strong></td>'+
-                        '<td style="padding: 0 30px;">'+d.contact_phone_home+'</td>'+
-                        '<td><strong>Events:</strong></td>'+
-                        '<td style="padding: 0 30px;">'+event_names+'</td>'+
-                    '</tr>'+
-            '</table>';
+
+    var employments = '';
+    for(var i = 0; i < d.employments.length; i++)
+    {
+        employments += '<p>';
+        employments += (i + 1) +'. ';
+        employments += '<strong>' + d.employments[i].employment_job_title + '</strong>';
+        employments += ' for <strong>' +
+            '<a href="http://' + d.employments[i].employer.employer_url + '">' +
+            d.employments[i].employer.employer +
+            '</a>(' +
+            d.employments[i].employer.employer_type.employer_type +
+            ')</strong>';
+        employments += ' since ' + d.employments[i].employment_start_date;
+        if(d.employments[i].employment_end_date != null)
+        {
+            employments += ' till ' + d.employments[i].employment_end_date;
+        }
+        else
+        {
+            employments += ' till now';
+
+        }
+        employments += ' in ' + d.employments[i].employment_city;
+        employments += ', ' + d.employments[i].employment_state;
+        employments += ', ' + d.employments[i].employment_country;
+        employments += '</p>';
+    }
+
+    var engagements = '';
+    for(var i = 0; i < d.engagement_indicators.length; i++)
+    {
+        engagements += '<p>';
+        engagements += (i + 1) +'. ';
+        engagements += '<strong>' + d.engagement_indicators[i].engagement_indicator_name + '</strong>';
+        engagements += '</p>';
+    }
+
+    var donations = '';
+    for(var i = 0; i < d.donations.length; i++)
+    {
+        donations += '<p>';
+        donations += (i + 1) + '. ';
+        donations += 'on ' + '<strong>' + d.donations[i].donation_date + '</strong>';
+        donations += ': ' + '<strong>' + d.donations[i].donation_amount + '</strong>';
+        donations += ' in the form of ' + '<strong>' + d.donations[i].donation_form + '</strong>';
+        donations += ', totaling ' + '<strong>' + d.donations[i].donation_sum + '</strong>';
+        donations += '<p><strong>Note: </strong>' + d.donations[i].donation_note + '</p>';
+        donations += '</p>';
+    }
+
+    var academics = '';
+    for(var i = 0; i < d.academic_info.length; i++)
+    {
+        academics += '<p>';
+        academics += '<p>' + (i + 1) + '. ';
+        academics += 'Class: ' + '<strong>' + d.academic_info[i].academic_info_class_year + '</strong></p>';
+        academics += '<p>Degree: ' + '<strong>' + d.academic_info[i].academic_info_degree + '</strong></p>';
+        academics += '<p>Study Field: ' + '<strong>' + d.academic_info[i].study_field.study_field + '</strong></p>';
+        academics += '</p>';
+    }
+
+    var social_media = '';
+    for(var i = 0; i < d.social_accounts.length; i++)
+    {
+        social_media += '<p>';
+        social_media += '<p>' + d.social_accounts[i].type + '</p>';
+        social_media += '<p><strong>' + d.social_accounts[i].account + '</strong></p>';
+        social_media += '</p>';
+    }
+
+
+    return '<div class="panel panel-primary">' +
+                '<div class="panel-body">' +
+                   '<div class="bs-example">' +
+                        '<ul class="nav nav-tabs" style="margin-bottom: 15px;">' +
+                            '<li class="active">' +
+                                '<a href="#contact_' + d.id + '_employments" data-toggle="tab">Employments</a>' +
+                            '</li>' +
+                            '<li>' +
+                                '<a href="#contact_' + d.id + '_engagements" data-toggle="tab">Engagements</a>' +
+                            '</li>' +
+                            '<li>' +
+                                '<a href="#contact_' + d.id + '_events" data-toggle="tab">Events</a>' +
+                            '</li>' +
+                            '<li>' +
+                                '<a href="#contact_' + d.id + '_donations" data-toggle="tab">Donations</a>' +
+                            '</li>' +
+                            '<li>' +
+                                '<a href="#contact_' + d.id + '_academics" data-toggle="tab">Academic History</a>' +
+                            '</li>' +
+                            '<li>' +
+                                '<a href="#contact_' + d.id + '_social_media" data-toggle="tab">Social Media</a>' +
+                            '</li>' +
+                        '</ul>' +
+                    '<div id="myTabContent" class="tab-content">' +
+                        '<div class="tab-pane fade active in" id="contact_' + d.id + '_employments">' +
+                            '<p  class="m-r-6">' +
+                                employments +
+                            '</p>' +
+                        '</div>' +
+                        '<div class="tab-pane fade" id="contact_' + d.id + '_engagements">' +
+                            '<p class="m-r-6">' +
+                                engagements +
+                            '</p>' +
+                        '</div>' +
+                        '<div class="tab-pane fade" id="contact_' + d.id + '_events">' +
+                            '<p class="m-r-6">' +
+                                events +
+                            '</p>' +
+                        '</div>' +
+                        '<div class="tab-pane fade" id="contact_' + d.id + '_donations">' +
+                            '<p class="m-r-6">' +
+                                donations +
+                            '</p>' +
+                        '</div>' +
+                        '<div class="tab-pane fade" id="contact_' + d.id + '_academics">' +
+                            '<p class="m-r-6">' +
+                                academics +
+                            '</p>' +
+                        '</div>' +
+                        '<div class="tab-pane fade" id="contact_' + d.id + '_social_media">' +
+                            '<p class="m-r-6">' +
+                                social_media +
+                            '</p>' +
+                        '</div>' +
+                    '</div>' +
+                '</div>' +
+                '</div>' +
+                '</div>';
 }
 
 
