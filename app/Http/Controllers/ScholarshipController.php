@@ -242,7 +242,7 @@ class ScholarshipController extends Controller
 		}
 
 
-		if($request->eligibility_id && $request->eligibility_item)
+		if($request->material_id && $request->material_item)
 		{
 			foreach($request->material_id as $index => $record_id)
 			{
@@ -253,7 +253,7 @@ class ScholarshipController extends Controller
 			}
 		}
 
-		if($request->eligibility_id && $request->eligibility_item)
+		if($request->process_id && $request->process_item)
 		{
 			foreach($request->process_id as $index => $record_id)
 			{
@@ -264,7 +264,7 @@ class ScholarshipController extends Controller
 			}
 		}
 
-		if($request->eligibility_id && $request->eligibility_item)
+		if($request->requirement_id && $request->requirement_item)
 		{
 			foreach($request->requirement_id as $index => $record_id)
 			{
