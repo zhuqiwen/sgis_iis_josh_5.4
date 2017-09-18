@@ -85,11 +85,11 @@ function drawTable(data) {
 
 
     // //if any extra column definition
-    if (window.dtChildRow)
-    {
-        columns.splice(0, 0, window.dtChildRow );
+    // if (window.dtChildRow)
+    // {
+    //     columns.splice(0, 0, window.dtChildRow );
 
-    }
+    // }
     //draw table
     window.datatable = $('#' + table_id)
         .DataTable({
@@ -209,8 +209,8 @@ $(document).on('click', '#add_button', function () {
 // no answer as for 20170904
 // use double click on tr with role=row
 $(document).on('dblclick', '#'+table_id+' tbody tr[role="row"]', function () {
-    if (window.dtChildRow)
-    {
+    // if (window.dtChildRow)
+    // {
         var tr = $(this).closest('tr');
         var row = window.datatable.row( tr );
 
@@ -225,10 +225,10 @@ $(document).on('dblclick', '#'+table_id+' tbody tr[role="row"]', function () {
             row.child( format(row.data()) ).show();
             tr.addClass('shown');
         }
-    }
-    else {
-        console.log('child');
-    }
+    // }
+    // else {
+    //     console.log('child');
+    // }
 });
 
 // toggle column display
