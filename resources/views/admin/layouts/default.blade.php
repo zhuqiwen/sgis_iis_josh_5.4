@@ -78,19 +78,19 @@
                             <p class="topprofiletext">{{ Sentinel::getUser()->first_name }} {{ Sentinel::getUser()->last_name }}</p>
                         </li>
                         <!-- Menu Body -->
-                        <li>
-                            <a href="{{ URL::route('admin.users.show',Sentinel::getUser()->id) }}">
-                                <i class="livicon" data-name="user" data-s="18"></i>
-                                My Profile
-                            </a>
-                        </li>
+                        {{--<li>--}}
+                            {{--<a href="{{ URL::route('admin.users.show',Sentinel::getUser()->id) }}">--}}
+                                {{--<i class="livicon" data-name="user" data-s="18"></i>--}}
+                                {{--My Profile--}}
+                            {{--</a>--}}
+                        {{--</li>--}}
                         <li role="presentation"></li>
-                        <li>
-                            <a href="{{ route('admin.users.edit', Sentinel::getUser()->id) }}">
-                                <i class="livicon" data-name="gears" data-s="18"></i>
-                                Account Settings
-                            </a>
-                        </li>
+                        {{--<li>--}}
+                            {{--<a href="{{ route('admin.users.edit', Sentinel::getUser()->id) }}">--}}
+                                {{--<i class="livicon" data-name="gears" data-s="18"></i>--}}
+                                {{--Account Settings--}}
+                            {{--</a>--}}
+                        {{--</li>--}}
                         <!-- Menu Footer-->
                         <li class="user-footer">
                             <div class="pull-left">
