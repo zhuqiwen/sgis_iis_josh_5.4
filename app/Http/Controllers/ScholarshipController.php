@@ -211,6 +211,71 @@ class ScholarshipController extends Controller
 	 */
 	public function update(Request $request, $id)
 	{
+		Scholarship::where('id', $id)
+			->update($request->except([
+				'criteria_id',
+				'criteria_content',
+				'eligibility_id',
+				'eligibility_item',
+				'material_id',
+				'material_item',
+				'process_id',
+				'process_item',
+				'requirement_id',
+				'requirement_item',
+			]));
+
+		ScholarshipCriteria::where('id', $request->criteria_id)
+			->update([
+				'criteria_content' => $request->criteria_content,
+			]);
+
+		if($request->eligibility_id && $request->eligibility_item)
+		{
+			foreach($request->eligibility_id as $index => $record_id)
+			{
+				ScholarshipEligibility::where('id', $record_id)
+					->update([
+						'eligibility_item' => $request->eligibility_item[$index]
+					]);
+			}
+		}
+
+
+		if($request->eligibility_id && $request->eligibility_item)
+		{
+			foreach($request->material_id as $index => $record_id)
+			{
+				ScholarshipMaterial::where('id', $record_id)
+					->update([
+						'material_item' => $request->material_item[$index]
+					]);
+			}
+		}
+
+		if($request->eligibility_id && $request->eligibility_item)
+		{
+			foreach($request->process_id as $index => $record_id)
+			{
+				ScholarshipProcess::where('id', $record_id)
+					->update([
+						'process_item' => $request->process_item[$index]
+					]);
+			}
+		}
+
+		if($request->eligibility_id && $request->eligibility_item)
+		{
+			foreach($request->requirement_id as $index => $record_id)
+			{
+				ScholarshipRequirement::where('id', $record_id)
+					->update([
+						'requirement_item' => $request->requirement_item[$index]
+					]);
+			}
+		}
+
+		return response($request->all());
 	}
 
 	/**

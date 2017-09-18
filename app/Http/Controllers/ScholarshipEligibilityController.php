@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ScholarshipEligibility;
 use Illuminate\Http\Request;
 
 class ScholarshipEligibilityController extends Controller
@@ -35,7 +36,24 @@ class ScholarshipEligibilityController extends Controller
     public function store(Request $request)
     {
         //
-	    return response($request->all());
+	    $eligibility = ScholarshipEligibility::where('scholarship_id', $request->scholarship_id)
+		    ->orderBy('eligibility_order', 'desc')
+		    ->first();
+	    if($eligibility)
+	    {
+		    $highest_order = $eligibility->eligibility_order;
+	    }
+	    else
+	    {
+		    $highest_order = 0;
+	    }
+
+	    $highest_order++;
+
+	    return ScholarshipEligibility::create([
+		    "scholarship_id" => $request->scholarship_id,
+		    "eligibility_order" => $highest_order,
+	    ]);
 
     }
 
@@ -71,6 +89,7 @@ class ScholarshipEligibilityController extends Controller
     public function update(Request $request, $id)
     {
         //
+
     }
 
     /**
@@ -82,6 +101,12 @@ class ScholarshipEligibilityController extends Controller
     public function destroy($id)
     {
         //
+	    $eligibility = ScholarshipEligibility::find($id);
+	    if($eligibility)
+	    {
+		    $eligibility->delete();
+	    }
+
 	    return response($id . ' has been deleted');
     }
 }

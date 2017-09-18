@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ScholarshipMaterial;
 use Illuminate\Http\Request;
 
 class ScholarshipMaterialController extends Controller
@@ -34,8 +35,24 @@ class ScholarshipMaterialController extends Controller
      */
     public function store(Request $request)
     {
-        //
-	    return response('a new record has been stored');
+	    $material = ScholarshipMaterial::where('scholarship_id', $request->scholarship_id)
+		    ->orderBy('material_order', 'desc')
+		    ->first();
+	    if($material)
+	    {
+		    $highest_order = $material->material_order;
+	    }
+	    else
+	    {
+		    $highest_order = 0;
+	    }
+
+	    $highest_order++;
+
+	    return ScholarshipMaterial::create([
+		    "scholarship_id" => $request->scholarship_id,
+		    "material_order" => $highest_order,
+	    ]);
 
     }
 
@@ -82,6 +99,11 @@ class ScholarshipMaterialController extends Controller
     public function destroy($id)
     {
         //
+	    $material = ScholarshipMaterial::find($id);
+	    if($material)
+	    {
+		    $material->delete();
+	    }
 	    return response($id . ' has been deleted');
 
     }

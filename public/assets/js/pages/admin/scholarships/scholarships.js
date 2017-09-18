@@ -39,21 +39,73 @@ function generateGroupItems(data_array, group_name)
     return items;
 }
 
+function generateScholarshipDetails(item_group, group_name) {
+    var detail = '';
+    var key = group_name + '_item';
+    console.log(key);
+    console.log(item_group[key]);
+    for (var i = 0; i < item_group.length; i++)
+    {
+        detail += '<p>' + (i + 1) + '. ' + item_group[i][key] + '</p>';
+    }
+
+    return detail;
+}
 
 // function used for child row
 function format ( d ) {
-    return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'+
-                    '<tr>'+
-                        '<td><strong>Country:</strong></td>'+
-                        '<td style="padding: 0 30px;">' + d.contact_country + '</td>' +
-                    // '</tr>'+
-                    // '<tr>'+
-                        '<td><strong>Home Phone:</strong></td>'+
-                        '<td style="padding: 0 30px;">'+d.contact_phone_home+'</td>'+
-                        '<td><strong>Events:</strong></td>'+
-                        '<td style="padding: 0 30px;">'+event_names+'</td>'+
-                    '</tr>'+
-            '</table>';
+
+    var eligibility = generateScholarshipDetails(d['eligibility'], 'eligibility');
+    var material = generateScholarshipDetails(d['material'], 'material');
+    var process = generateScholarshipDetails(d['process'], 'process');
+    var requirement = generateScholarshipDetails(d['requirement'], 'requirement');
+
+
+    return '<div class="panel panel-primary">' +
+                        // '<div class="panel-heading">' +
+                        // '</div>' +
+                        '<div class="panel-body">' +
+                            '<div class="bs-example">' +
+                                '<ul class="nav nav-tabs" style="margin-bottom: 15px;">' +
+                                    '<li class="active">' +
+                                        '<a href="#scholarship_' + d.id + '_eligibility" data-toggle="tab">Eligibility</a>' +
+                                    '</li>' +
+                                    '<li>' +
+                                        '<a href="#scholarship_' + d.id + '_material" data-toggle="tab">Material</a>' +
+                                    '</li>' +
+                                    '<li>' +
+                                        '<a href="#scholarship_' + d.id + '_process" data-toggle="tab">Process</a>' +
+                                    '</li>' +
+                                    '<li>' +
+                                        '<a href="#scholarship_' + d.id + '_requirement" data-toggle="tab">Requirement</a>' +
+                                    '</li>' +
+                                '</ul>' +
+                                '<div id="myTabContent" class="tab-content">' +
+                                    '<div class="tab-pane fade active in" id="scholarship_' + d.id + '_eligibility">' +
+                                        '<p class="m-r-6">' +
+                                            eligibility +
+                                        '</p>' +
+                                    '</div>' +
+                                    '<div class="tab-pane fade" id="scholarship_' + d.id + '_material">' +
+                                        '<p  class="m-r-6">' +
+                                            material +
+                                        '</p>' +
+                                    '</div>' +
+                                    '<div class="tab-pane fade" id="scholarship_' + d.id + '_process">' +
+                                        '<p class="m-r-6">' +
+                                            process +
+                                        '</p>' +
+                                    '</div>' +
+                                    '<div class="tab-pane fade" id="scholarship_' + d.id + '_requirement">' +
+                                        '<p class="m-r-6">' +
+                                            requirement +
+                                        '</p>' +
+                                    '</div>' +
+                                '</div>' +
+                            '</div>' +
+                        '</div>' +
+                    '</div>';
+
 }
 
 
@@ -465,6 +517,7 @@ $(document).on('click', '.append_one_item', function (e) {
     console.log(window.currentRowData);
     var scholarship_id = window.currentRowData.id;
     var table = $(this).parent().parent().attr('id');
+    var container_div = $(this).parent().parent();
 
     var split = current_path.split('/');
     var url_base = split.slice(0, split.length - 1).join("/") + '/';
@@ -473,7 +526,6 @@ $(document).on('click', '.append_one_item', function (e) {
     var url = url_base + 'scholarship_' + table;
     var method = 'POST';
 
-    var new_input = '';
 
     $.ajax({
         type: method,
@@ -481,7 +533,17 @@ $(document).on('click', '.append_one_item', function (e) {
         data: {scholarship_id: scholarship_id},
         success: function (returned_data) {
             console.log(returned_data);
+            var order_attribute = table + '_order';
+            var new_item_input = '<div class="row">' +
+                '<div class="col-md-12">' +
+                '<label>' + returned_data[order_attribute] + '</label>' +
+                '<input type="hidden" name="' + table + '_id[]" value="' + returned_data.id + '" />' +
+                '<input type="text" class="form-control" name="' + table + '_item[]" />' +
+                '<button type="button" class="btn btn-warning delete_one_item">Delete</button>' +
+                '</div>' +
+                '</div>';
 
+            container_div.append(new_item_input);
         },
         error: function (xhr, ajaxOptions, thrownError) {
             var e = window.open();

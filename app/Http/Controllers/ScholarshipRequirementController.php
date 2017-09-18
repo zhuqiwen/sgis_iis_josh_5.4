@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ScholarshipRequirement;
 use Illuminate\Http\Request;
 
 class ScholarshipRequirementController extends Controller
@@ -34,9 +35,24 @@ class ScholarshipRequirementController extends Controller
      */
     public function store(Request $request)
     {
-        //
-	    return response('a new record has been stored');
+	    $requirement = ScholarshipRequirement::where('scholarship_id', $request->scholarship_id)
+		    ->orderBy('requirement_order', 'desc')
+		    ->first();
+	    if($requirement)
+	    {
+		    $highest_order = $requirement->requirement_order;
+	    }
+	    else
+	    {
+		    $highest_order = 0;
+	    }
 
+	    $highest_order++;
+
+	    return ScholarshipRequirement::create([
+		    "scholarship_id" => $request->scholarship_id,
+		    "requirement_order" => $highest_order,
+	    ]);
     }
 
     /**
@@ -82,6 +98,11 @@ class ScholarshipRequirementController extends Controller
     public function destroy($id)
     {
         //
+	    $requirement = ScholarshipRequirement::find($id);
+	    if($requirement)
+	    {
+		    $requirement->delete();
+	    }
 	    return response($id . ' has been deleted');
 
     }

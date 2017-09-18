@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ScholarshipProcess;
 use Illuminate\Http\Request;
 
 class ScholarshipProcessController extends Controller
@@ -34,8 +35,24 @@ class ScholarshipProcessController extends Controller
      */
     public function store(Request $request)
     {
-        //
-	    return response('a new record has been stored');
+	    $process = ScholarshipProcess::where('scholarship_id', $request->scholarship_id)
+		    ->orderBy('process_order', 'desc')
+		    ->first();
+	    if($process)
+	    {
+		    $highest_order = $process->process_order;
+	    }
+	    else
+	    {
+		    $highest_order = 0;
+	    }
+
+	    $highest_order++;
+
+	    return ScholarshipProcess::create([
+		    "scholarship_id" => $request->scholarship_id,
+		    "process_order" => $highest_order,
+	    ]);
 
     }
 
@@ -82,6 +99,11 @@ class ScholarshipProcessController extends Controller
     public function destroy($id)
     {
         //
+	    $process = ScholarshipProcess::find($id);
+	    if($process)
+	    {
+		    $process->delete();
+	    }
 	    return response($id . ' has been deleted');
 
     }
