@@ -28,12 +28,12 @@ function insertDatatablesTableHead(data) {
 
     // if child row, add an extra th in the beginning
     var column_toggle_index_offset = 0;
-    if (window.dtChildRow)
-    {
-        table_html += '<th id="details_control_header"></th>';
-        table_foot = '<th></th>';
-        column_toggle_index_offset = 1;
-    }
+    // if (window.dtChildRow)
+    // {
+    //     table_html += '<th id="details_control_header"></th>';
+    //     table_foot = '<th></th>';
+    //     column_toggle_index_offset = 1;
+    // }
 
     var column_toggle_buttons = '';
     for(var i = 0; i < data.length; i++)
