@@ -54,7 +54,7 @@ function insertDatatablesTableHead(data) {
     }
 
     // add a restore-all-column button
-    column_toggle_buttons += '<button id="restore_all_columns_button" type="button" class="btn btn-primary">Restore All Columns</button>';
+    column_toggle_buttons += '<button id="restore_all_columns_button" type="button" class="btn btn-primary">Toggle All Columns</button>';
 
     var column_edit = '<th class="sorting" ' +
         'tabindex="0" ' +
@@ -244,10 +244,22 @@ $(document).on('click', 'button.toggle-vis', function (e) {
 });
 
 
+
 $(document).on('click', '#restore_all_columns_button', function(){
     var table = window.datatable;
-    table.columns().visible(true);
-    $('button.toggle-vis').removeClass('clicked').addClass('btn-default');
+    console.log(table.columns().visible());
+    if(table.columns().visible().toArray().some(visibility => visibility == false))
+    {
+        table.columns().visible(true);
+        $('button.toggle-vis').removeClass('clicked').addClass('btn-default');
+
+    }
+    else
+    {
+        table.columns().visible(false);
+        $('button.toggle-vis').removeClass('btn-default').addClass('clicked');
+
+    }
 });
 
 

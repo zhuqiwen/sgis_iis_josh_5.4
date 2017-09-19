@@ -300,3 +300,8 @@ $(document).on('shown.bs.modal', '#visualization_event_attendance_modal', functi
         });
 
 });
+
+
+$(document).on('shown.bs.tab','a[href="#attendees"]', function () {
+    $(window).trigger('resize');
+});
