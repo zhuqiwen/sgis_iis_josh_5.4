@@ -182,6 +182,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin', 'as' => 'admin.'], f
 	// Alum Contacts
 	Route::get('alum_contacts/getColumns', 'AlumContactController@getColumnsForDataTables');
 	Route::get('alum_contacts/data', 'AlumContactController@data');
+	Route::get('alum_contacts/{country}', 'AlumContactController@contactsInCountryView');
+	Route::get('alum_contacts/{country}/getColumns', 'AlumContactController@getColumnsForDataTables');
+	Route::get('alum_contacts/{country}/data', 'AlumContactController@contactsInCountryData');
 	Route::resource('alum_contacts', 'AlumContactController');
 
     // Alum Employer Types

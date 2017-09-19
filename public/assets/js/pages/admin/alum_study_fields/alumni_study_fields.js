@@ -6,6 +6,8 @@ window.dtColumnDefs = [
 ];
 
 var current_path = window.location.pathname;
+window.datatableAjaxUrl = current_path + '/data';
+
 
 var add_form = '<form action="' + current_path + '" method="post" id="create_form">'
     + '<label for="study_field">Study Field</label>'

@@ -103,7 +103,8 @@ function drawTable(data) {
         buttons: [
             'copy', 'csv', 'pdf', 'print'
         ],
-        ajax: window.location.pathname + '/data',
+        // ajax: window.location.pathname + '/data',
+        ajax: window.datatableAjaxUrl,
         columns: columns,
         order: window.dtOrder,
         columnDefs: window.dtColumnDefs,

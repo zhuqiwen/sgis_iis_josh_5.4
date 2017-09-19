@@ -169,4 +169,42 @@ class AlumContactController extends Controller
     {
         //
     }
+
+
+    /**
+     * @param $country
+     * @return mixed
+     */
+    public function contactsInCountryData($country)
+    {
+        $country = str_replace('_', ' ', $country);
+        $records = AlumContact::where('contact_country', $country)
+            ->with([
+                'academicInfo',
+                'academicInfo.studyField',
+                'events',
+                'employments',
+                'employments.employer',
+                'employments.employer.employerType',
+                'socialAccounts',
+                'donations',
+                'engagementIndicators',
+            ]);
+
+
+        return  Datatables::of($records)
+            ->add_column('edit', '<a class="edit" href="javascript:;">Edit</a>')
+            ->rawColumns(['edit'])
+            ->make(true);
+    }
+
+
+    public function contactsInCountryView($country)
+    {
+        $country = str_replace('_', ' ', $country);
+        $country = ucwords($country);
+        return view('admin.alumni.independent_tables.independent_table')
+            ->withPageTitle('Alumni Contacts in ' . $country)
+            ->withPageSpecificJs(asset('assets/js/pages/admin/alum_contacts/alumni_contacts_in_country.js'));
+    }
 }

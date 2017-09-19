@@ -24,11 +24,6 @@ window.dtColumnDefs = [
 // function used for child row
 function format ( d ) {
 
-    console.log('window.datatable extra response data test');
-    // console.log(window.datatable.ajax.json().age_group_frequency);
-    // console.log(window.datatable.ajax.json().num_active_contacts);
-    // `d` is the original data object for the row
-    // var events = d.events;
     var events = '';
     for(var i = 0; i < d.events.length; i++)
     {
@@ -177,6 +172,8 @@ function format ( d ) {
 
 var current_path = window.location.pathname;
 window.datatableAjaxUrl = current_path + '/data';
+console.log('current_path: ');
+console.log(current_path);
 
 /*
 define form for add record modal
@@ -410,7 +407,8 @@ window.customFunction = function () {
     console.log('this is a page specified custom function');
     // add button of visualization report
     var visualization_button = '<button style="margin-left: 10px;" id="charts_launcher_button" type="button" class="btn btn-responsive button-alignment btn-primary">Charts</button>';
-    $('#add_button').after(visualization_button);
+    // temporarily disable this button
+    // $('#add_button').after(visualization_button);
 
     // add modal of charts
     var modal = '<div class="modal fade" id="visualization_contacts_modal" role="dialog">' +
@@ -511,8 +509,7 @@ $(document).on('click', '#charts_launcher_button', function () {
         },
         onRegionSelect: function (event, code, region) {
             var country = $('.jqvmap-label').text();
-            var country_string = country.toLowerCase().split(' ').join('_');
-            $('#geo_distribution_world_map_label').html('<p><a href="' + window.location.pathname + '/' + country_string + '" target="_blank"><strong>' + (Math.floor(Math.random() * (100 - 2) + 2)) + ' alumni</strong></a> in ' + country + '</p>');
+            $('#geo_distribution_world_map_label').html('<p><a href="#" target="_blank"><strong>' + (Math.floor(Math.random() * (100 - 2) + 2)) + ' alumni</strong></a> in ' + country + '</p>');
         }
     });
 

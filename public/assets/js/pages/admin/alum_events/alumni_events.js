@@ -45,6 +45,8 @@ function format ( d ) {
 }
 
 var current_path = window.location.pathname;
+window.datatableAjaxUrl = current_path + '/data';
+
 /*
 define form for add record modal
  */
