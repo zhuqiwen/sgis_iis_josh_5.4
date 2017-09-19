@@ -508,7 +508,6 @@ $(document).on('click', '#charts_launcher_button', function () {
 
 });
 
-$(document).on('click','a[href="#geo_distribution_world"]', function () {
-    console.log($('#geo_distribution_world').find('svg'));
+$(document).on('shown.bs.tab','a[href="#geo_distribution_world"]', function () {
     $(window).trigger('resize');
 });
