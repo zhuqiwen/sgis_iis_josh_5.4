@@ -178,7 +178,7 @@ class AlumContactController extends Controller
     public function contactsInCountryData($country)
     {
         $country = str_replace('_', ' ', $country);
-        $records = AlumContact::where('contact_country', $country)
+        $records = AlumContact::where('contact_country','like', $country)
             ->with([
                 'academicInfo',
                 'academicInfo.studyField',
