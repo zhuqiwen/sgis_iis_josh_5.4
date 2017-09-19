@@ -439,7 +439,7 @@ window.customFunction = function () {
                                     '<div class="tab-pane fade" id="geo_distribution_world">' +
                                         '<div class="row">' +
                                             '<div class="col-md-12">' +
-                                                '<div id="geo_distribution_world_map_label" style="height: 100px;"></div>' +
+                                                '<div id="geo_distribution_world_map_label" style="height: 100px; text-align: center;"></div>' +
                                             '</div>' +
                                             '<div class="col-md-12">' +
                                                 '<div id="geo_distribution_world_map" class="map_size" style="width:100%; height:500px;"></div>' +
@@ -502,14 +502,15 @@ $(document).on('click', '#charts_launcher_button', function () {
         enableZoom: true,
         showTooltip: true,
         values: sample_data,
-        scaleColors: ['#045707', '#84F088'],
+        scaleColors: ['#add8e6','#86c7f0','#71b3f5','#6c9cf5','#7283f2','#7668ec','#565cd9','#434dc7','#333cb5','#252ba3','#151891','#000080'],
         normalizeFunction: 'polynomial',
         onLabelShow: function(event, label, code) {
             console.log(label.text());
 
-            $('#geo_distribution_world_map_label').html('<p>' + (Math.floor(Math.random() * (100 - 2) + 2)) + ' alumni in ' + label.text() + '</p>');
-
-
+        },
+        onRegionSelect: function (event, code, region) {
+            var country = $('.jqvmap-label').text();
+            $('#geo_distribution_world_map_label').html('<p><a href="#" target="_blank"><strong>' + (Math.floor(Math.random() * (100 - 2) + 2)) + ' alumni</strong></a> in ' + country + '</p>');
         }
     });
 

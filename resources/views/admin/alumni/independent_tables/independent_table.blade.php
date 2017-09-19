@@ -48,7 +48,8 @@
                                     <span>
                                     <i class="livicon" data-name="edit" data-size="16" data-loop="true" data-c="#fff"
                                        data-hc="white"></i>
-                                    Data </span>
+                                    Data: </span>
+                            <small>Double click a row for more details</small>
                         </h3>
                     </div>
                     <div class="panel-body">
