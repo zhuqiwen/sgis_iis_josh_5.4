@@ -32,7 +32,8 @@
                     <div id="wrapper">
                         <div id="login" class="animate form">
                             <form action="{{ route('signin') }}" autocomplete="on" method="post" role="form" id="login_form">
-                                <h3 class="black_bg">
+                                {{--<h3 class="black_bg">--}}
+                                <h3>
                                     {{--<img src="{{ asset('assets/img/logo.png') }}" alt="josh logo">--}}
                                     <img src="{{ asset('assets/images/sgis_logo.jpg') }}" alt="logo" height="100" width="100">
 
