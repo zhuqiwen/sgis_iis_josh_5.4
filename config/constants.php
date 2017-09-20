@@ -111,4 +111,10 @@ return [
 		],
 	],
 
+	'scholarship_types' => [
+		'summer' => 'Summer Internship Scholarships',
+		'overseas' => 'Overseas Study Scholarships',
+		'other' => 'Other Scholarships',
+	],
+
 ];

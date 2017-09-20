@@ -21,6 +21,7 @@ class CreateScholarshipMasterTable extends Migration
 	        $table->date('scholarship_deadline')->nullable();
 	        $table->text('scholarship_about_donar')->nullable();
 	        $table->text('scholarship_notes')->nullable();
+	        $table->string('scholarship_type')->nullable();
             $table->timestamps();
 	        $table->softDeletes();
         });

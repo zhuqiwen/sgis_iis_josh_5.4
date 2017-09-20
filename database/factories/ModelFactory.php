@@ -199,6 +199,11 @@ $factory->define(App\Models\Scholarship::class, function (Faker\Generator $faker
 	{
 		$user_id = 1;
 	}
+	$scholarship_types = config('constants.scholarship_types');
+
+	$num_scholarship_types = sizeof($scholarship_types);
+	$scholarship_type_keys = array_keys($scholarship_types);
+
 
 	return [
 		"scholarship_introduction" => "Introduction: " . $faker->text,
@@ -207,6 +212,7 @@ $factory->define(App\Models\Scholarship::class, function (Faker\Generator $faker
 		"scholarship_deadline" => $faker->date,
 		"scholarship_about_donar" => "Donar: " . $faker->text,
 		"scholarship_notes" => "Notes: " . $faker->text,
+		"scholarship_type" => $scholarship_types[$scholarship_type_keys[random_int(0, $num_scholarship_types - 1)]],
 	];
 });
 $factory->define(App\Models\ScholarshipCriteria::class, function (Faker\Generator $faker){
