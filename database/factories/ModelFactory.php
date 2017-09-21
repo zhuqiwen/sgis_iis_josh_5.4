@@ -199,7 +199,21 @@ $factory->define(App\Models\Scholarship::class, function (Faker\Generator $faker
 	{
 		$user_id = 1;
 	}
-	$scholarship_types = config('constants.scholarship_types');
+
+	if(config('constants.scholarship_types'))
+	{
+		$scholarship_types = config('constants.scholarship_types');
+
+	}
+	else
+	{
+		$scholarship_types = [
+			"summer" => "Summer Internship Scholarships",
+			"overseas" => "Overseas Study Scholarships",
+			"other" => "Other Scholarships",
+		];
+
+	}
 
 	$num_scholarship_types = sizeof($scholarship_types);
 	$scholarship_type_keys = array_keys($scholarship_types);
