@@ -112,6 +112,7 @@ END;
                 'deadline' => "2017-10-20",
                 'donor' => $anderson_donor,
                 'type' => array_keys(config('constants.scholarship_types'))[1],
+                'notes' => null,
                 'criteria' => null,
                 'eligibility' => [
                     0 => "Be officially enrolled as a full-time undergraduate student (minimum 12 credit hours) with a major in SGIS at the time you apply",
@@ -136,6 +137,7 @@ END;
                 'deadline' => "2017-10-20",
                 'donor' => $fielding_donor,
                 'type' => array_keys(config('constants.scholarship_types'))[1],
+                'notes' => null,
                 'criteria' => null,
                 'eligibility' => [
                     0 => "Be officially enrolled as a full-time undergraduate student (minimum 12 credit hours) with a major in SGIS at the time you apply",
@@ -160,6 +162,7 @@ END;
                 'deadline' => '2017-03-03',
                 'donor' => null,
                 'type' => array_keys(config('constants.scholarship_types'))[2],
+                'notes' => null,
                 'criteria' => null,
                 'eligibility' => [],
                 'material' => [],
@@ -174,12 +177,11 @@ END;
                 'deadline' => null,
                 'donor' => null,
                 'type' => array_keys(config('constants.scholarship_types'))[2],
+                'notes' => $direct_admin_process,
                 'criteria' => null,
                 'eligibility' => [],
                 'material' => [],
-                'process' => [
-                    0 => $direct_admin_process,
-                ],
+                'process' => [],
                 'requirement' => [],
             ],
             "dean" => [
@@ -190,6 +192,7 @@ END;
                 'deadline' => '2017-03-03 17:00:00',
                 'donor' => null,
                 'type' => array_keys(config('constants.scholarship_types'))[0],
+                'notes' => null,
                 'criteria' => $dean_criteria,
                 'eligibility' => [
                     0 => 'Undergraduate or graduate student',
