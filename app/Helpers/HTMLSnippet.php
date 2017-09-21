@@ -1492,5 +1492,191 @@ DISPLAY;
 
 
 
+    /**
+     * Scholarship module
+     */
+    /**
+     * buttons
+     */
+
+	/**
+	 * @param $category
+	 * @return string
+	 */
+	public static function generateFilterButton($category)
+	{
+		$type_text = config('constants.scholarship_types');
+		$button_text = $type_text[$category];
+
+		$button = <<<EOF
+		<button class=" btn filter btn-primary" data-filter=".$category">$button_text</button>
+EOF;
+		return $button;
+
+    }
+
+	/**
+	 * @param Eloquent Object $scholarship
+	 * @return string
+	 */
+	public static function generateScholarshipFloatCardWithModal($scholarship)
+	{
+		$modal = self::generateScholarshipModal($scholarship);
+		$eligibility = '';
+		if($scholarship->eligibility)
+		{
+			$eligibility .= '<p>Eligibility: </p>';
+			$eligibility .= '<ol>';
+
+			foreach($scholarship->eligibility as $item)
+			{
+				$eligibility .= '<li>' . $item->eligibility_item . '</li>';
+			}
+			$eligibility .= '</ol>';
+
+		}
+		$card = <<<END
+		<div class="mix $scholarship->scholarship_type col-md-4" data-my-order="$scholarship->id" style="margin-top: 20px; margin-bottom: 20px;">
+                        <a data-toggle="modal" data-target="#$scholarship->id" href="#" style="text-decoration: none">
+                            <div class="col-md-12 float-card" style="height: 400px;">
+                                <div class="title" style="margin-top: 10px;">
+                                    <div class="row">
+                                        <div class="col-md-10 col-md-offset-1">
+                                            <p style="text-align: center">$scholarship->scholarship_title</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr style="color: black; background-color: black; height: 1px; margin: 0 0;">
+                                <div class="text">
+                                    <p><strong>Dead line: </strong></p>
+                                    <p>$scholarship->scholarship_deadline</p>
+                                    $eligibility
+                                </div>
+                            </div>
+                        </a>
+						$modal
+		</div>
+END;
+		return $card;
+
+
+    }
+
+
+	/**
+	 * @param Eloquent Object $scholarship
+	 * @return string
+	 */
+	public static function generateScholarshipModal($scholarship)
+	{
+		$criteria = '';
+		if($scholarship->criteria)
+		{
+			$criteria = '<div id="scholarship_criteria">';
+			$criteria .= '<p><strong>Criteria</strong></p>';
+			$criteria .= '<p>' . $scholarship->criteria->criteria_content . '</p>';
+			$criteria .= '</div>';
+
+		}
+
+
+		$eligibility = '';
+		if($scholarship->eligibility)
+		{
+			$eligibility = '<div id="scholarship_eligibility">';
+			$eligibility .= '<p><strong>Eligibility</strong></p>';
+			$eligibility .= '<ol>';
+			foreach ($scholarship->eligibility as $item)
+			{
+				$eligibility .= '<li>' . $item->eligibility_item . '</li>';
+			}
+			$eligibility .= '</ol>';
+			$eligibility .= '</div>';
+		}
+
+		$material = '';
+		if($scholarship->material)
+		{
+			$material = '<div id="scholarship_material">';
+			$material .= '<p><strong>Materials</strong></p>';
+			$material .= '<ol>';
+			foreach ($scholarship->material as $item)
+			{
+				$material .= '<li>' . $item->material_item . '</li>';
+			}
+			$material .= '</ol>';
+			$material .= '</div>';
+		}
+
+		$process = '';
+		if($scholarship->process)
+		{
+			$process = '<div id="scholarship_process">';
+			$process .= '<p><strong>Steps</strong></p>';
+			$process .= '<ol>';
+			foreach ($scholarship->process as $item)
+			{
+				$process .= '<li>' . $item->process_item . '</li>';
+			}
+			$process .= '</ol>';
+			$process .= '</div>';
+		}
+
+		$requirement = '';
+		if($scholarship->requirement)
+		{
+			$requirement = '<div id="scholarship_requirement">';
+			$requirement .= '<p><strong>Requirements</strong></p>';
+			$requirement .= '<ol>';
+			foreach ($scholarship->requirement as $item)
+			{
+				$requirement .= '<li>' . $item->requirement_item . '</li>';
+			}
+			$requirement .= '</ol>';
+			$requirement .= '</div>';
+		}
+
+		$modal = <<<EOF
+		<div id="$scholarship->id" class="modal fade" role="dialog">
+                            <div class="modal-dialog" style="width: 70%;">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        <h4 class="modal-title">$scholarship->scholarship_title</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p><strong>Introduction</strong></p>
+                                        <p>$scholarship->scholarship_introduction</p>
+                                        
+                                        <p><strong>Award</strong></p>
+                                        <p>$scholarship->scholarship_award_amount</p>
+                                        <p><strong>Deadline</strong></p>
+                                        <p>$scholarship->scholarship_deadline</p>
+                                        <p><strong>About Donar</strong></p>
+                                        <p>$scholarship->scholarship_about_donar</p>
+                                        <p><strong>Notes</strong></p>
+                                        <p>$scholarship->scholarship_notes</p>
+                                        $criteria
+                                        $eligibility
+                                        $material
+                                        $process
+                                        $requirement
+
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-primary scholarship_apply_button" data-scholarship-id="$scholarship->id" data-dismiss="modal">Apply</button>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+EOF;
+		return $modal;
+
+    }
+
+
 
 }

@@ -15,6 +15,7 @@ class Scholarship extends Model
     public $timestamps = true;
 
     protected $fillable = [
+	    "scholarship_title",
 	    "scholarship_introduction",
 	    "scholarship_award_amount",
 	    "scholarship_admin",

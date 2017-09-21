@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 
 
+use app\Helpers\HTMLSnippet;
 use App\Models\Scholarship;
 use App\Models\ScholarshipCriteria;
 use App\Models\ScholarshipEligibility;
@@ -20,13 +21,32 @@ class ScholarshipController extends Controller
 {
     public function frontendIndex()
     {
-        return view('frontend.scholarships.index');
+	    $scholarship = new Scholarship();
+	    $categories = $scholarship->distinct()->get(['scholarship_type']);
+
+	    $category_buttons = '';
+	    foreach ($categories as $item)
+	    {
+		    $category_buttons .= HTMLSnippet::generateFilterButton($item->scholarship_type);
+	    }
+
+	    $scholarships = $scholarship->get();
+	    $float_cards_with_modal = '';
+	    foreach ($scholarships as $s)
+	    {
+		    $float_cards_with_modal .= HTMLSnippet::generateScholarshipFloatCardWithModal($s);
+	    }
+
+
+        return view('frontend.scholarships.index')
+	        ->withCategoryButtons($category_buttons)
+	        ->withFloatCardsWithModal($float_cards_with_modal);
     }
 
-	public function applicationForm($scholarship_name)
+	public function applicationForm($scholarship_id)
 	{
 
-		$view = 'frontend.scholarships.application_forms.' . $scholarship_name;
+		$view = 'frontend.scholarships.application_forms.' . $scholarship_id;
 		return view($view);
     }
 

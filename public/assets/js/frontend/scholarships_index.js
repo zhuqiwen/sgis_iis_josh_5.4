@@ -17,6 +17,8 @@ function gallery(){
 
     mixitup();
 }
-// $(document).ready(function(){
-//     $(".fancybox").fancybox();
-// });
+
+$(document).on('click', '.scholarship_apply_button', function (e) {
+    console.log($(this).data('scholarship-id'));
+    window.location.replace(window.location.pathname + '/apply/' + $(this).data('scholarship-id'))
+});

@@ -207,12 +207,13 @@ $factory->define(App\Models\Scholarship::class, function (Faker\Generator $faker
 
 	return [
 		"scholarship_introduction" => "Introduction: " . $faker->text,
+		"scholarship_title" => "Title: " . $faker->word(),
 		"scholarship_award_amount" => "Award: " . $faker->text(10),
 		"scholarship_admin" => $user_id,
 		"scholarship_deadline" => $faker->date,
 		"scholarship_about_donar" => "Donar: " . $faker->text,
 		"scholarship_notes" => "Notes: " . $faker->text,
-		"scholarship_type" => $scholarship_types[$scholarship_type_keys[random_int(0, $num_scholarship_types - 1)]],
+		"scholarship_type" => $scholarship_type_keys[random_int(0, $num_scholarship_types - 1)],
 	];
 });
 $factory->define(App\Models\ScholarshipCriteria::class, function (Faker\Generator $faker){
