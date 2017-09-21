@@ -16,7 +16,7 @@ class CreateScholarshipCriteriaTable extends Migration
         Schema::create('scholarship_criteria', function (Blueprint $table) {
             $table->increments('id');
 	        $table->integer('scholarship_id')->unsigned();
-	        $table->string('criteria_content')->nullable();
+	        $table->text('criteria_content')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

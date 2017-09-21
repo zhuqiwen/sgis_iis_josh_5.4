@@ -190,74 +190,76 @@ $factory->define(App\Models\AlumEmployment::class, function (Faker\Generator $fa
 	 */
 $factory->define(App\Models\Scholarship::class, function (Faker\Generator $faker){
 
-	$user = \App\User::first();
-	if($user)
-	{
-		$user_id = $user->id;
-	}
-	else
-	{
-		$user_id = 1;
-	}
+//	$user = \App\User::first();
+//	if($user)
+//	{
+//		$user_id = $user->id;
+//	}
+//	else
+//	{
+//		$user_id = 1;
+//	}
+//
+//	if(config('constants.scholarship_types'))
+//	{
+//		$scholarship_types = config('constants.scholarship_types');
+//
+//	}
+//	else
+//	{
+//		$scholarship_types = [
+//			"summer" => "Summer Internship Scholarships",
+//			"overseas" => "Overseas Study Scholarships",
+//			"other" => "Other Scholarships",
+//		];
+//
+//	}
+//
+//	$num_scholarship_types = sizeof($scholarship_types);
+//	$scholarship_type_keys = array_keys($scholarship_types);
+//
+//
+//	return [
+//		"scholarship_introduction" => "Introduction: " . $faker->text,
+//		"scholarship_title" => "Title: " . $faker->word(),
+//		"scholarship_award_amount" => "Award: " . $faker->text(10),
+//		"scholarship_admin" => $user_id,
+//		"scholarship_deadline" => $faker->date,
+//		"scholarship_about_donar" => "Donar: " . $faker->text,
+//		"scholarship_notes" => "Notes: " . $faker->text,
+//		"scholarship_type" => $scholarship_type_keys[random_int(0, $num_scholarship_types - 1)],
+//	];
 
-	if(config('constants.scholarship_types'))
-	{
-		$scholarship_types = config('constants.scholarship_types');
-
-	}
-	else
-	{
-		$scholarship_types = [
-			"summer" => "Summer Internship Scholarships",
-			"overseas" => "Overseas Study Scholarships",
-			"other" => "Other Scholarships",
-		];
-
-	}
-
-	$num_scholarship_types = sizeof($scholarship_types);
-	$scholarship_type_keys = array_keys($scholarship_types);
-
-
-	return [
-		"scholarship_introduction" => "Introduction: " . $faker->text,
-		"scholarship_title" => "Title: " . $faker->word(),
-		"scholarship_award_amount" => "Award: " . $faker->text(10),
-		"scholarship_admin" => $user_id,
-		"scholarship_deadline" => $faker->date,
-		"scholarship_about_donar" => "Donar: " . $faker->text,
-		"scholarship_notes" => "Notes: " . $faker->text,
-		"scholarship_type" => $scholarship_type_keys[random_int(0, $num_scholarship_types - 1)],
-	];
+    return [];
 });
 $factory->define(App\Models\ScholarshipCriteria::class, function (Faker\Generator $faker){
 
 	return [
-		"criteria_content" => "Criteria: " . $faker->text(50),
+//		"criteria_content" => "Criteria: " . $faker->text(50),
 	];
 });
 $factory->define(App\Models\ScholarshipEligibility::class, function (Faker\Generator $faker){
 
 	return [
-		"eligibility_item" => "Eligibility: " . $faker->text(50),
+//		"eligibility_item" => "Eligibility: " . $faker->text(50),
 	];
 });
 $factory->define(App\Models\ScholarshipMaterial::class, function (Faker\Generator $faker){
 
 	return [
-		"material_item" => "Material: " . $faker->text(50),
+//		"material_item" => "Material: " . $faker->text(50),
 	];
 });
 $factory->define(App\Models\ScholarshipProcess::class, function (Faker\Generator $faker){
 
 	return [
-		"process_item" => "Process: " . $faker->text(50),
+//		"process_item" => "Process: " . $faker->text(50),
 	];
 });
 $factory->define(App\Models\ScholarshipRequirement::class, function (Faker\Generator $faker){
 
 	return [
-		"requirement_item" => "Requirement: " . $faker->text(50),
+//		"requirement_item" => "Requirement: " . $faker->text(50),
 	];
 });
 
