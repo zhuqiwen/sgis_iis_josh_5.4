@@ -207,7 +207,7 @@ END;
                     0 => 'Finish and submit an summer internship application',
                     1 => 'Contact your recommender from SGIS faculty',
                     2 => 'Finish and submit Dean\'s Scholarship application, during which you will be asked to upload required materials',
-                    3 => 'After the internship, submit internship journals, reflection, and site evaluations online',
+                    3 => 'After the internship, submit internship journals, reflection, and site evaluations online-----hahahah',
                 ],
                 'requirement' => [],
             ],
@@ -215,60 +215,59 @@ END;
 
         foreach ($scholarships as $scholarship)
         {
-            factory(Scholarship::class)->create([
-                "scholarship_title" => $scholarship['title'],
-                "scholarship_introduction" => $scholarship['introduction'],
-                "scholarship_award_amount" => $scholarship['award'],
-                "scholarship_admin" => $scholarship['admin'],
-                "scholarship_deadline" => $scholarship['deadline'],
-                "scholarship_about_donar" => $scholarship['donor'],
-                "scholarship_type" => $scholarship['type'],
+	        $s = factory(Scholarship::class)->create([
+		        "scholarship_title" => $scholarship['title'],
+		        "scholarship_introduction" => $scholarship['introduction'],
+		        "scholarship_award_amount" => $scholarship['award'],
+		        "scholarship_admin" => $scholarship['admin'],
+		        "scholarship_deadline" => $scholarship['deadline'],
+		        "scholarship_about_donor" => $scholarship['donor'],
+		        "scholarship_type" => $scholarship['type'],
+	        ]);
 
-            ])->each(function ($s) use ($scholarship){
-                factory(ScholarshipCriteria::class)->create([
+	        factory(ScholarshipCriteria::class)->create([
                     "scholarship_id" => $s->id,
                     "criteria_content" => $scholarship['criteria'],
                 ]);
 
-                foreach ($scholarship['eligibility'] as $key => $item)
-                {
-                    factory(ScholarshipEligibility::class)->create([
-                        "scholarship_id" => $s->id,
-                        "eligibility_order" => $key + 1 ,
-                        "eligibility_item" => $item,
-                    ]);
-                }
+
+	        foreach ($scholarship['eligibility'] as $key => $item)
+            {
+                factory(ScholarshipEligibility::class)->create([
+                    "scholarship_id" => $s->id,
+                    "eligibility_order" => $key + 1 ,
+                    "eligibility_item" => $item,
+                ]);
+            }
 
 
-                foreach ($scholarship['material'] as $key => $item)
-                {
-                    factory(ScholarshipMaterial::class)->create([
-                        "scholarship_id" => $s->id,
-                        "material_item" => $item,
-                        "material_order" => $key + 1,
-                    ]);
-                }
+            foreach ($scholarship['material'] as $key => $item)
+            {
+                factory(ScholarshipMaterial::class)->create([
+                    "scholarship_id" => $s->id,
+                    "material_item" => $item,
+                    "material_order" => $key + 1,
+                ]);
+            }
 
-                foreach ($scholarship['process'] as $key => $item)
-                {
-                    factory(ScholarshipProcess::class)->create([
-                        "scholarship_id" => $s->id,
-                        "process_order" => $key + 1,
-                        "process_item" => $item,
-                    ]);
-                }
+            foreach ($scholarship['process'] as $key => $item)
+            {
+                factory(ScholarshipProcess::class)->create([
+                    "scholarship_id" => $s->id,
+                    "process_order" => $key + 1,
+                    "process_item" => $item,
+                ]);
+            }
 
 
-                foreach ($scholarship['requirement'] as $key => $item)
-                {
-                    factory(ScholarshipRequirement::class)->create([
-                        "scholarship_id" => $s->id,
-                        "requirement_item" => $item,
-                        "requirement_order" => $key + 1,
-                    ]);
-                }
-
-            });
+            foreach ($scholarship['requirement'] as $key => $item)
+            {
+                factory(ScholarshipRequirement::class)->create([
+                    "scholarship_id" => $s->id,
+                    "requirement_item" => $item,
+                    "requirement_order" => $key + 1,
+                ]);
+            }
         }
 
     }

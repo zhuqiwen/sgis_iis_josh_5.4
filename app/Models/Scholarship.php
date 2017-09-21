@@ -20,7 +20,7 @@ class Scholarship extends Model
 	    "scholarship_award_amount",
 	    "scholarship_admin",
 	    "scholarship_deadline",
-	    "scholarship_about_donar",
+	    "scholarship_about_donor",
 	    "scholarship_notes",
     ];
 

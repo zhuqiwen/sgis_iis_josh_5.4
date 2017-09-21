@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 
 use app\Helpers\HTMLSnippet;
+use App\Models\InternApplication;
 use App\Models\Scholarship;
 use App\Models\ScholarshipCriteria;
 use App\Models\ScholarshipEligibility;
@@ -12,6 +13,7 @@ use App\Models\ScholarshipMaterial;
 use App\Models\ScholarshipProcess;
 use App\Models\ScholarshipRequirement;
 
+use Cartalyst\Sentinel\Laravel\Facades\Sentinel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Schema;
@@ -22,7 +24,26 @@ class ScholarshipController extends Controller
     public function frontendIndex()
     {
 	    $scholarship = new Scholarship();
-	    $categories = $scholarship->distinct()->get(['scholarship_type']);
+
+
+	    $user_id = Sentinel::getUser()->id;
+
+	    $user_internship_application = InternApplication::where('user_id', $user_id)->first();
+	    // check if user does not have internship application or internship is not in summer,
+	    if($user_internship_application && strtolower($user_internship_application->intern_application_term) == 'summer')
+	    {
+		    $categories = $scholarship->distinct()->get(['scholarship_type']);
+		    $scholarships = $scholarship->get();
+
+
+	    }
+	    else
+	    {
+		    $categories = $scholarship->where('scholarship_type', '<>', 'summer')
+			    ->distinct()->get(['scholarship_type']);
+		    $scholarships = $scholarship->where('scholarship_type', '<>', 'summer')
+			    ->get();
+	    }
 
 	    $category_buttons = '';
 	    foreach ($categories as $item)
@@ -30,7 +51,6 @@ class ScholarshipController extends Controller
 		    $category_buttons .= HTMLSnippet::generateFilterButton($item->scholarship_type);
 	    }
 
-	    $scholarships = $scholarship->get();
 	    $float_cards_with_modal = '';
 	    foreach ($scholarships as $s)
 	    {
@@ -56,9 +76,13 @@ class ScholarshipController extends Controller
 	protected $fields_titles = [
 		"id" => "ID",
 		"scholarship_introduction" => "Introduction",
+		"scholarship_title" => "Name",
+		"scholarship_about_donor" => "Donor",
 		"scholarship_award_amount" => "Award",
 		"scholarship_admin" => "Managed by",
 		"scholarship_deadline" => "Deadline",
+		"scholarship_type" => "Type",
+		"scholarship_notes" => "Note",
 	];
 
 
