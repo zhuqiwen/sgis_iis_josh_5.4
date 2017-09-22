@@ -65,7 +65,18 @@ class ScholarshipController extends Controller
 
 	public function applicationForm($scholarship_id)
 	{
+		$scholarship_type = Scholarship::find($scholarship_id)->scholarship_type;
 
+		if(strtolower($scholarship_type) == strtolower(array_keys(config('constants.scholarship_types'))[0]))
+		{
+			$summer_intern_application = InternApplication::where('user_id', Sentinel::getUser()->id)
+				->where('intern_application_term', 'Summer')
+				->first();
+			if(!$summer_intern_application)
+			{
+				return redirect()->route('frontend_scholarships_index');
+			}
+		}
 		$view = 'frontend.scholarships.application_forms.' . $scholarship_id;
 		return view($view);
     }
