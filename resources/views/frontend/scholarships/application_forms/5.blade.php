@@ -54,7 +54,7 @@
                                         <?php
                                             $tabNames = [
                                                     'Read Guide And Select Internship',
-                                                    'Verify Internship',                                                    
+                                                    'Verify Internship',
                                                     'Sign Liability Release Form',
                                                     'Provide Recommendation Information ',
                                                     'Upload Transcript',
@@ -66,10 +66,10 @@
                                                 echo "</li>";
                                             }
                                         ?>
-                                       
+
                                     </ul>
                                     <div class="tab-content">
-                                        
+
 
                                         @include('frontend.partials.scholarship_application_form.dean.guide_and_internship_selection')
                                         @include('frontend.partials.scholarship_application_form.dean.verify_internship')
@@ -77,9 +77,9 @@
 
                                         @include('frontend.partials.scholarship_application_form.dean.transcript_upload')
                                         @include('frontend.partials.scholarship_application_form.dean.recommendation_info')
-                                        
 
-                                        
+
+
                                         <ul class="pager wizard">
                                             <li class="previous">
                                                 <a href="#">Previous</a>
@@ -123,13 +123,14 @@
 {{-- page level scripts --}}
 @section('footer_scripts')
     <!-- page level js starts-->
+
     <script src="{{ asset('assets/js/frontend/ajax_init.js') }}"></script>
     <script src="{{ asset('assets/vendors/iCheck/js/icheck.js') }}"></script>
     <script src="{{ asset('assets/vendors/moment/js/moment.min.js') }}" ></script>
     <script src="{{ asset('assets/vendors/select2/js/select2.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/vendors/bootstrapwizard/jquery.bootstrap.wizard.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/vendors/bootstrapvalidator/js/bootstrapValidator.min.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('assets/js/pages/create_internship_application.js') }}"  type="text/javascript"></script>
+    <script src="{{ asset('assets/js/pages/scholarship_dean_application.js') }}"  type="text/javascript"></script>
     <!--page level js ends-->
 
 @stop
