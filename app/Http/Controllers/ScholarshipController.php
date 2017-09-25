@@ -7,6 +7,7 @@ namespace App\Http\Controllers;
 use app\Helpers\HTMLSnippet;
 use App\Models\InternApplication;
 use App\Models\Scholarship;
+use App\Models\ScholarshipApplicationDean;
 use App\Models\ScholarshipCriteria;
 use App\Models\ScholarshipEligibility;
 use App\Models\ScholarshipMaterial;
@@ -91,13 +92,28 @@ class ScholarshipController extends Controller
 
     public function submitScholarshipApplication(Request $request, $scholarship_id)
     {
-        dd($request);
-       return json_encode('yohoho');
+	    if($scholarship_id == 5)
+	    {
+		    $this->submitDeanApplication($request);
+	    }
+	    else
+	    {
+		    return json_encode('services to be implemented');
+	    }
     }
 
     private function submitDeanApplication(Request $request)
     {
-        return json_encode($request->all());
+	    $user = Sentinel::getUser();
+	    $user_folder_name = $user->first_name . '_' . $user->last_name . '_' . $user->iuid;
+	    $path = 'schorlarship/dean_summer_internship/' . $user_folder_name;
+	    $file_name = $request->file('transcript_file')->store($path);
+	    $request->request->add(['transcript_file_name' => $file_name]);
+	    return ScholarshipApplicationDean::create($request->all());
+
+
+
+
     }
 
 
