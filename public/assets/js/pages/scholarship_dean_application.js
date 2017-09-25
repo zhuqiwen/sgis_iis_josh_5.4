@@ -11,7 +11,6 @@ $(document).ready(function () {
 
     console.log(summer_intern_applications[0].intern_application_term);
     var summer_intern_options = '<select id="internship_select" name="intern_application_id">';
-    summer_intern_options += '<option>Please select an internship</option>';
 
     for (var i = 0; i < summer_intern_applications.length; i++)
     {
@@ -26,17 +25,18 @@ $(document).ready(function () {
 
     console.log($('#summer_internships_selection_div'));
     $('#summer_internships_selection_div').html(summer_intern_options);
+    $('#internship_select')[0].selectedIndex = -1;
 });
 
 $(document).on('change','#internship_select', function () {
     console.log($(this).val());
-    console.log(summer_intern_applications);
+    // console.log(summer_intern_applications);
     var selected_internship = summer_intern_applications.find(o => o.id == $(this).val());
-    console.log(selected_internship);
+    // console.log(selected_internship);
     var internship_content = '';
     $.each(selected_internship, function (key, value) {
-        console.log(key);
-        console.log(value);
+        // console.log(key);
+        // console.log(value);
         internship_content += value + '<br>';
     });
     $('#internship_verification_div').html(internship_content);
