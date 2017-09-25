@@ -32,117 +32,92 @@ $(document).ready(function () {
 
 $(document).on('change','#internship_select', function () {
     console.log($(this).val());
-    // console.log(summer_intern_applications);
+    console.log(summer_intern_applications);
     var selected_internship = summer_intern_applications.find(o => o.id == $(this).val());
     // console.log(selected_internship);
-    var internship_content = '';
-    $.each(selected_internship, function (key, value) {
-        // console.log(key);
-        // console.log(value);
-        internship_content += value + '<br>';
-    });
-    $('#internship_verification_div').html(internship_content);
+    var internship_organization = '<h4>Internship Organization</h4>';
+    internship_organization += '<p><strong>' + selected_internship.organization.intern_organization_name + '</strong></p>' ;
+    internship_organization += '<p>It is a <strong>' + selected_internship.organization.intern_organization_type + '</strong></p>' ;
+    $('#organization_div').html(internship_organization);
+
+    var internship_supervisor = '<h4>Internship Supervisor</h4>';
+    internship_supervisor += '<p><strong>' + selected_internship.supervisor.intern_supervisor_first_name + ' ' + selected_internship.supervisor.intern_supervisor_last_name + '</strong></p>' ;
+    internship_supervisor += '<p>Email: <strong>' + selected_internship.supervisor.intern_supervisor_email + '</strong></p>' ;
+    $('#supervisor_div').html(internship_supervisor);
+
+    var internship_content = '<h4>Internship Details</h4>';
+    internship_content += '<p>This internship is in <strong>' + selected_internship.intern_application_year + '</strong>';
+    internship_content += ' in <strong>' + selected_internship.intern_application_term + '</strong> term.</p>';
+    internship_content += '<p>in <strong>' + selected_internship.intern_application_city;
+    internship_content += ', ' + selected_internship.intern_application_state;
+    internship_content += ', ' + selected_internship.intern_application_country + '</strong></p>';
+    internship_content += '<p>It starts from <strong>' + selected_internship.intern_application_start_date + '</strong>';
+    internship_content += ' , and ends from <strong>' + selected_internship.intern_application_end_date + '</strong></p>';
+
+    $('#internship_div').html(internship_content);
+
 
 });
 
 
 
-$("#internship_application_form").bootstrapValidator({
+$("#scholarship_dean_application_form").bootstrapValidator({
     fields: {
-        intern_organization_name: {
+        recommender_first_name: {
             validators: {
                 notEmpty: {
-                    message: 'The Organization name is required'
+                    message: 'The recommendar\'s first name is required'
                 }
             },
             required: true
             // minlength: 3
         },
-        intern_supervisor_first_name: {
+        recommender_last_name: {
             validators: {
                 notEmpty: {
-                    message: 'Supervisor\'s first name is required'
+                    message: 'The recommendar\'s last name is required'
                 }
             },
             required: true
         },
-        intern_supervisor_last_name: {
+        recommender_email: {
             validators: {
                 notEmpty: {
-                    message: 'Supervisor\'s first name is required'
-                }
-            },
-            required: true
-        },
-        intern_supervisor_email: {
-            validators: {
-                notEmpty: {
-                    message: 'The email address is required'
+                    message: 'The recommendar\'s email is required'
                 },
                 emailAddress: {
                     message: 'The input is not a valid email address'
                 }
-            }
+            },
+            required: true
         },
-        intern_supervisor_phone_country_code:{
-            validators:{
-                numeric: {
-                    message: 'Please do not include any characters other than numbers'
+        transcript_file_name: {
+            validators: {
+                notEmpty: {
+                    message: 'Please upload your transcript, in the format of PDF'
                 },
-                notEmpty: {
-                    message: 'Country code is required'
+                file: {
+                    extension: 'pdf',
+                    type: 'application/pdf',
+                    message: 'Only PDF file is accepted'
                 }
             }
-        },
-        intern_supervisor_phone: {
-            validators: {
-                numeric: {
-                    message: 'Please do not include any characters other than numbers'
-                },
-                notEmpty: {
-                    message: 'Phone number is required'
-                }
-            }
-        },
-        intern_application_state: {
-            validators: {
-                notEmpty: {
-                    message: 'The State/Province field is required'
-                }
-            }
-        },
-        intern_application_city: {
-            validators: {
-                notEmpty: {
-                    message: 'The City field is required'
-                }
-            }
-        },
-        intern_application_street: {
-            validators: {
-                notEmpty: {
-                    message: 'The Street field is required'
-                }
-            }
-        },
-
-        //
+        }
     }
 });
-$('#acceptTerms').on('ifChanged', function(event){
-    $('#internship_application_form').bootstrapValidator('revalidateField', $('#acceptTerms'));
-});
+
 $('#rootwizard').bootstrapWizard({
     'tabClass': 'nav nav-pills',
     'onNext': function(tab, navigation, index) {
-        // var $validator = $('#internship_application_form').data('bootstrapValidator').validate();
-        // return $validator.isValid();
+
         if (!$('#internship_select').val())
         {
             alert('you must select an internship to proceed');
             return false;
         }
-        return true;
+        var $validator = $('#scholarship_dean_application_form').data('bootstrapValidator').validate();
+        return $validator.isValid();
+        // return true;
     },
     onTabClick: function(tab, navigation, index) {
         return false;
@@ -164,32 +139,22 @@ $('#rootwizard').bootstrapWizard({
 
     }});
 
-$('input[type="checkbox"].custom-checkbox, input[type="radio"].custom-radio').iCheck({
-    checkboxClass: 'icheckbox_minimal-blue',
-    radioClass: 'iradio_minimal-blue',
-    increaseArea: '20%'
-});
+
 
 $(document).on('click', '#rootwizard .finish', function () {
-    var form = $('#internship_application_form');
-    console.log(form.attr('action'));
+    var form_data = new FormData($('#scholarship_dean_application_form')[0]);
+    console.log(window.location.pathname);
+    console.log(form_data);
+
     $.ajax({
-        type: form.attr('method'),
-        url: form.attr('action'),
-        data: form.serialize(),
+        processData: false,
+        contentType: false,
+        type: 'post',
+        url: window.location.pathname,
+        data: form_data,
         dataType: 'json',
         success: function (returned_data) {
             console.log(returned_data);
-            var next = '/internship_application_status';
-            if ($('#intern_application_term').val() == 'Summer')
-            {
-                if (confirm('hey, a summer internship'))
-                {
-                    next = '/funding_summer_internship';
-                }
-            }
-            window.location.replace(next);
-
         },
         error: function (xhr, ajaxOptions, thrownError) {
             var e = window.open();

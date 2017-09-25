@@ -1,6 +1,13 @@
-<div class="tab-pane" id="tab3">
-    <p>
-    to upload pdf transcript
-    </p>
+<div class="tab-pane" id="tab4">
+    <div style="text-align: center">
+        <h4>Unofficial Transcript</h4>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4 col-md-offset-4">
+            {!! Form::file('transcript_file_name') !!}
+        </div>
+
+    </div>
     
 </div>

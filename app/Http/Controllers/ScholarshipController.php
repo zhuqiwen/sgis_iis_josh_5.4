@@ -73,6 +73,7 @@ class ScholarshipController extends Controller
 		{
 			$summer_intern_application = InternApplication::where('user_id', Sentinel::getUser()->id)
 				->where('intern_application_term', 'Summer')
+                ->with('organization', 'supervisor')
 				->get();
 			if(!$summer_intern_application)
 			{
@@ -88,6 +89,22 @@ class ScholarshipController extends Controller
     }
 
 
+    public function submitScholarshipApplication(Request $request, $scholarship_id)
+    {
+        dd($request);
+       return json_encode('yohoho');
+    }
+
+    private function submitDeanApplication(Request $request)
+    {
+        return json_encode($request->all());
+    }
+
+
+
+
+
+    //
 
 
 	protected $fields_titles = [

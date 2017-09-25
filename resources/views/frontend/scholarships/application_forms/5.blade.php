@@ -19,6 +19,8 @@
     <link href="{{ asset('assets/vendors/bootstrapvalidator/css/bootstrapValidator.min.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/vendors/iCheck/css/all.css') }}"  rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/css/pages/wizard.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/vendors/jasny-bootstrap/css/jasny-bootstrap.css') }}"  rel="stylesheet" type="text/css" />
+
 
     <!--end of page level css-->
 @stop
@@ -40,11 +42,11 @@
                     <div class="panel panel-success">
                         <div class="panel-heading">
                             <h3 class="panel-title">
-                                <i class="livicon" data-name="folder-add" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i> Internship Application Wizard
+                                <i class="livicon" data-name="folder-add" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i> Dean's Summer Internship Scholarship
                             </h3>
-                            <span class="pull-right clickable">
-                        <i class="glyphicon glyphicon-chevron-up"></i>
-                    </span>
+                            {{--<span class="pull-right clickable">--}}
+                        {{--<i class="glyphicon glyphicon-chevron-up"></i>--}}
+                    {{--</span>--}}
                         </div>
                         <div class="panel-body">
                             <form id="scholarship_dean_application_form" method="post" action="#">
@@ -53,11 +55,11 @@
 
                                         <?php
                                             $tabNames = [
-                                                    'Read Guide And Select Internship',
-                                                    'Verify Internship',
-                                                    'Sign Liability Release Form',
-                                                    'Provide Recommendation Information ',
-                                                    'Upload Transcript',
+                                                    'Guide',
+                                                    'Internship',
+                                                    'Liability Release',
+                                                    'Recommendation',
+                                                    'Transcript',
                                             ];
                                             for ($i = 0; $i < sizeof($tabNames); $i++)
                                             {
@@ -74,9 +76,9 @@
                                         @include('frontend.partials.scholarship_application_form.dean.guide_and_internship_selection')
                                         @include('frontend.partials.scholarship_application_form.dean.verify_internship')
                                         @include('frontend.partials.scholarship_application_form.dean.liability_release')
-
-                                        @include('frontend.partials.scholarship_application_form.dean.transcript_upload')
                                         @include('frontend.partials.scholarship_application_form.dean.recommendation_info')
+                                        @include('frontend.partials.scholarship_application_form.dean.transcript_upload')
+
 
 
 
