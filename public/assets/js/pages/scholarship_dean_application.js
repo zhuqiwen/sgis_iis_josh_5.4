@@ -26,6 +26,8 @@ $(document).ready(function () {
     console.log($('#summer_internships_selection_div'));
     $('#summer_internships_selection_div').html(summer_intern_options);
     $('#internship_select')[0].selectedIndex = -1;
+
+    console.log($('#internship_select').val());
 });
 
 $(document).on('change','#internship_select', function () {
@@ -135,6 +137,11 @@ $('#rootwizard').bootstrapWizard({
     'onNext': function(tab, navigation, index) {
         // var $validator = $('#internship_application_form').data('bootstrapValidator').validate();
         // return $validator.isValid();
+        if (!$('#internship_select').val())
+        {
+            alert('you must select an internship to proceed');
+            return false;
+        }
         return true;
     },
     onTabClick: function(tab, navigation, index) {
