@@ -159,6 +159,10 @@ $(document).on('change', '#transcript_upload_input', function () {
         $('#rootwizard').find('.pager .finish').show();
         $('#rootwizard').find('.pager .finish').removeClass('disabled');
     }
+    else
+    {
+        $('#rootwizard').find('.pager .finish').hide();
+    }
 });
 
 $(document).on('click', '#rootwizard .finish', function () {

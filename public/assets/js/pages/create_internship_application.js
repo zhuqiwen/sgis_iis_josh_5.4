@@ -207,9 +207,9 @@ $(document).on('click', '#rootwizard .finish', function () {
             var next = '/internship_application_status';
             if ($('#intern_application_term').val() == 'Summer')
             {
-                if (confirm('hey, a summer internship'))
+                if (confirm('You just submitted a summer internship application. There is scholarship for summer internship. Would you like to check it?'))
                 {
-                    next = '/funding_summer_internship';
+                    next = '/scholarships/apply/5';
                 }
             }
             window.location.replace(next);
