@@ -318,7 +318,11 @@ Route::get('supervisor/thank_you', function (){
 Route::get('supervisor/{random_url}', 'InternSupervisorController@identityCheckView');
 
 
+# scholarship recommendation portal
 
+//deans scholarship recommendation
+
+Route::get('dean_scholarship_recommendation/{random_url}', 'ScholarshipDeanRecommendationPortalController@identityCheckView');
 
 
 

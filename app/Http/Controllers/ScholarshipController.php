@@ -119,8 +119,18 @@ class ScholarshipController extends Controller
 	    $request->request->add(['transcript_file_name' => $file_name]);
         $dean_application = ScholarshipApplicationDean::create($request->all());
 
+
+        while (true)
+        {
+            $random_url = bin2hex(random_bytes(random_int(5, 10)));
+            if(!ScholarshipDeanRecommendationPortal::where('random_url', $random_url)->exists())
+            {
+                break;
+            }
+
+        }
         $recommendation_portal = ScholarshipDeanRecommendationPortal::create([
-            "random_url" => bin2hex(random_bytes(random_int(5, 10))),
+            "random_url" => $random_url,
             "dean_application_id" => $dean_application->id,
             "recommendation_submitted" => 0,
             "num_visit" => 0,

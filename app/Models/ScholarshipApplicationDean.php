@@ -36,6 +36,11 @@ class ScholarshipApplicationDean extends Model
 		return $this->hasOne('App\Models\ScholarshipDeanRecommendationPortal', 'dean_application_id');
 	}
 
+    public function internshipApplication()
+    {
+        return $this->belongsTo('App\Models\InternApplication', 'intern_application_id');
+	}
+
 
 
 }

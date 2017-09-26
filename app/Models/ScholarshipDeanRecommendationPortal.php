@@ -28,4 +28,21 @@ class ScholarshipDeanRecommendationPortal extends Model
 		return $this->belongsTo('App\Models\ScholarshipApplicationDean', 'dean_application_id');
 	}
 
+
+    public function getIdentityCheckData($random_url)
+    {
+        $portal = $this->where('random_url', $random_url)
+            ->where('recommendation_submitted', 0)
+            ->first();
+
+        if($portal)
+        {
+            $portal = $portal->load('application', 'application.internshipApplication', 'application.internshipApplication.applicant');
+            $recommender = $portal->application->getAttributes();
+            $internship = $portal->application->internshipApplication->getAttributes();
+            $applicant = $portal->application->internshipApplication->applicant->getAttributes();
+            return compact('applicant','internship', 'recommender');
+        }
+        return [];
+	}
 }
