@@ -49,7 +49,8 @@ class FrontEndController extends JoshController
     {
         // Is the user logged in?
         if (Sentinel::check()) {
-            return Redirect::route('my-account');
+//            return Redirect::route('my-account');
+            return Redirect::route('home');
         }
 
         // Show the login page
@@ -67,7 +68,8 @@ class FrontEndController extends JoshController
         try {
             // Try to log the user in
             if (Sentinel::authenticate($request->only('email', 'password'), $request->get('remember-me', 0))) {
-                return Redirect::route("my-account")->with('success', Lang::get('auth/message.login.success'));
+//                return Redirect::route("my-account")->with('success', Lang::get('auth/message.login.success'));
+                return Redirect::route("home");
             } else {
                 return redirect('login')->with('error', 'Email or password is incorrect.');
                 //return Redirect::back()->withInput()->withErrors($validator);

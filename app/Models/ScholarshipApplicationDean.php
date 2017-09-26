@@ -31,9 +31,11 @@ class ScholarshipApplicationDean extends Model
     use SoftDeletes;
     protected $dates = ['deleted_at'];
 
-	public function scholarship()
+	public function recommendationPortal()
 	{
-		return $this->belongsTo('App\Models\Scholarship', 'scholarship_id');
+		return $this->hasOne('App\Models\ScholarshipDeanRecommendationPortal', 'dean_application_id');
 	}
+
+
 
 }

@@ -9,6 +9,7 @@ use App\Models\InternApplication;
 use App\Models\Scholarship;
 use App\Models\ScholarshipApplicationDean;
 use App\Models\ScholarshipCriteria;
+use App\Models\ScholarshipDeanRecommendationPortal;
 use App\Models\ScholarshipEligibility;
 use App\Models\ScholarshipMaterial;
 use App\Models\ScholarshipProcess;
@@ -116,7 +117,17 @@ class ScholarshipController extends Controller
 	    $path = 'schorlarship/dean_summer_internship/' . $user_folder_name;
 	    $file_name = $request->file('transcript_file')->store($path);
 	    $request->request->add(['transcript_file_name' => $file_name]);
-	    return json_encode(ScholarshipApplicationDean::create($request->all()));
+        $dean_application = ScholarshipApplicationDean::create($request->all());
+
+        $recommendation_portal = ScholarshipDeanRecommendationPortal::create([
+            "random_url" => bin2hex(random_bytes(random_int(5, 10))),
+            "dean_application_id" => $dean_application->id,
+            "recommendation_submitted" => 0,
+            "num_visit" => 0,
+        ]);
+
+
+	    return response('successful');
 
 
 
