@@ -209,7 +209,9 @@ $(document).on('click', '#rootwizard .finish', function () {
             {
                 if (confirm('You just submitted a summer internship application. There is scholarship for summer internship. Would you like to check it?'))
                 {
-                    next = '/scholarships/apply/5';
+
+                    var current_url = window.location.pathname.split('/');
+                    next = current_url.slice(0, -1).join('/') + '/scholarships/apply/5';
                 }
             }
             window.location.replace(next);
