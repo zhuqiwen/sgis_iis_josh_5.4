@@ -5,29 +5,42 @@ $("#gender, #gender1").select2({
     width: '100%'
 });
 
+var scholarships_index_url = window.location.pathname.split('/').slice(0, -2).join('/');
 
 
 $(document).ready(function () {
 
-    console.log(summer_intern_applications[0].intern_application_term);
-    var summer_intern_options = '<select id="internship_select" name="intern_application_id">';
-
-    for (var i = 0; i < summer_intern_applications.length; i++)
+    if (summer_intern_applications.length == 0)
     {
-        summer_intern_options += '<option value="';
-        summer_intern_options +=  summer_intern_applications[i].id;
-        summer_intern_options += '">' + summer_intern_applications[i].intern_application_year;
-        summer_intern_options += ', ' + summer_intern_applications[i].intern_application_term;
-        summer_intern_options += ', in ' + summer_intern_applications[i].intern_application_country;
-        summer_intern_options += '</option>'
+        alert('No available Summer Internship Application');
+        // window.location.replace(window.location.pathname.split('/').slice(0, -2).join('/'));
+        window.location.replace(scholarships_index_url);
     }
-    summer_intern_options += '</select>';
+    else
+    {
+        console.log(summer_intern_applications[0].intern_application_term);
 
-    console.log($('#summer_internships_selection_div'));
-    $('#summer_internships_selection_div').html(summer_intern_options);
-    $('#internship_select')[0].selectedIndex = -1;
+        var summer_intern_options = '<select id="internship_select" name="intern_application_id">';
 
-    console.log($('#internship_select').val());
+        for (var i = 0; i < summer_intern_applications.length; i++)
+        {
+            summer_intern_options += '<option value="';
+            summer_intern_options +=  summer_intern_applications[i].id;
+            summer_intern_options += '">' + summer_intern_applications[i].intern_application_year;
+            summer_intern_options += ', ' + summer_intern_applications[i].intern_application_term;
+            summer_intern_options += ', in ' + summer_intern_applications[i].intern_application_country;
+            summer_intern_options += '</option>'
+        }
+        summer_intern_options += '</select>';
+
+        console.log($('#summer_internships_selection_div'));
+        $('#summer_internships_selection_div').html(summer_intern_options);
+        $('#internship_select')[0].selectedIndex = -1;
+
+        console.log($('#internship_select').val());
+
+    }
+
 });
 
 $(document).on('change','#internship_select', function () {
@@ -128,7 +141,7 @@ $('#rootwizard').bootstrapWizard({
         var $percent = ($current/$total) * 100;
 
         // If it's the last tab then hide the last button and show the finish instead
-        if($current >= $total) {
+        if($current >= $total && $('#transcript_upload_input').val() != '') {
             $('#rootwizard').find('.pager .next').hide();
             $('#rootwizard').find('.pager .finish').show();
             $('#rootwizard').find('.pager .finish').removeClass('disabled');
@@ -140,6 +153,13 @@ $('#rootwizard').bootstrapWizard({
     }});
 
 
+$(document).on('change', '#transcript_upload_input', function () {
+    if ($('#transcript_upload_input').val() != '')
+    {
+        $('#rootwizard').find('.pager .finish').show();
+        $('#rootwizard').find('.pager .finish').removeClass('disabled');
+    }
+});
 
 $(document).on('click', '#rootwizard .finish', function () {
     var form_data = new FormData($('#scholarship_dean_application_form')[0]);
@@ -152,13 +172,20 @@ $(document).on('click', '#rootwizard .finish', function () {
         type: 'post',
         url: window.location.pathname,
         data: form_data,
-        dataType: 'json',
+        // dataType: 'json',
         success: function (returned_data) {
-            console.log(returned_data);
+            console.log('success');
+            alert('application submitted successfully');
+            window.location.replace(scholarships_index_url);
+
+
         },
         error: function (xhr, ajaxOptions, thrownError) {
+            console.log('something is wrong');
+
             var e = window.open();
             e.document.write(xhr.responseText);
+            console.log(xhr);
 
         }
     })

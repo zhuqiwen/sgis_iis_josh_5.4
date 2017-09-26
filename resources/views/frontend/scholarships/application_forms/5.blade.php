@@ -89,7 +89,7 @@
                                             <li class="next">
                                                 <a href="#">Next</a>
                                             </li>
-                                            <li class="next finish" style="display:none;">
+                                            <li id="finish_button" class="next finish" style="display:none;">
                                                 <a href="javascript:;" type="submit">Finish</a>
                                             </li>
                                         </ul>

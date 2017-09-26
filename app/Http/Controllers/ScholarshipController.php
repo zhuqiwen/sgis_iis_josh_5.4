@@ -72,10 +72,17 @@ class ScholarshipController extends Controller
 
 		if(strtolower($scholarship_type) == strtolower(array_keys(config('constants.scholarship_types'))[0]))
 		{
+			$used_summer_intern_application_ids = ScholarshipApplicationDean::get(['intern_application_id'])
+				->flatMap(function ($dean_application){
+					return array_values($dean_application->toArray());
+				})->all();
+
 			$summer_intern_application = InternApplication::where('user_id', Sentinel::getUser()->id)
 				->where('intern_application_term', 'Summer')
+				->whereNotIn('id', $used_summer_intern_application_ids)
                 ->with('organization', 'supervisor')
 				->get();
+
 			if(!$summer_intern_application)
 			{
 				return redirect()->route('frontend_scholarships_index');
@@ -109,7 +116,7 @@ class ScholarshipController extends Controller
 	    $path = 'schorlarship/dean_summer_internship/' . $user_folder_name;
 	    $file_name = $request->file('transcript_file')->store($path);
 	    $request->request->add(['transcript_file_name' => $file_name]);
-	    return ScholarshipApplicationDean::create($request->all());
+	    return json_encode(ScholarshipApplicationDean::create($request->all()));
 
 
 
