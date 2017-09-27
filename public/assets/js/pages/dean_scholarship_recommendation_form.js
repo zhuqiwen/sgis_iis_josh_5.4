@@ -38,7 +38,10 @@ $(document).on('click', '#rootwizard .finish', function () {
 
     console.log('finish button is clicked');
     // population modal with recommendation text
-    var content = $('#recommendation_content').val();
+    var content = $('#recommendation_content').val().replace(/\n/g, '<br/>');
+    console.log(content);
+    console.log($('#recommendation_content'));
+
     $('#recommendation_preview_modal_body').html(content);
     // toggle the modal
     $('#recommendation_preview_modal').modal('toggle');
