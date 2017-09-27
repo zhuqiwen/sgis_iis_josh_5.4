@@ -32,7 +32,7 @@
                     </div>
                     <div class="form-group">
                         {!! Form::label('recommender_department', 'Department') !!}
-                        {!! Form::text('recommender_department', null, ['class' => 'form-control', 'placeholder' => 'Your recommender\'s department in SGIS']) !!}
+                        {!! Form::select('recommender_department', config('constants.sgis_departments'), null, ['class' => 'form-control']) !!}
 
                     </div>
 

@@ -91,11 +91,8 @@ class InternSupervisorController extends Controller
 
 	    if($exist)
         {
-//	        session('internship_id', $portal->internship_id);
-//	        session('portal_id', $portal->id);
-//	        session('student_evaluation_id', $portal->student_evaluation_id);
+
             return view('frontend.supervisor_student_evaluation.student_evaluation_form')
-//	            ->withInternshipId($portal->internship_id)
 	            ->withPortalId($portal->id)
 	            ->withStudentEvaluationId($portal->student_evaluation_id);
 

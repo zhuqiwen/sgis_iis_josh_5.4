@@ -322,6 +322,7 @@ Route::get('supervisor/{random_url}', 'InternSupervisorController@identityCheckV
 
 //deans scholarship recommendation
 
+//Route::post('dean_scholarship_recommendation/validate', ['as' => 'dean_scholarship_recommender_identity_check', 'uses' => 'InternSupervisorController@validateIdentity']);
 Route::get('dean_scholarship_recommendation/{random_url}', 'ScholarshipDeanRecommendationPortalController@identityCheckView');
 
 

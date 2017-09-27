@@ -35,14 +35,10 @@ class ScholarshipDeanRecommendationPortal extends Model
             ->where('recommendation_submitted', 0)
             ->first();
 
-        if($portal)
-        {
-            $portal = $portal->load('application', 'application.internshipApplication', 'application.internshipApplication.applicant');
-            $recommender = $portal->application->getAttributes();
-            $internship = $portal->application->internshipApplication->getAttributes();
-            $applicant = $portal->application->internshipApplication->applicant->getAttributes();
-            return compact('applicant','internship', 'recommender');
-        }
-        return [];
+        $portal = $portal->load('application', 'application.internshipApplication', 'application.internshipApplication.applicant');
+        $recommender = $portal->application->getAttributes();
+        $applicant = $portal->application->internshipApplication->applicant->getAttributes();
+        return compact('applicant', 'recommender');
+
 	}
 }

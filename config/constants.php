@@ -117,4 +117,11 @@ return [
 		'other' => 'Other Scholarships',
 	],
 
+
+	'sgis_departments' => [
+		'Central Eurasian Studies' => 'Central Eurasian Studies',
+		'East Asian Languages and Cultures' => 'East Asian Languages and Cultures',
+		'International Studies' => 'International Studies',
+		'Near Eastern Languages and Cultures' => 'Near Eastern Languages and Cultures',
+	],
 ];
