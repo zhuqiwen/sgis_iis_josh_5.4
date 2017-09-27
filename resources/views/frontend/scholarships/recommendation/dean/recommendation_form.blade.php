@@ -103,7 +103,7 @@
                                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                                             <h4 class="modal-title">Preview</h4>
                                         </div>
-                                        <div class="modal-body">
+                                        <div id="recommendation_preview_modal_body"  class="modal-body">
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-default" data-dismiss="modal">Edit</button>

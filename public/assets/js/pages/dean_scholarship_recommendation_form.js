@@ -1,18 +1,5 @@
-// bootstrap wizard//
-// $("#gender, #gender1").select2({
-//     theme:"bootstrap",
-//     placeholder:"",
-//     width: '100%'
-// });
-
-
 
 $(document).ready(function () {
-    // set min defaults for depart date, return date, start date and end date
-    var yyyy = $('#intern_application_year').val() + '-01-01';
-    setMinDate(yyyy);
-
-    $('#intern_application_budget_airfare').attr('min', 0);
 });
 
 
@@ -21,8 +8,9 @@ $(document).ready(function () {
 $('#rootwizard').bootstrapWizard({
     'tabClass': 'nav nav-pills',
     'onNext': function(tab, navigation, index) {
-        var $validator = $('#student_evaluation_form').data('bootstrapValidator').validate();
-        return $validator.isValid();
+        // var $validator = $('#student_evaluation_form').data('bootstrapValidator').validate();
+        // return $validator.isValid();
+        return true;
     },
     onTabClick: function(tab, navigation, index) {
         return false;
@@ -48,8 +36,12 @@ $('#rootwizard').bootstrapWizard({
 
 $(document).on('click', '#rootwizard .finish', function () {
 
+    console.log('finish button is clicked');
     // population modal with recommendation text
+    var content = $('#recommendation_content').val();
+    $('#recommendation_preview_modal_body').html(content);
     // toggle the modal
+    $('#recommendation_preview_modal').modal('toggle');
 
 });
 

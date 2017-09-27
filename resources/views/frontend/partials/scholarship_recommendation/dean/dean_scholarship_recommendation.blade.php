@@ -12,6 +12,7 @@
                             'Please feel free to comment:',
                             [
                                 'class' => 'form-control',
+                                'id' => 'recommendation_content',
                                 'rows' => '40',
                             ]) !!}
                         </div>
