@@ -32,6 +32,13 @@ class ScholarshipDeanRecommendationPortalController extends Controller
 	    $faker = \Faker\Factory::create();
 
 	    $departments = array_values(config('constants.sgis_departments'));
+
+	    foreach ($departments as $department)
+	    {
+		    $recommender_department[$department] = $department;
+
+	    }
+
 	    for($i = 0; $i < 3; $i++)
 	    {
 		    $recommender_fn = $faker->firstName();
@@ -43,14 +50,12 @@ class ScholarshipDeanRecommendationPortalController extends Controller
 		    $recommender_first_name[$recommender_fn] = $recommender_fn;
 		    $recommender_last_name[$recommender_ln] = $recommender_ln;
 		    $recommender_email[$fake_email] = $fake_email;
-		    $recommender_department[$departments[$i]] = $departments[$i];
 		    $applicant_first_name[$applicant_fn] = $applicant_fn;
 	    }
 
 	    $recommender_first_name[$answer['recommender']['recommender_first_name']] = $answer['recommender']['recommender_first_name'];
 	    $recommender_last_name[$answer['recommender']['recommender_last_name']] = $answer['recommender']['recommender_last_name'];
 	    $recommender_email[$answer['recommender']['recommender_email']] = $answer['recommender']['recommender_email'];
-	    $recommender_department[$answer['recommender']['recommender_department']] = $answer['recommender']['recommender_department'];
 	    $applicant_first_name[$answer['applicant']['first_name']] = $answer['applicant']['first_name'];
 
 	    $recommender_first_name = $this->shuffle_assoc($recommender_first_name);

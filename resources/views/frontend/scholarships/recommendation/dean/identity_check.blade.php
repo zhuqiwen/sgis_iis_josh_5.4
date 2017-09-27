@@ -28,71 +28,67 @@
                 @include('notifications')
             </div>
             {{--<form action="{{ route('supervisor_identity_check') }}" method="POST" id="reg_form">--}}
-            <form action="{{ route('supervisor_identity_check') }}" method="POST" id="supervisor_id_check_form">
+            <form action="{{ route('dean_scholarship_recommender_identity_check') }}" method="POST">
                 <!-- CSRF Token -->
                 <input type="hidden" name="_token" value="{{ csrf_token() }}" />
 
 
                 <div class="form-group">
-                    {!! Form::select('intern_supervisor_first_name',
-                        $options['supervisor_first_names'],
+                    {!! Form::select('recommender_first_name',
+                        $options['recommender_first_name'],
                         NULL,
                         [
                             'placeholder' => 'Your First Name',
                             'class' => 'form-control',
-                            'id' => 'supervisor_first_name',
+                            'id' => 'recommender_first_name',
                         ]) !!}
                 </div>
 
 
                 <div class="form-group">
-{{--                    {!! Form::label('intern_supervisor_last_name', 'Your First Name', ['class' => 'sr-only']) !!}--}}
-                    {!! Form::select('intern_supervisor_last_name',
-                        $options['supervisor_last_names'],
+                    {!! Form::select('recommender_last_name',
+                        $options['recommender_last_name'],
                         NULL,
                         [
                             'placeholder' => 'Your Last Name',
                             'class' => 'form-control',
-                            'id' => 'supervisor_last_name',
+                            'id' => 'recommender_last_name',
                         ]) !!}
                 </div>
 
 
                 <div class="form-group">
-{{--                    {!! Form::label('intern_supervisor_email', 'Your First Name', ['class' => 'sr-only']) !!}--}}
-                    {!! Form::select('intern_supervisor_email',
-                        $options['supervisor_emails'],
+                    {!! Form::select('recommender_email',
+                        $options['recommender_email'],
                         NULL,
                         [
                             'placeholder' => 'Which is your email?',
                             'class' => 'form-control',
-                            'id' => 'supervisor_email',
+                            'id' => 'recommender_email',
                         ]) !!}
                 </div>
 
 
                 <div class="form-group">
-{{--                    {!! Form::label('intern_supervisor_phone', 'Your First Name', ['class' => 'sr-only']) !!}--}}
-                    {!! Form::select('intern_supervisor_phone',
-                        $options['supervisor_phones'],
+                    {!! Form::select('recommender_department',
+                        $options['recommender_department'],
                         NULL,
                         [
-                            'placeholder' => 'Which is your phone number?',
+                            'placeholder' => 'Select your department',
                             'class' => 'form-control',
-                            'id' => 'supervisor_phone',
+                            'id' => 'recommender_department',
                         ]) !!}
                 </div>
 
 
                 <div class="form-group">
-{{--                    {!! Form::label('intern_supervisor_first_name', 'Your First Name', ['class' => 'sr-only']) !!}--}}
-                    {!! Form::select('first_name',
-                        $options['student_first_names'],
+                    {!! Form::select('applicant_first_name',
+                        $options['applicant_first_name'],
                         NULL,
                         [
-                            'placeholder' => 'The internship student\'s first name',
+                            'placeholder' => 'The student\'s first name',
                             'class' => 'form-control',
-                            'id' => 'student_first_name',
+                            'id' => 'applicant_first_name',
                         ]) !!}
                 </div>
 
