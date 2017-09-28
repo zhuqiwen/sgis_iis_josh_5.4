@@ -23,6 +23,7 @@ class ScholarshipApplicationDean extends Model
 	    "recommender_department",
 	    "recommender_recommendation",
 	    "ferpa_waive",
+        "forward_to_committee",
 	    "transcript_file_name",
     ];
 
@@ -40,7 +41,6 @@ class ScholarshipApplicationDean extends Model
     {
         return $this->belongsTo('App\Models\InternApplication', 'intern_application_id');
 	}
-
 
 
 }

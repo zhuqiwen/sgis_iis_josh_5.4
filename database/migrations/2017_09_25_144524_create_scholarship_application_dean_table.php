@@ -24,6 +24,7 @@ class CreateScholarshipApplicationDeanTable extends Migration
             $table->string('recommender_department')->nullable();
             $table->text('recommender_recommendation')->nullable();
             $table->boolean('ferpa_waive');
+            $table->boolean('forward_to_committee')->default(0);
             $table->string('transcript_file_name')->nullable();
             $table->timestamps();
             $table->softDeletes();

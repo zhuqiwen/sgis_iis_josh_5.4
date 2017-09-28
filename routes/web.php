@@ -168,8 +168,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin', 'as' => 'admin.'], f
 
     Route::get('archive_internships', 'InternInternshipController@adminIndexFinishedInternships');
     Route::post('archive_internships', 'InternInternshipController@ajaxArchiveInternship');
-    # Remaining pages will be called from below controller method
-    # in real world scenario, you may be required to define all routes manually
+
+
 
 
 
@@ -238,6 +238,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin', 'as' => 'admin.'], f
 	Route::get('scholarship_requirement/data', 'ScholarshipRequirementController@data');
 	Route::resource('scholarship_requirement', 'ScholarshipRequirementController');
 
+
+    //sgis scholarship management
+    Route::get('scholarship_deans', 'ScholarshipDeanController@adminCardIndexSubmittedApplications');
 
 
 

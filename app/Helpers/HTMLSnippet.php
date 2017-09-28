@@ -10,6 +10,7 @@ namespace app\Helpers;
 
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+use PhpParser\Node\Expr\Cast\Object_;
 
 class HTMLSnippet
 {
@@ -1677,6 +1678,71 @@ EOF;
 
     }
 
+    
+    /**
+     * Scholarship Admin
+     */
+    /**
+     * Dean's Summer Internship Scholarship
+     */
+    /**
+     * @param Eloquent Object $application
+     * @return string
+     */
+    public static function generateDeanScholarshipApplicationFloatCardWithModal($application)
+    {
+        $modal = self::generateDeanScholarshipApplicationModal($application);
+        $applicant = $application->internshipApplication->applicant;
+        $internship = $application->internshipApplication;
+        $card = <<< EOF
+		<div class="col-md-4 col-sm-12 col-lg-3" style="margin-bottom: 5%;">
+            <a id="float-card" href="#" style="text-decoration: none" data-toggle="modal" data-target="#myModalApplicationId_$application->id">
+                <div class="col-md-10 col-md-offset-1 float-card">
+                    <div class="title" id="$application->id">
+	                    <div class="row">
+	                        <div class="col-md-9">
+	                                <h4 id="applicant_name">
+	                                    $applicant->last_name, $applicant->first_name
+	                                    <br/><small>Applicant IUID: $applicant->iuid</small>
+	                                </h4>
+	                        </div>
+	                        <div id="iconCheck_$application->id" class="col-md-3 hide" style="margin-top:5%;">
+	                            <i class="fa fa-check fa-2x"></i>
+	                        </div>
+	                    </div>
+                    </div>
+                    <hr style="color: black; background-color: black; height: 1px; margin: 0 0;">
+                    <div class="text">
+                        <div class="row">
+	                        <div class="col-md-12">
+		                        <p><strong>Internship Address:</strong></p>
+		                        <p>$internship->street, $internship->city,</p>
+		                        <p>$internship->state, $internship->country</p>
+		                        <p><strong>Internship Organization:</strong></p>
+		                        <p>$internship->org_name</p>
+		                        <p><strong>Internship Date:</strong></p>
+		                        <p>From $internship->start_date To $internship->end_date</p>
+		                    </div>
+	                    </div>
+                    </div>
+                </div>
+            </a>
+            $modal
+        </div>
+EOF;
+		     return $card;
+    }
+
+    /**
+     * @param Eloquent Object $application
+     * @return string
+     */
+    public static function generateDeanScholarshipApplicationModal($application)
+    {
+        $modal = '';
+
+        return $modal;
+    }
 
 
 }
