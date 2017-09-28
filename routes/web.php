@@ -302,6 +302,10 @@ Route::group(array('middleware' => 'user'), function () {
 
 });
 
+// thank you
+Route::get('thank_you', ['as' => 'thank_you', 'uses' => function(){
+	return view('frontend.thank_you');
+}]);
 
 # Supervisor portal
 
@@ -312,9 +316,9 @@ Route::get('supervisor/student_evaluation', function (){
 
 Route::post('supervisor/validate', ['as' => 'supervisor_identity_check', 'uses' => 'InternSupervisorController@validateIdentity']);
 Route::post('supervisor/student_evaluation', ['as' => 'submit_student_evaluation', 'uses' => 'InternSupervisorController@submitStudentEvaluation']);
-Route::get('supervisor/thank_you', function (){
-	return view('frontend.supervisor_student_evaluation.thank_you');
-});
+//Route::get('supervisor/thank_you', function (){
+//	return view('frontend.supervisor_student_evaluation.thank_you');
+//});
 Route::get('supervisor/{random_url}', 'InternSupervisorController@identityCheckView');
 
 
@@ -323,7 +327,9 @@ Route::get('supervisor/{random_url}', 'InternSupervisorController@identityCheckV
 //deans scholarship recommendation
 
 Route::post('dean_scholarship_recommendation/recommendation', ['as' => 'submit_dean_scholarship_recommendation', 'uses' => 'ScholarshipDeanRecommendationPortalController@submitRecommendation']);
-
+//Route::get('dean_scholarship_recommendation/thank_you', ['as' => 'thank_you', 'uses' => function(){
+//	return view('frontend.scholarships.recommendation.thank_you');
+//}]);
 Route::post('dean_scholarship_recommendation/validate', ['as' => 'dean_scholarship_recommender_identity_check', 'uses' => 'ScholarshipDeanRecommendationPortalController@validateIdentity']);
 Route::get('dean_scholarship_recommendation/{random_url}', 'ScholarshipDeanRecommendationPortalController@identityCheckView');
 

@@ -96,7 +96,7 @@
                                 </div>
                             </div>
                             <div id="recommendation_preview_modal" class="modal fade" role="dialog">
-                                <div class="modal-dialog">
+                                <div class="modal-dialog"  style="width: 75%;">
                                     <!-- Modal content-->
                                     <div class="modal-content">
                                         <div class="modal-header">

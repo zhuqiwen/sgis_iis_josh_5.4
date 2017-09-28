@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ScholarshipApplicationDean;
 use App\Models\ScholarshipDeanRecommendationPortal;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\URL;
@@ -104,7 +105,28 @@ class ScholarshipDeanRecommendationPortalController extends Controller
 
 	public function submitRecommendation(Request $request)
 	{
+//		dd($request->all());
+		$portal = ScholarshipDeanRecommendationPortal::find($request->portal_id);
+		$portal->recommendation_submitted = 1;
 
+
+		$dean_application = ScholarshipApplicationDean::find($request->dean_application_id);
+		$dean_application->recommender_recommendation = $request->recommender_recommendation;
+
+
+		if($portal->save() && $dean_application->save())
+		{
+			$request->session()->flash('success', 'Your recommendation has been submitted successfully. The window can be safely closed.');
+			return redirect()->route('thank_you');
+		}
+		else
+		{
+			//set error message
+			$request->session()->flash('error', 'Oooops. Something went wrong. Can you try again? Thank you.');
+			//redirect to identity check page
+			//TODO: develop this redirect
+			return 'aho...';
+		}
     }
 
 

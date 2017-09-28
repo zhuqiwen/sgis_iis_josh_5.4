@@ -124,7 +124,7 @@ class InternSupervisorController extends Controller
 			//set successful message
 			$request->session()->flash('success', 'Student Evaluation submitted successfully. The browser can be safely closed.');
 			//redirect thanks page
-			return redirect('supervisor/thank_you');
+			return redirect()->route('thank_you');
 		}
 		else
 		{
