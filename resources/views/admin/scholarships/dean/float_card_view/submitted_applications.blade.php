@@ -72,7 +72,7 @@
                                     {{--here are applications' float cards--}}
                                     <div class="row">
                                         <?php
-//                                        echo $submitted_application_cards;
+                                        echo $submitted_application_cards;
                                         ?>
                                     </div>
 
@@ -82,7 +82,7 @@
                                     {{--here are applications' float cards--}}
                                     <div class="row">
                                         <?php
-//                                        echo $approved_application_cards;
+                                        echo $forwarded_application_cards;
                                         ?>
                                     </div>
                                 </div>
