@@ -359,6 +359,10 @@ Route::post('blogitem/{blog}/comment', 'FrontendBlogController@storeComment');
 
 
 Route::get('{name?}', 'JoshController@showFrontEndView');
+Route::get('test', function (){
+	return 'this is a test route';
+});
+
 
 
 
