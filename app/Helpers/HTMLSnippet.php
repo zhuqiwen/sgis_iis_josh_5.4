@@ -1696,7 +1696,7 @@ EOF;
         $internship = $application->internshipApplication;
         $card = <<< EOF
 		<div class="col-md-4 col-sm-12 col-lg-3" style="margin-bottom: 5%;">
-            <a id="float-card" href="#" style="text-decoration: none" data-toggle="modal" data-target="#myModalApplicationId_$application->id">
+            <a id="float-card" href="#" style="text-decoration: none" data-toggle="modal" data-target="#myModal_$application->id">
                 <div class="col-md-10 col-md-offset-1 float-card">
                     <div class="title" id="$application->id">
 	                    <div class="row">
@@ -1739,7 +1739,82 @@ EOF;
      */
     public static function generateDeanScholarshipApplicationModal($application)
     {
-        $modal = '';
+        if($application->recommendationPortal->recommendation_submitted)
+        {
+            $recommendation = $application->recommender_recommendation;
+        }
+        else
+        {
+            $recommendation = "Recommendation Not Submitted Yet.";
+        }
+        $tab_contents = <<<END
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    <i class="livicon" data-name="printer" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
+                    Application Details
+                </h3>
+            </div>
+            <div class="panel-body">
+                <div class="bs-example">
+                    <ul class="nav nav-tabs" style="margin-bottom: 15px;">
+                        <li class="active">
+                            <a href="#internship" data-toggle="tab">Internship details</a>
+                        </li>
+                        <li>
+                            <a href="#transcript" data-toggle="tab">Unofficial Transcript</a>
+                        </li>
+                        <li>
+                            <a href="#recommendation" data-toggle="tab">Faculty Recommendation</a>
+                        </li>
+                    </ul>
+                    <div id="myTabContent" class="tab-content">
+                        <div class="tab-pane fade active in" id="internship">
+                            <p class="m-r-6">
+                                It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
+                            </p>
+                        </div>
+                        <div class="tab-pane fade" id="transcript">
+                            <p  class="m-r-6">
+                                There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.
+                            </p>
+                        </div>
+                        <div class="tab-pane fade" id="recommendation">
+                            <p class="m-r-6">
+                                $recommendation
+                            </p>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+
+END;
+
+
+
+
+        $modal =<<<EOF
+			<div id="myModal_$application->id" class="modal fade" role="dialog">
+                <div class="modal-dialog" style="width: 80%;">
+                      <div class="modal-content">
+                            <!--<div class="modal-header">-->
+                                <!--<button type="button" class="close" data-dismiss="modal">&times;</button>-->
+                                <!--<h4 class="modal-title">-->
+                                    <!--Application Details-->
+                                <!--</h4>-->
+                            <!--</div>-->
+                            <div class="modal-body">
+                                $tab_contents
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            </div>
+                      </div>
+                </div>
+            </div>
+EOF;
 
         return $modal;
     }

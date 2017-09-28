@@ -205,6 +205,12 @@ return [
          */
         App\Providers\HelperServiceProvider::class,
 
+        /**
+         * embedded pdf reader
+         */
+        Goodnesskay\LaravelPdfViewer\LaravelPdfViewerServiceProvider::class,
+
+
 
     ],
 

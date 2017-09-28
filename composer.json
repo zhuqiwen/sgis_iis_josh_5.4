@@ -18,6 +18,7 @@
         "cviebrock/eloquent-taggable": "2.1.0-beta",
         "doctrine/dbal": "^2.5",
         "fzaninotto/faker": "^1.7",
+        "goodnesskay/laravelpdfviewer": "^1.0",
         "infyomlabs/core-templates": "5.3.x-dev",
         "infyomlabs/generator-builder": "dev-master",
         "infyomlabs/laravel-generator": "^1.0",

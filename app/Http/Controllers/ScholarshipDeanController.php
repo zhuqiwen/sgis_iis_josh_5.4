@@ -13,7 +13,11 @@ class ScholarshipDeanController extends Controller
     public function adminCardIndexSubmittedApplications()
     {
         $applications = new ScholarshipApplicationDean();
-        $applications = $applications->with(['internshipApplication', 'internshipApplication.applicant']);
+        $applications = $applications->with([
+            'recommendationPortal',
+            'internshipApplication',
+            'internshipApplication.applicant',
+            ]);
         $submitted_applications = $applications->where('forward_to_committee', 0)->get();
         $forwarded_applications = $applications->where('forward_to_committee', 1)->get();
 //
