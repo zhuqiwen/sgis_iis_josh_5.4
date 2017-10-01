@@ -1,5 +1,6 @@
 <?php
 include_once 'web_builder.php';
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -242,6 +243,11 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin', 'as' => 'admin.'], f
     //sgis scholarship management
     Route::get('scholarship_deans', 'ScholarshipDeanController@adminCardIndexSubmittedApplications');
 
+
+
+
+	// pdf viewer
+	Route::get('doc/dean_scholarship/{record_id}/transcript', array('as' => 'dean_scholarship_transcript', 'uses' => 'PDFController@deanScholarshipTranscript'));
 
 
 

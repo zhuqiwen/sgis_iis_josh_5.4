@@ -1678,7 +1678,7 @@ EOF;
 
     }
 
-    
+
     /**
      * Scholarship Admin
      */
@@ -1694,6 +1694,7 @@ EOF;
         $modal = self::generateDeanScholarshipApplicationModal($application);
         $applicant = $application->internshipApplication->applicant;
         $internship = $application->internshipApplication;
+        $organization = $application->internshipApplication->organization;
         $card = <<< EOF
 		<div class="col-md-4 col-sm-12 col-lg-3" style="margin-bottom: 5%;">
             <a id="float-card" href="#" style="text-decoration: none" data-toggle="modal" data-target="#myModal_$application->id">
@@ -1716,12 +1717,12 @@ EOF;
                         <div class="row">
 	                        <div class="col-md-12">
 		                        <p><strong>Internship Address:</strong></p>
-		                        <p>$internship->street, $internship->city,</p>
-		                        <p>$internship->state, $internship->country</p>
+		                        <p>$internship->intern_application_street, $internship->intern_application_city,</p>
+		                        <p>$internship->intern_application_state, $internship->intern_application_country</p>
 		                        <p><strong>Internship Organization:</strong></p>
-		                        <p>$internship->org_name</p>
+		                        <p>$organization->intern_organization_name</p>
 		                        <p><strong>Internship Date:</strong></p>
-		                        <p>From $internship->start_date To $internship->end_date</p>
+		                        <p>From $internship->intern_application_start_date To $internship->intern_application_end_date</p>
 		                    </div>
 	                    </div>
                     </div>
@@ -1739,6 +1740,7 @@ EOF;
      */
     public static function generateDeanScholarshipApplicationModal($application)
     {
+
         if($application->recommendationPortal->recommendation_submitted)
         {
             $recommendation = $application->recommender_recommendation;
@@ -1747,6 +1749,9 @@ EOF;
         {
             $recommendation = "Recommendation Not Submitted Yet.";
         }
+
+        $transcript_url = route('admin.dean_scholarship_transcript', ['record_id' => $application->id]);
+
         $tab_contents = <<<END
         <div class="panel panel-primary">
             <div class="panel-heading">
@@ -1775,9 +1780,9 @@ EOF;
                             </p>
                         </div>
                         <div class="tab-pane fade" id="transcript">
-                            <p  class="m-r-6">
-                                There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.
-                            </p>
+                            <iframe src="$transcript_url#zoom=100" width="100%" style="min-height: 600px;">
+								This browser does not support PDFs. Please download the PDF to view it: <a href="$transcript_url">Download PDF</a>
+							</iframe>
                         </div>
                         <div class="tab-pane fade" id="recommendation">
                             <p class="m-r-6">

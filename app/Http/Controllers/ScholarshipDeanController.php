@@ -17,6 +17,7 @@ class ScholarshipDeanController extends Controller
             'recommendationPortal',
             'internshipApplication',
             'internshipApplication.applicant',
+            'internshipApplication.organization',
             ]);
         $submitted_applications = $applications->where('forward_to_committee', 0)->get();
         $forwarded_applications = $applications->where('forward_to_committee', 1)->get();
