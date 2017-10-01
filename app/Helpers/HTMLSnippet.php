@@ -1743,7 +1743,7 @@ EOF;
 
         if($application->recommendationPortal->recommendation_submitted)
         {
-            $recommendation = $application->recommender_recommendation;
+            $recommendation = nl2br($application->recommender_recommendation);
         }
         else
         {
