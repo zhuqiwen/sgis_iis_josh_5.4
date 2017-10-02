@@ -365,6 +365,12 @@ Route::post('blogitem/{blog}/comment', 'FrontendBlogController@storeComment');
 
 
 
+/*
+ * functionality trials
+ */
+Route::get('test_pdf_download', 'PDFController@generatePDF');
+
+
 
 
 Route::get('{name?}', 'JoshController@showFrontEndView');

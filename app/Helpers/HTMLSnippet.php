@@ -9,6 +9,7 @@
 namespace app\Helpers;
 
 use Carbon\Carbon;
+use Cartalyst\Sentinel\Laravel\Facades\Sentinel;
 use Illuminate\Support\Facades\Auth;
 use PhpParser\Node\Expr\Cast\Object_;
 
@@ -1637,6 +1638,8 @@ END;
 			$requirement .= '</div>';
 		}
 
+		$user = Sentinel::getUser();
+
 		$modal = <<<EOF
 		<div id="$scholarship->id" class="modal fade" role="dialog">
                             <div class="modal-dialog" style="width: 70%;">
@@ -1743,7 +1746,7 @@ EOF;
 
         if($application->recommendationPortal->recommendation_submitted)
         {
-            $recommendation = nl2br($application->recommender_recommendation);
+            $recommendation = $application->recommender_recommendation;
         }
         else
         {
@@ -1752,13 +1755,29 @@ EOF;
 
         $transcript_url = route('admin.dean_scholarship_transcript', ['record_id' => $application->id]);
 
+	    $internship = $application->internshipApplication;
+	    $organization = $application->internshipApplication->organization;
+	    $supervisor = $application->internshipApplication->supervisor;
+	    $applicant = $application->internshipApplication->applicant;
+
+	    $internship_details = view('admin.scholarships.dean.partials.internship_details')
+		    ->with(compact('internship', 'organization', 'supervisor', 'applicant'));
+
+
+	    $faculty_recommendation = view('admin.scholarships.dean.partials.faculty_recommendation')
+		    ->with(compact('recommendation'));
+
         $tab_contents = <<<END
         <div class="panel panel-primary">
             <div class="panel-heading">
                 <h3 class="panel-title">
                     <i class="livicon" data-name="printer" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
-                    Application Details
+                    <span>Application Details</span>
+                    <button id="button_forward" type="button" class="btn btn-sm btn-warning">
+                    <span class="glyphicon glyphicon-check"></span> Forward to Committee
+                </button>
                 </h3>
+                
             </div>
             <div class="panel-body">
                 <div class="bs-example">
@@ -1775,9 +1794,9 @@ EOF;
                     </ul>
                     <div id="myTabContent" class="tab-content">
                         <div class="tab-pane fade active in" id="internship">
-                            <p class="m-r-6">
-                                It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
-                            </p>
+                            <div class="m-r-6">
+                            $internship_details
+                            </div>
                         </div>
                         <div class="tab-pane fade" id="transcript">
                             <iframe src="$transcript_url#zoom=100" width="100%" style="min-height: 600px;">
@@ -1785,9 +1804,7 @@ EOF;
 							</iframe>
                         </div>
                         <div class="tab-pane fade" id="recommendation">
-                            <p class="m-r-6">
-                                $recommendation
-                            </p>
+                                $faculty_recommendation
                         </div>
                         
                     </div>

@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 
 
 use App\Models\ScholarshipApplicationDean;
+use PDF;
 use Illuminate\Filesystem\Filesystem as File;
 use Illuminate\Support\Facades\Response;
 
@@ -27,4 +28,15 @@ class PDFController extends Controller
 			dd($record_id);
 		}
 	}
+
+	public function generatePDF()
+	{
+		$data = 'a test of generating pdf';
+		$pdf = PDF::loadView('functionality_trials.pdf', compact('data'));
+//		return $pdf->download('test_pdf.pdf');
+		$pdf->save(storage_path('app') . '/' . 'test_pdf.pdf');
+		return 'pdf saved';
+	}
+
+
 }

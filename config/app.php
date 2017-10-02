@@ -205,6 +205,12 @@ return [
          */
         App\Providers\HelperServiceProvider::class,
 
+	    /*
+	     * dompdf
+	     */
+	    Barryvdh\DomPDF\ServiceProvider::class,
+
+
     ],
 
     /*
@@ -271,6 +277,12 @@ return [
         'HTMLSnippet' => App\Helpers\HTMLSnippet::class,
         'TravelWarning' => App\Helpers\TravelWarning::class,
         'Thumbnail' => App\Helpers\Thumbnail::class,
+
+	    /*
+	     * dompdf
+	     */
+        'PDF' => Barryvdh\DomPDF\Facade::class,
+
 
     ],
 
