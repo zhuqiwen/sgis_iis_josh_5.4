@@ -55,6 +55,8 @@ class ScholarshipApplicationDean extends Model
         return Notifications::where('type', $type)
             ->where('type_record_id', $this->id)
             ->first();
+
+
 	}
 
 

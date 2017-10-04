@@ -1769,15 +1769,27 @@ EOF;
 	    $faculty_recommendation = view('admin.scholarships.dean.partials.faculty_recommendation')
 		    ->with(compact('recommendation'));
 
+
 	    if($package_notification)
         {
-            $package_notification_form = 'notification exists';
+            if($package_notification->sent)
+            {
+
+                $package_notification_form = 'an email with application package has been sent';
+            }
+            else
+            {
+
+                $package_notification_form = 'the email has NOT been sent';
+            }
+
         }
         else
         {
             $package_notification_form = '<button id="button_generate_package_email" type="button" class="btn btn-sm btn-warning">';
             $package_notification_form .= 'Generate an email to committee with application package</button>';
         }
+
 
 
 
@@ -1803,7 +1815,7 @@ EOF;
                             <a href="#recommendation" data-toggle="tab">Faculty Recommendation</a>
                         </li>
                         <li>
-                            <a href="#send_package" data-toggle="tab">Forward Application</a>
+                            <a href="#send_package" data-toggle="tab">Application Package to Committee</a>
                         </li>
                     </ul>
                     <div id="myTabContent" class="tab-content">
