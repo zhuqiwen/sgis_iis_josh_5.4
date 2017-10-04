@@ -128,24 +128,9 @@ $(document).on('click', '.removeFromFolio', function (e) {
 });
 
 
-$(document).on('click', '#button_approve', function(){
-    // console.log(ApprovalNotes);
-    // var data = {'ids': [...ToApproveIds], 'notes': ApprovalNotes};
-    // $.ajax({
-    //     type: 'post',
-    //     url: $('#button_approve').attr('data-ajax--url'),
-    //     data: data,
-    //     dataType: 'json',
-    //     success: function (returned_data) {
-    //         console.log(returned_data);
-    //         $('#tab1 .row').html(returned_data.submitted_application_cards);
-    //         $('#tab2 .row').html(returned_data.approved_application_cards);
-    //     },
-    //     error: function (xhr, ajaxOptions, thrownError) {
-    //         var e = window.open();
-    //         e.document.write(xhr.responseText);
-    //     }
-    // });
+$(document).on('click', '#button_forward', function () {
+    console.log('forward button is clicked');
+
 
 
 });

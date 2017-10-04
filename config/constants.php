@@ -124,4 +124,8 @@ return [
 		'International Studies' => 'International Studies',
 		'Near Eastern Languages and Cultures' => 'Near Eastern Languages and Cultures',
 	],
+
+    'email_notification_types' => [
+        'dean_scholarship_application' => 'dean_scholarship_application',
+    ],
 ];

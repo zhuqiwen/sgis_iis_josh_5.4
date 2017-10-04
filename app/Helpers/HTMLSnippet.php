@@ -1759,6 +1759,8 @@ EOF;
 	    $organization = $application->internshipApplication->organization;
 	    $supervisor = $application->internshipApplication->supervisor;
 	    $applicant = $application->internshipApplication->applicant;
+	    $package_notification = $application->package_notification;
+
 
 	    $internship_details = view('admin.scholarships.dean.partials.internship_details')
 		    ->with(compact('internship', 'organization', 'supervisor', 'applicant'));
@@ -1767,15 +1769,24 @@ EOF;
 	    $faculty_recommendation = view('admin.scholarships.dean.partials.faculty_recommendation')
 		    ->with(compact('recommendation'));
 
+	    if($package_notification)
+        {
+            $package_notification_form = 'notification exists';
+        }
+        else
+        {
+            $package_notification_form = '<button id="button_generate_package_email" type="button" class="btn btn-sm btn-warning">';
+            $package_notification_form .= 'Generate an email to committee with application package</button>';
+        }
+
+
+
         $tab_contents = <<<END
         <div class="panel panel-primary">
             <div class="panel-heading">
                 <h3 class="panel-title">
                     <i class="livicon" data-name="printer" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
                     <span>Application Details</span>
-                    <button id="button_forward" type="button" class="btn btn-sm btn-warning">
-                    <span class="glyphicon glyphicon-check"></span> Forward to Committee
-                </button>
                 </h3>
                 
             </div>
@@ -1791,6 +1802,9 @@ EOF;
                         <li>
                             <a href="#recommendation" data-toggle="tab">Faculty Recommendation</a>
                         </li>
+                        <li>
+                            <a href="#send_package" data-toggle="tab">Forward Application</a>
+                        </li>
                     </ul>
                     <div id="myTabContent" class="tab-content">
                         <div class="tab-pane fade active in" id="internship">
@@ -1805,6 +1819,9 @@ EOF;
                         </div>
                         <div class="tab-pane fade" id="recommendation">
                                 $faculty_recommendation
+                        </div>
+                        <div class="tab-pane fade" id="send_package">
+                                $package_notification_form
                         </div>
                         
                     </div>

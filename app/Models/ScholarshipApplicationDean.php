@@ -32,6 +32,12 @@ class ScholarshipApplicationDean extends Model
     use SoftDeletes;
     protected $dates = ['deleted_at'];
 
+
+    protected $appends = [
+        'package_notification',
+    ];
+
+
 	public function recommendationPortal()
 	{
 		return $this->hasOne('App\Models\ScholarshipDeanRecommendationPortal', 'dean_application_id');
@@ -41,6 +47,19 @@ class ScholarshipApplicationDean extends Model
     {
         return $this->belongsTo('App\Models\InternApplication', 'intern_application_id');
 	}
+
+
+    public function getPackageNotificationAttribute()
+    {
+        $type = config('constants.email_notification_types.dean_scholarship_application');
+        return Notifications::where('type', $type)
+            ->where('type_record_id', $this->id)
+            ->first();
+	}
+
+
+
+
 
 
 }
