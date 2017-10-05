@@ -1,3 +1,4 @@
+<div style="text-align: left">
 @if($editable)
     <form action="#">
     @else
@@ -37,11 +38,13 @@
             <label for="body" class="control-label">Message</label>
             @if($editable)
                 <textarea class="form-control resize_vertical" rows="5" name="body">
-                    <?php echo preg_replace("/[\r\n]/","<p>",$notification->body); ?>
+<!--                    --><?php //echo preg_replace("/[\r\n]/","<p>",$notification->body); ?>
+                    <?php echo $notification->body; ?>
                 </textarea>
             @else
                 <textarea class="form-control resize_vertical" rows="5" name="body" readonly>
-                    <?php echo preg_replace("/[\r\n]/","<p>",$notification->body); ?>
+<!--                    --><?php //echo preg_replace("/[\r\n]/","<p>",$notification->body); ?>
+                    <?php echo $notification->body; ?>
 
                 </textarea>
             @endif
@@ -67,3 +70,4 @@
     @else
 
 @endif
+</div>

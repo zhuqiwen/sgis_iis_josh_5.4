@@ -97,13 +97,14 @@ class PDFController extends Controller
                 $filename .= $file;
             }
 
-            $filename = 'package.pdf';
-            $filename = $path . $filename;
+            $filename = md5($filename) . '.pdf';
+            $file_location = storage_path('app' . DS . $path) . DS . $filename;
 
-            dd($pdf);
-            if($pdf->merge('file', $filename))
+
+
+            if($pdf->merge('file', $file_location))
             {
-                return $filename;
+                return $path . DS . $filename;
             }
             else
             {
