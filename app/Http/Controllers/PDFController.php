@@ -6,28 +6,70 @@ namespace App\Http\Controllers;
 
 
 use App\Models\ScholarshipApplicationDean;
+use LynX39\LaraPdfMerger\PDFManage;
 use PDF;
 use Illuminate\Filesystem\Filesystem as File;
 use Illuminate\Support\Facades\Response;
 
 class PDFController extends Controller
 {
-	public function deanScholarshipTranscript($record_id)
-	{
-		$application = ScholarshipApplicationDean::find($record_id);
-		$finder = new File();
-		if ($finder->isFile(storage_path('app/' . $application->transcript_file_name)))
-		{
-			$file = $finder->get(storage_path('app/' . $application->transcript_file_name));
-			$response = Response::make($file, 200);
-			$response->header('Content-Type', 'application/pdf');
-			return $response;
-		}
-		else
-		{
-			dd($record_id);
-		}
-	}
+
+    public function deanScholarshipApplicationFile($record_id, $file)
+    {
+        $map = [
+            'transcript' => 'transcript_file_name',
+            'acceptance_letter' => 'accept_letter_file_name',
+            'recommendation' => 'recommendation_file_name',
+        ];
+
+        $application = ScholarshipApplicationDean::find($record_id);
+        $finder = new File();
+        if ($finder->isFile(storage_path('app/' . $application[$map[$file]])))
+        {
+            $file = $finder->get(storage_path('app/' . $application[$map[$file]]));
+            $response = Response::make($file, 200);
+            $response->header('Content-Type', 'application/pdf');
+            return $response;
+        }
+        else
+        {
+            dd($record_id);
+        }
+    }
+
+//	public function deanScholarshipTranscript($record_id)
+//	{
+//		$application = ScholarshipApplicationDean::find($record_id);
+//		$finder = new File();
+//		if ($finder->isFile(storage_path('app/' . $application->transcript_file_name)))
+//		{
+//			$file = $finder->get(storage_path('app/' . $application->transcript_file_name));
+//			$response = Response::make($file, 200);
+//			$response->header('Content-Type', 'application/pdf');
+//			return $response;
+//		}
+//		else
+//		{
+//			dd($record_id);
+//		}
+//	}
+//
+//    public function deanScholarshipAcceptanceLetter($record_id)
+//    {
+//        $application = ScholarshipApplicationDean::find($record_id);
+//        $finder = new File();
+//        if ($finder->isFile(storage_path('app/' . $application->accept_letter_file_name)))
+//        {
+//            $file = $finder->get(storage_path('app/' . $application->accept_letter_file_name));
+//            $response = Response::make($file, 200);
+//            $response->header('Content-Type', 'application/pdf');
+//            return $response;
+//        }
+//        else
+//        {
+//            dd($record_id);
+//        }
+//	}
 
 	public function generateAndSavePDF($view, $data = [], $path, $filename)
 	{
@@ -38,6 +80,41 @@ class PDFController extends Controller
 		}
 
 		return FALSE;
+	}
+
+
+    public function mergeAndSavePDFs($files, $path)
+    {
+        if(!empty($files))
+        {
+            $pdf = new PDFManage();
+            $filename = '';
+            define('DS', DIRECTORY_SEPARATOR );
+            foreach($files as $file)
+            {
+
+                $pdf->addPDF(realpath(storage_path('app') . DS . $file));
+                $filename .= $file;
+            }
+
+            $filename = 'package.pdf';
+            $filename = $path . $filename;
+
+            dd($pdf);
+            if($pdf->merge('file', $filename))
+            {
+                return $filename;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        else
+        {
+            return 'no files to merge';
+        }
+
 	}
 
 

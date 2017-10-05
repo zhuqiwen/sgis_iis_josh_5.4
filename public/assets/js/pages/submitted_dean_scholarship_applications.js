@@ -128,8 +128,37 @@ $(document).on('click', '.removeFromFolio', function (e) {
 });
 
 
-$(document).on('click', '#button_forward', function () {
-    console.log('forward button is clicked');
+$(document).on('click', '#button_generate_package_email', function () {
+    console.log('button_generate_package_email is clicked');
+    var container = $(this).parent();
+
+    var split = window.location.pathname.split('/');
+    var url_base = split.slice(0, split.length - 1).join("/") + '/';
+    var url = url_base + 'dean_scholarship_email_to_committee/' + container.data('application-id');
+    console.log(url);
+
+
+    $.ajax({
+        type: 'get',
+        url: url,
+        data: {},
+        dataType: 'html',
+        success: function (returned_data) {
+            console.log(returned_data);
+            container.html(returned_data);
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            var e = window.open();
+            e.document.write(xhr.responseText);
+        }
+    });
+
+
+
+});
+
+$(document).on('click', '#button_generate_email_to_applicant', function () {
+    console.log('button_generate_email_to_applicant is clicked');
 
 
 

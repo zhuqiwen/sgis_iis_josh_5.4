@@ -1746,14 +1746,23 @@ EOF;
 
         if($application->recommendationPortal->recommendation_submitted)
         {
+            $recommender_first_name = $application->recommender_first_name;
+            $recommender_last_name = $application->recommender_last_name;
+            $recommender_email = $application->recommender_email;
+            $recommender_department = $application->recommender_department;
             $recommendation = $application->recommender_recommendation;
         }
         else
         {
+            $recommender_first_name = $recommender_last_name = $recommender_email = $recommender_department = '';
             $recommendation = "Recommendation Not Submitted Yet.";
         }
 
-        $transcript_url = route('admin.dean_scholarship_transcript', ['record_id' => $application->id]);
+//        $transcript_url = route('admin.dean_scholarship_transcript', ['record_id' => $application->id]);
+//        $acceptance_url = route('admin.dean_scholarship_acceptance_letter', ['record_id' => $application->id]);
+
+        $transcript_url = route('admin.dean_scholarship_package_file', ['record_id' => $application->id, 'file' => 'transcript']);
+        $acceptance_url = route('admin.dean_scholarship_package_file', ['record_id' => $application->id, 'file' => 'acceptance_letter']);
 
 	    $internship = $application->internshipApplication;
 	    $organization = $application->internshipApplication->organization;
@@ -1766,8 +1775,9 @@ EOF;
 		    ->with(compact('internship', 'organization', 'supervisor', 'applicant'));
 
 
+
 	    $faculty_recommendation = view('admin.scholarships.dean.partials.faculty_recommendation')
-		    ->with(compact('recommendation'));
+		    ->with(compact('recommendation', 'recommender_first_name', 'recommender_last_name', 'recommender_email', 'recommender_department'));
 
 
 	    if($package_notification)
@@ -1775,25 +1785,48 @@ EOF;
             if($package_notification->sent)
             {
 
-                $package_notification_form = 'an email with application package has been sent';
+                $tip = 'an email with application package has been sent';
+                $editable = false;
             }
             else
             {
+                $tip = 'you can edit the content of the email and download the application package file';
+                $editable = true;
 
-                $package_notification_form = view('admin.scholarships.dean.partials.package_email')
-	                ->withNotification($package_notification)
-	                ->withEditable(FALSE);
             }
+
+            $package_notification_form = view('admin.notification_emails.scholarships.dean.to_committee.package_email')
+                ->withTip($tip)
+                ->withNotification($package_notification)
+                ->withEditable($editable);
 
         }
         else
         {
-            $package_notification_form = '<div style="text-align: center"><button id="button_generate_package_email" type="button" class="btn btn-warning">';
-            $package_notification_form .= 'Generate an email to committee with application package</button></div>';
+            if($application->recommender_recommendation)
+            {
+                $button_id = 'button_generate_package_email';
+                $button_type = 'btn-primary';
+                $button_string = 'Generate an email to committee with application package';
+            }
+            else
+            {
+                $button_id = 'button_generate_email_to_applicant';
+                $button_type = 'btn-warning';
+                $button_string = 'Check with the applicant if recommendation is submitted';
+            }
+
+            $package_notification_form = '<button id="' . $button_id . '" type="button" class="btn ' . $button_type . '">';
+            $package_notification_form .= $button_string . '</button>';
         }
 
 
 
+        $internship_tab_id = 'internship_' . $application->id;
+        $transcript_tab_id = 'transcript_' . $application->id;
+        $acceptance_tab_id = 'acceptance_' . $application->id;
+        $recommendation_tab_id = 'recommendation_' . $application->id;
+        $send_package_tab_id = 'send_package_' . $application->id;
 
 
         $tab_contents = <<<END
@@ -1809,33 +1842,41 @@ EOF;
                 <div class="bs-example">
                     <ul class="nav nav-tabs" style="margin-bottom: 15px;">
                         <li class="active">
-                            <a href="#internship" data-toggle="tab">Internship details</a>
+                            <a href="#$internship_tab_id" data-toggle="tab">Internship details</a>
                         </li>
                         <li>
-                            <a href="#transcript" data-toggle="tab">Unofficial Transcript</a>
+                            <a href="#$transcript_tab_id" data-toggle="tab">Unofficial Transcript</a>
                         </li>
                         <li>
-                            <a href="#recommendation" data-toggle="tab">Faculty Recommendation</a>
+                            <a href="#$acceptance_tab_id" data-toggle="tab">Acceptance Letter</a>
                         </li>
                         <li>
-                            <a href="#send_package" data-toggle="tab">Application Package to Committee</a>
+                            <a href="#$recommendation_tab_id" data-toggle="tab">Faculty Recommendation</a>
+                        </li>
+                        <li>
+                            <a href="#$send_package_tab_id" data-toggle="tab">Application Package to Committee</a>
                         </li>
                     </ul>
                     <div id="myTabContent" class="tab-content">
-                        <div class="tab-pane fade active in" id="internship">
+                        <div class="tab-pane fade active in" id="$internship_tab_id">
                             <div class="m-r-6">
                             $internship_details
                             </div>
                         </div>
-                        <div class="tab-pane fade" id="transcript">
+                        <div class="tab-pane fade" id="$transcript_tab_id">
                             <iframe src="$transcript_url#zoom=100" width="100%" style="min-height: 600px;">
 								This browser does not support PDFs. Please download the PDF to view it: <a href="$transcript_url">Download PDF</a>
 							</iframe>
                         </div>
-                        <div class="tab-pane fade" id="recommendation">
+                        <div class="tab-pane fade" id="$acceptance_tab_id">
+                            <iframe src="$acceptance_url#zoom=100" width="100%" style="min-height: 600px;">
+								This browser does not support PDFs. Please download the PDF to view it: <a href="$acceptance_url">Download PDF</a>
+							</iframe>
+                        </div>
+                        <div class="tab-pane fade" id="$recommendation_tab_id">
                                 $faculty_recommendation
                         </div>
-                        <div class="tab-pane fade" id="send_package">
+                        <div class="tab-pane fade" id="$send_package_tab_id" style="text-align: center" data-application-id="$application->id">
                                 $package_notification_form
                         </div>
                         
@@ -1853,12 +1894,6 @@ END;
 			<div id="myModal_$application->id" class="modal fade" role="dialog">
                 <div class="modal-dialog" style="width: 80%;">
                       <div class="modal-content">
-                            <!--<div class="modal-header">-->
-                                <!--<button type="button" class="close" data-dismiss="modal">&times;</button>-->
-                                <!--<h4 class="modal-title">-->
-                                    <!--Application Details-->
-                                <!--</h4>-->
-                            <!--</div>-->
                             <div class="modal-body">
                                 $tab_contents
                             </div>

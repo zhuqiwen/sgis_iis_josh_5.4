@@ -210,6 +210,12 @@ return [
 	     */
 	    Barryvdh\DomPDF\ServiceProvider::class,
 
+        /*
+         * pdf merger
+         */
+        LynX39\LaraPdfMerger\PdfMergerServiceProvider::class,
+
+
 
     ],
 
@@ -282,6 +288,11 @@ return [
 	     * dompdf
 	     */
         'PDF' => Barryvdh\DomPDF\Facade::class,
+
+        /*
+         * pdf merger
+         */
+        'PdfMerger' => LynX39\LaraPdfMerger\Facades\PdfMerger::class,
 
 
     ],

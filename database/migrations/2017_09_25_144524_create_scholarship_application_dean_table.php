@@ -28,6 +28,7 @@ class CreateScholarshipApplicationDeanTable extends Migration
             $table->string('transcript_file_name')->nullable();
             $table->string('accept_letter_file_name')->nullable();
             $table->string('recommendation_file_name')->nullable();
+            $table->string('package_file_name')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

@@ -73,10 +73,15 @@ class ScholarshipController extends Controller
 
 		if(strtolower($scholarship_type) == strtolower(array_keys(config('constants.scholarship_types'))[0]))
 		{
-			$used_summer_intern_application_ids = ScholarshipApplicationDean::get(['intern_application_id'])
-				->flatMap(function ($dean_application){
-					return array_values($dean_application->toArray());
-				})->all();
+
+			$dean_applications = ScholarshipApplicationDean::get();
+			$used_summer_intern_application_ids = [];
+			foreach ($dean_applications as $dean_application)
+            {
+                $used_summer_intern_application_ids[] = $dean_application->intern_application_id;
+            }
+            $used_summer_intern_application_ids = array_values($used_summer_intern_application_ids);
+
 
 			$summer_intern_application = InternApplication::where('user_id', Sentinel::getUser()->id)
 				->where('intern_application_term', 'Summer')
@@ -84,13 +89,14 @@ class ScholarshipController extends Controller
                 ->with('organization', 'supervisor')
 				->get();
 
-			if(!$summer_intern_application)
+			if(empty($summer_intern_application))
 			{
 				return redirect()->route('frontend_scholarships_index');
 			}
 			else
 			{
 				// funding for summer internship
+
 				return view($view)->withSummerInternApplication($summer_intern_application);
 			}
 		}

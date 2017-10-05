@@ -105,7 +105,6 @@ class ScholarshipDeanRecommendationPortalController extends Controller
 
 	public function submitRecommendation(Request $request)
 	{
-//		dd($request->all());
 		$portal = ScholarshipDeanRecommendationPortal::find($request->portal_id);
 		$portal->recommendation_submitted = 1;
 
@@ -129,7 +128,7 @@ class ScholarshipDeanRecommendationPortalController extends Controller
 		$user_folder_name = $applicant->first_name . '_' . $applicant->last_name . '_' . $applicant->iuid;
 		$path = config('constants.scholarship_file_path.dean_scholarship') . $user_folder_name;
 
-		$file_name = 'recommendation_for' . $applicant->first_name . '_' . $applicant->last_name . '.pdf';
+		$file_name = md5($applicant->first_name . '_' . $applicant->last_name . microtime()) . 'pdf';
 		$pdf->generateAndSavePDF($view, $data, $path, $file_name);
 
 		$dean_application->recommendation_file_name = $path . '/' . $file_name;
@@ -138,6 +137,10 @@ class ScholarshipDeanRecommendationPortalController extends Controller
 		if($portal->save() && $dean_application->save())
 		{
 			$request->session()->flash('success', 'Your recommendation has been submitted successfully. The window can be safely closed.');
+
+			// make an application package of pdf files, including acceptance, transcript, and recommendation.
+
+
 			return redirect()->route('thank_you');
 		}
 		else

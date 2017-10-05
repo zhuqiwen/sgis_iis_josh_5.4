@@ -247,9 +247,17 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin', 'as' => 'admin.'], f
 
 
 	// pdf viewer
-	Route::get('doc/dean_scholarship/{record_id}/transcript', array('as' => 'dean_scholarship_transcript', 'uses' => 'PDFController@deanScholarshipTranscript'));
+//	Route::get('doc/dean_scholarship/{record_id}/transcript', array('as' => 'dean_scholarship_transcript', 'uses' => 'PDFController@deanScholarshipTranscript'));
+//	Route::get('doc/dean_scholarship/{record_id}/acceptance_letter', array('as' => 'dean_scholarship_acceptance_letter', 'uses' => 'PDFController@deanScholarshipAcceptanceLetter'));
+	Route::get('doc/dean_scholarship/{record_id}/{file}', array('as' => 'dean_scholarship_package_file', 'uses' => 'PDFController@deanScholarshipApplicationFile'));
 
 
+
+
+
+
+	//ajax call for generate email
+    Route::get('dean_scholarship_email_to_committee/{application_id}', 'ScholarshipDeanController@generatePackageEmail');
 
 
 

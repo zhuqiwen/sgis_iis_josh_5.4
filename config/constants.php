@@ -6,6 +6,12 @@
  * Time: 09:44
  */
 
+$dean_scholarship_package_email =<<<END
+Suspendisse sapien libero, consequat a odio quis, posuere tempus dolor. Vestibulum interdum magna ex, a tempor leo luctus non. Vivamus porta, lacus a finibus semper, dolor odio volutpat leo, et pharetra ipsum ex at enim. Vestibulum molestie ultricies est nec tempor. Praesent pellentesque nulla nec mi rhoncus, sed condimentum mi condimentum. Nam volutpat massa ut mattis consectetur. Fusce nisi nibh, bibendum ut purus vitae, malesuada commodo tortor. Curabitur efficitur massa nisi, id rutrum nulla cursus a. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nam sagittis viverra sagittis. Aenean porta nisi sed sapien laoreet cursus. In hac habitasse platea dictumst. Ut sollicitudin volutpat imperdiet. In massa mauris, dignissim vel ullamcorper at, bibendum vel ligula. Sed nunc mi, aliquet ac velit quis, aliquam ultrices mi. Ut dapibus porta nibh nec molestie.
+
+Nulla facilisi. Integer ultricies sit amet leo vel sagittis. Phasellus odio purus, accumsan ut tincidunt et, lacinia vel urna. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Integer cursus felis ac finibus dapibus. Curabitur enim dui, accumsan et libero sit amet, ultricies rhoncus arcu. Suspendisse gravida nisl urna, sollicitudin tempus nisi aliquam non. Aliquam lacinia massa vel tortor ultrices, sed maximus libero sodales. Mauris sit amet consequat dui, ultricies sodales dui. Nam eu tellus nulla. Mauris et pharetra tortor, eget lobortis purus. Quisque vel augue eu massa varius molestie.
+END;
+
 return [
 	'menu_path' => [
 		'front_end' => [
@@ -132,4 +138,23 @@ return [
 	'scholarship_file_path' => [
 		'dean_scholarship' => 'scholarship/dean/',
 	],
+
+
+    'committee_contacts' => [
+        'dean_scholarship' => [
+            'email' => 'dean_scholarship_committee@iu.edu',
+        ],
+    ],
+
+
+
+    'notification_emails' => [
+        'dean_scholarship' => [
+            'to_committee' => [
+                "to" => 'dean_scholarship_committee@iu.edu',
+                "body" => $dean_scholarship_package_email,
+            ],
+            'to_applicant' => [],
+        ],
+    ],
 ];
