@@ -1780,15 +1780,18 @@ EOF;
             else
             {
 
-                $package_notification_form = 'the email has NOT been sent';
+                $package_notification_form = view('admin.scholarships.dean.partials.package_email')
+	                ->withNotification($package_notification)
+	                ->withEditable(FALSE);
             }
 
         }
         else
         {
-            $package_notification_form = '<button id="button_generate_package_email" type="button" class="btn btn-sm btn-warning">';
-            $package_notification_form .= 'Generate an email to committee with application package</button>';
+            $package_notification_form = '<div style="text-align: center"><button id="button_generate_package_email" type="button" class="btn btn-warning">';
+            $package_notification_form .= 'Generate an email to committee with application package</button></div>';
         }
+
 
 
 

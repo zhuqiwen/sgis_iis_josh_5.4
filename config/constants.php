@@ -128,4 +128,8 @@ return [
     'email_notification_types' => [
         'dean_scholarship_application' => 'dean_scholarship_application',
     ],
+
+	'scholarship_file_path' => [
+		'dean_scholarship' => 'scholarship/dean/',
+	],
 ];

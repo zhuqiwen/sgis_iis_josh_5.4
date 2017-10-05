@@ -59,6 +59,7 @@
                                                     'Internship',
                                                     'Liability Release',
                                                     'Recommendation',
+                                                    'Acceptance letter',
                                                     'Transcript',
                                             ];
                                             for ($i = 0; $i < sizeof($tabNames); $i++)
@@ -77,6 +78,7 @@
                                         @include('frontend.partials.scholarship_application_form.dean.verify_internship')
                                         @include('frontend.partials.scholarship_application_form.dean.liability_release')
                                         @include('frontend.partials.scholarship_application_form.dean.recommendation_info')
+                                        @include('frontend.partials.scholarship_application_form.dean.acceptance_letter')
                                         @include('frontend.partials.scholarship_application_form.dean.transcript_upload')
 
 

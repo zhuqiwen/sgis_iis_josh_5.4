@@ -1,9 +1,9 @@
 // bootstrap wizard//
-$("#gender, #gender1").select2({
-    theme:"bootstrap",
-    placeholder:"",
-    width: '100%'
-});
+// $("#gender, #gender1").select2({
+//     theme:"bootstrap",
+//     placeholder:"",
+//     width: '100%'
+// });
 
 var scholarships_index_url = window.location.pathname.split('/').slice(0, -2).join('/');
 
@@ -79,7 +79,7 @@ $("#scholarship_dean_application_form").bootstrapValidator({
         recommender_first_name: {
             validators: {
                 notEmpty: {
-                    message: 'The recommendar\'s first name is required'
+                    message: 'The recommender\'s first name is required'
                 }
             },
             required: true
@@ -88,7 +88,7 @@ $("#scholarship_dean_application_form").bootstrapValidator({
         recommender_last_name: {
             validators: {
                 notEmpty: {
-                    message: 'The recommendar\'s last name is required'
+                    message: 'The recommender\'s last name is required'
                 }
             },
             required: true
@@ -96,7 +96,7 @@ $("#scholarship_dean_application_form").bootstrapValidator({
         recommender_email: {
             validators: {
                 notEmpty: {
-                    message: 'The recommendar\'s email is required'
+                    message: 'The recommender\'s email is required'
                 },
                 emailAddress: {
                     message: 'The input is not a valid email address'
@@ -104,10 +104,22 @@ $("#scholarship_dean_application_form").bootstrapValidator({
             },
             required: true
         },
-        transcript_file_name: {
+        transcript_file: {
             validators: {
                 notEmpty: {
-                    message: 'Please upload your transcript, in the format of PDF'
+                    message: 'Please upload your transcript, in format of PDF'
+                },
+                file: {
+                    extension: 'pdf',
+                    type: 'application/pdf',
+                    message: 'Only PDF file is accepted'
+                }
+            }
+        },
+        acceptance_letter: {
+            validators: {
+                notEmpty: {
+                    message: 'Please upload your acceptance letter, in format of PDF'
                 },
                 file: {
                     extension: 'pdf',

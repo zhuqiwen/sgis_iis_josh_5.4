@@ -113,6 +113,27 @@ class ScholarshipDeanRecommendationPortalController extends Controller
 		$dean_application = ScholarshipApplicationDean::find($request->dean_application_id);
 		$dean_application->recommender_recommendation = $request->recommender_recommendation;
 
+		// get recommender info and generate and save recommendation pdf file
+		$pdf = new PDFController();
+		$view = 'admin.scholarships.dean.partials.faculty_recommendation';
+		$data = [
+			'recommender_first_name' => $dean_application->recommender_first_name,
+			'recommender_last_name' => $dean_application->recommender_last_name,
+			'recommender_email' => $dean_application->recommender_email,
+			'recommender_department' => $dean_application->recommender_department,
+			'recommendation' => $request->recommender_recommendation,
+		];
+
+		$applicant = $dean_application->internshipApplication->applicant;
+
+		$user_folder_name = $applicant->first_name . '_' . $applicant->last_name . '_' . $applicant->iuid;
+		$path = config('constants.scholarship_file_path.dean_scholarship') . $user_folder_name;
+
+		$file_name = 'recommendation_for' . $applicant->first_name . '_' . $applicant->last_name . '.pdf';
+		$pdf->generateAndSavePDF($view, $data, $path, $file_name);
+
+		$dean_application->recommendation_file_name = $path . '/' . $file_name;
+
 
 		if($portal->save() && $dean_application->save())
 		{

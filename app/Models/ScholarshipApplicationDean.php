@@ -25,6 +25,8 @@ class ScholarshipApplicationDean extends Model
 	    "ferpa_waive",
         "forward_to_committee",
 	    "transcript_file_name",
+	    "accept_letter_file_name",
+	    "recommendation_file_name",
     ];
 
     protected $guarded = ['id'];

@@ -114,9 +114,17 @@ class ScholarshipController extends Controller
     {
 	    $user = Sentinel::getUser();
 	    $user_folder_name = $user->first_name . '_' . $user->last_name . '_' . $user->iuid;
-	    $path = 'schorlarship/dean_summer_internship/' . $user_folder_name;
-	    $file_name = $request->file('transcript_file')->store($path);
-	    $request->request->add(['transcript_file_name' => $file_name]);
+	    $path = config('constants.scholarship_file_path.dean_scholarship') . $user_folder_name;
+
+	    $transcript_file_name = $request->file('transcript_file')->store($path);
+	    $accept_letter_file_name = $request->file('acceptance_letter')->store($path);
+
+
+	    $request->request->add([
+	    	'transcript_file_name' => $transcript_file_name,
+		    'accept_letter_file_name' => $accept_letter_file_name,
+	    ]);
+
         $dean_application = ScholarshipApplicationDean::create($request->all());
 
 

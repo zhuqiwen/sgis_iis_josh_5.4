@@ -29,13 +29,15 @@ class PDFController extends Controller
 		}
 	}
 
-	public function generatePDF()
+	public function generateAndSavePDF($view, $data = [], $path, $filename)
 	{
-		$data = 'a test of generating pdf';
-		$pdf = PDF::loadView('functionality_trials.pdf', compact('data'));
-//		return $pdf->download('test_pdf.pdf');
-		$pdf->save(storage_path('app') . '/' . 'test_pdf.pdf');
-		return 'pdf saved';
+		$pdf = PDF::loadView($view, $data);
+		if($pdf->save(storage_path('app/'. $path) . '/' . $filename))
+		{
+			return TRUE;
+		}
+
+		return FALSE;
 	}
 
 
