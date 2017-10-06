@@ -27,7 +27,7 @@
                 @include('notifications')
             </div>
             <h3 class="text-primary">Thank you!</h3>
-            <p>We appreciate your evaluation / recommendation and help.</p>
+            <p>We appreciate your help.</p>
             <!-- Notifications -->
         </div>
     </div>
