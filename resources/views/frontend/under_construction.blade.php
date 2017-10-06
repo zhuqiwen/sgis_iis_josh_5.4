@@ -26,7 +26,7 @@
                 {{--<i class="livicon icon" data-name="desktop" data-size="55" data-loop="true" data-c="#01bc8c" data-hc="#01bc8c"></i>--}}
                 <i class="livicon icon" data-name="hammer" data-size="100" data-loop="true" data-c="#01bc8c" data-hc="#01bc8c"></i>
             {{--</div>--}}
-            <h3 class="text-primary">Under construction, and will come soon!</h3>
+            <h3 class="text-primary">Under construction, will come soon!</h3>
         </div>
     </div>
     <!-- //Content Section End -->
