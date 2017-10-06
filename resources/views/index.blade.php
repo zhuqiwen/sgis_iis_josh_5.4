@@ -26,6 +26,8 @@ Home
         </div>
         <div class="item"><img src="{{ asset('assets/images/sgis_banner_slide_2.jpg') }}" alt="slider-image">
         </div>
+        <div class="item"><img src="{{ asset('assets/images/sgis_banner_slide_3.jpg') }}" alt="slider-image">
+        </div>
         {{--<div class="item"><img src="{{ asset('assets/images/slide_4.png') }}" alt="slider-image">--}}
         {{--</div>--}}
     </div>
