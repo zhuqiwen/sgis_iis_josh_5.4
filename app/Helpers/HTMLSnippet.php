@@ -1797,6 +1797,8 @@ EOF;
 
             $package_notification_form = view('admin.notification_emails.scholarships.dean.to_committee.package_email')
                 ->withTip($tip)
+	            ->withApplication($application)
+	            ->withApplicant($applicant)
                 ->withNotification($package_notification)
                 ->withEditable($editable);
 

@@ -52,7 +52,9 @@
 
         <div class="form-group mbn">
             <label for="body" class="control-label">Attachment</label>
-            <a class="form-control" href="#">John_Doe_Dean_scholarship_Application_Package.zip</a>
+            <a class="form-control" href="{{route('admin.dean_scholarship_package_file', ['record_id' => $application->id, 'file' => 'package'])}}" target="_blank">
+                {{$applicant->first_name}} {{$applicant->last_name}}'s Deans Scholarship Application Package.pdf
+            </a>
         </div>
     </div>
     <div class="form-actions">

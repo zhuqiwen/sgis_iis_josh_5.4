@@ -20,6 +20,7 @@ class PDFController extends Controller
             'transcript' => 'transcript_file_name',
             'acceptance_letter' => 'accept_letter_file_name',
             'recommendation' => 'recommendation_file_name',
+	        'package' => 'package_file_name',
         ];
 
         $application = ScholarshipApplicationDean::find($record_id);

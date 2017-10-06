@@ -77,8 +77,14 @@ class ScholarshipDeanController extends Controller
 
         if($pdf->generateAndSavePDF($view, $data, $path, $internship_details_file))
         {
-            $internship_details_file = $path . '/' . $internship_details_file;
-            $files = compact('transcript_file', 'acceptance_file', 'recommendation_file', 'internship_details_file');
+	        define('DS', DIRECTORY_SEPARATOR);
+            $internship_details_file = $path . DS . $internship_details_file;
+            $files = compact(
+            	'internship_details_file',
+	            'recommendation_file',
+            	'transcript_file',
+	            'acceptance_file'
+            );
 
 
             $package_file_name = $pdf->mergeAndSavePDFs($files, $path);
@@ -99,6 +105,8 @@ class ScholarshipDeanController extends Controller
 
 
             return view('admin.notification_emails.scholarships.dean.to_committee.package_email')
+	            ->withApplication($application)
+	            ->withApplicant($applicant)
                 ->withNotification($notification)
                 ->withEditable(True);
 
