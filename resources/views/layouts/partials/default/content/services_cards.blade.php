@@ -32,10 +32,10 @@
                     <i class="livicon icon1" data-name="money" data-size="55" data-loop="true" data-c="#418bca" data-hc="#418bca"></i>
                 </div>
                 <div class="info">
-                    <h3 class="primary text-center">Funding</h3>
-                    <p>Apply for Internship Funding</p>
-                    <p>Manage Funding Applications</p>
-                    <p>Other Scholarships</p>
+                    <h3 class="primary text-center">Scholarships</h3>
+                    <p>Get to know about SGIS Scholarships</p>
+                    <p>Apply for Scholarships</p>
+                    <p>Manage your Scholarships</p>
                     <div class="text-right primary"><a href="#">Read more</a>
                     </div>
                 </div>
