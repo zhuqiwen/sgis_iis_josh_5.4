@@ -128,7 +128,7 @@ class ScholarshipDeanRecommendationPortalController extends Controller
 		$user_folder_name = $applicant->first_name . '_' . $applicant->last_name . '_' . $applicant->iuid;
 		$path = config('constants.scholarship_file_path.dean_scholarship') . $user_folder_name;
 
-		$file_name = md5($applicant->first_name . '_' . $applicant->last_name . microtime()) . 'pdf';
+		$file_name = md5($applicant->first_name . '_' . $applicant->last_name . microtime()) . '.pdf';
 		$pdf->generateAndSavePDF($view, $data, $path, $file_name);
 
 		$dean_application->recommendation_file_name = $path . '/' . $file_name;
