@@ -1810,16 +1810,18 @@ EOF;
                 $button_id = 'button_generate_package_email';
                 $button_type = 'btn-primary';
                 $button_string = 'Generate an email to committee with application package';
+	            $package_notification_form = '<button id="' . $button_id . '" type="button" class="btn ' . $button_type . '">';
+	            $package_notification_form .= $button_string . '</button>';
             }
             else
             {
-                $button_id = 'button_generate_email_to_applicant';
-                $button_type = 'btn-warning';
-                $button_string = 'Check with the applicant if recommendation is submitted';
+//                $button_id = 'button_generate_email_to_applicant';
+//                $button_type = 'btn-warning';
+//                $button_string = 'Check with the applicant if recommendation is submitted';
+	            $package_notification_form = 'Since no recommendation has been submitted, the application package is incomplete.';
             }
 
-            $package_notification_form = '<button id="' . $button_id . '" type="button" class="btn ' . $button_type . '">';
-            $package_notification_form .= $button_string . '</button>';
+
         }
 
 
