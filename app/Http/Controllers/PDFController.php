@@ -90,22 +90,21 @@ class PDFController extends Controller
         {
             $pdf = new PDFManage();
             $filename = '';
-            define('DS', DIRECTORY_SEPARATOR );
             foreach($files as $file)
             {
 
-                $pdf->addPDF(realpath(storage_path('app') . DS . $file));
+                $pdf->addPDF(realpath(storage_path('app') . DIRECTORY_SEPARATOR . $file));
                 $filename .= $file;
             }
 
             $filename = md5($filename) . '.pdf';
-            $file_location = storage_path('app' . DS . $path) . DS . $filename;
+            $file_location = storage_path('app' . DIRECTORY_SEPARATOR . $path) . DIRECTORY_SEPARATOR . $filename;
 
 
 
             if($pdf->merge('file', $file_location))
             {
-                return $path . DS . $filename;
+                return $path . DIRECTORY_SEPARATOR . $filename;
             }
             else
             {

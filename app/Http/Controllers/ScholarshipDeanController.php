@@ -77,8 +77,7 @@ class ScholarshipDeanController extends Controller
 
         if($pdf->generateAndSavePDF($view, $data, $path, $internship_details_file))
         {
-	        define('DS', DIRECTORY_SEPARATOR);
-            $internship_details_file = $path . DS . $internship_details_file;
+            $internship_details_file = $path . DIRECTORY_SEPARATOR . $internship_details_file;
             $files = compact(
             	'internship_details_file',
 	            'recommendation_file',
