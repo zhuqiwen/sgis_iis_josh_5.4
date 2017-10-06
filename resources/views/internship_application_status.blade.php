@@ -9,11 +9,7 @@
 {{-- page level styles --}}
 @section('header_styles')
     <!--page level css starts-->
-{{--    <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendors/bootstrap-tagsinput/css/bootstrap-tagsinput.css') }}" />--}}
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/frontend/panel.css') }}">
-{{--    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/frontend/features.css') }}">--}}
-{{--    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/frontend/timeline.css') }}">--}}
-{{--    <link type="text/css" rel="stylesheet" href="{{ asset('assets/vendors/bootstrap-switch/css/bootstrap-switch.css') }}">--}}
     <link rel="stylesheet" href="{{ asset('assets/css/pages/tab.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/float-card.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/pages/buttons.css') }}" />
@@ -36,7 +32,7 @@
         <section class="content">
 
             <div class="row">
-                <h3 style="margin-left: 13px;">Hi, {{ Sentinel::getUser()->first_name }}, Here are your Internship Applications</h3>
+                {{--<h3 style="margin-left: 13px;">Hi, {{ Sentinel::getUser()->first_name }}, Here are your Internship Applications</h3>--}}
                 <div class="col-md-12">
                     <div class="panel panel-primary">
                         <div class="panel-heading">

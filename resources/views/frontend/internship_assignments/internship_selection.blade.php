@@ -9,12 +9,18 @@
 {{-- page level styles --}}
 @section('header_styles')
     <!--page level css starts-->
-    <link href="{{ asset('assets/css/app.css') }}" rel="stylesheet" />
+{{--    <link href="{{ asset('assets/css/app.css') }}" rel="stylesheet" />--}}
 
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/frontend/panel.css') }}">
 
-    <link href="{{ asset('assets/vendors/acc-wizard/acc-wizard.min.css') }}" rel="stylesheet" />
-    <link href="{{ asset('assets/css/pages/accordionformwizard.css') }}" rel="stylesheet" />
+{{--    <link href="{{ asset('assets/vendors/acc-wizard/acc-wizard.min.css') }}" rel="stylesheet" />--}}
+{{--    <link href="{{ asset('assets/css/pages/accordionformwizard.css') }}" rel="stylesheet" />--}}
+
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/frontend/panel.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/pages/tab.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/css/float-card.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/css/pages/buttons.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/css/font-awesome.min.css') }}" />
 
     <!--end of page level css-->
 @stop
@@ -30,10 +36,10 @@
 @section('content')
     <!-- Container Section Start -->
     <div class="container">
-        <section class="content-header">
-            <!--section starts-->
-            <h1>Internship Assignments</h1>
-        </section>
+        {{--<section class="content-header">--}}
+            {{--<!--section starts-->--}}
+            {{--<h1>Internship Assignments</h1>--}}
+        {{--</section>--}}
         <!--section ends-->
         <section class="content">
             <!--main content-->
@@ -42,7 +48,7 @@
                     <div class="panel panel-primary">
                         <div class="panel-heading">
                             <h3 class="panel-title">
-                                <i class="livicon" data-name="printer" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
+                                {{--<i class="livicon" data-name="printer" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>--}}
                                 Internship Assignments
                             </h3>
                             <span class="pull-right clickable">
