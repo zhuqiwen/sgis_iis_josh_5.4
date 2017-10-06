@@ -35,8 +35,11 @@ Home
 {{-- content --}}
 @section('content')
     <div class="container">
-        @include('layouts.partials.default.content.under_main_slider_purchase_style')
-        @include('layouts.partials.default.content.services_cards')
+        @if(\Cartalyst\Sentinel\Laravel\Facades\Sentinel::check())
+            @include('layouts.partials.default.content.services_cards')
+        @else
+            @include('layouts.partials.default.content.under_main_slider_purchase_style')
+        @endif
     </div>
     {{--@include('layouts.partials.default.content.the_rest_of_josh_original')--}}
 

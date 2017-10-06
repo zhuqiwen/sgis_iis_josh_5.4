@@ -271,7 +271,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin', 'as' => 'admin.'], f
 
 #FrontEndController
 Route::get('404', function () {
-    return View('frontend.url_not_exist');
+    return view('frontend.url_not_exist');
 });
 Route::get('500', function () {
     return View::make('admin/500');
@@ -296,6 +296,10 @@ Route::group(array('middleware' => 'user'), function () {
 
     //sgis front end routes
 
+	Route::get('create_internship_application', function (){
+		return view('create_internship_application');
+	});
+
     Route::get('internship_application_status', 'InternApplicationController@showApplicationStatus');
     Route::get('internship_assignments', 'InternInternshipController@showAssignmentView');
     Route::get('scholarships', ['as' => 'frontend_scholarships_index', 'uses' => 'ScholarshipController@frontendIndex']);
@@ -314,6 +318,10 @@ Route::group(array('middleware' => 'user'), function () {
 	// ajax: get submitted assignments grouped by internships
     Route::get(config('constants.ajax.urls.get_submitted_assignments_grouped_by_internship'), 'InternInternshipController@ajaxGetInternshipPanelsWithSubmitAssignments');
 
+
+	Route::get('/experiences', function (){
+		return view('frontend.under_construction');
+	});
 
 
 
@@ -344,9 +352,7 @@ Route::get('supervisor/{random_url}', 'InternSupervisorController@identityCheckV
 //deans scholarship recommendation
 
 Route::post('dean_scholarship_recommendation/recommendation', ['as' => 'submit_dean_scholarship_recommendation', 'uses' => 'ScholarshipDeanRecommendationPortalController@submitRecommendation']);
-//Route::get('dean_scholarship_recommendation/thank_you', ['as' => 'thank_you', 'uses' => function(){
-//	return view('frontend.scholarships.recommendation.thank_you');
-//}]);
+
 Route::post('dean_scholarship_recommendation/validate', ['as' => 'dean_scholarship_recommender_identity_check', 'uses' => 'ScholarshipDeanRecommendationPortalController@validateIdentity']);
 Route::get('dean_scholarship_recommendation/{random_url}', 'ScholarshipDeanRecommendationPortalController@identityCheckView');
 

@@ -52,7 +52,7 @@
     {{--Others' Internship Experiences--}}
         {{--students can browse others internship experiences--}}
     <li {!! (Request::is('experiences') ? 'class="active"' : '') !!}">
-        <a href="/experiences"> Others' experiences</a>
+        <a href="{{ URL::to(config('constants.menu_path.front_end.others_stories')) }}"> Others' experiences</a>
     </li>
     {{--logout--}}
 

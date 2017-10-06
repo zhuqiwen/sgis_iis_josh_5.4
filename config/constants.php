@@ -23,6 +23,8 @@ return [
 			'scholarships_index' => '/scholarships',
 			'funding_overseas_internship' => '/overseas_study_scholarships',
 			'funding_scholarships' => '/other_scholarships',
+
+			'others_stories' => '/experiences',
 		],
 		'back_end' => [],
 	],
