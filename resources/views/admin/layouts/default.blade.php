@@ -52,7 +52,7 @@
                             <img src="{!! asset('assets/img/authors').'/'.Sentinel::getUser()->pic !!}" alt="img" height="35px" width="35px"
                                  class="img-circle img-responsive pull-left"/>
                         @else
-                            <img src="{!! asset('assets/img/authors/avatar3.jpg') !!} " width="35"
+                            <img src="{!! asset('assets/img/authors/qiwen.jpg') !!} " width="35"
                                  class="img-circle img-responsive pull-left" height="35" alt="riot">
                         @endif
                         <div class="riot">
