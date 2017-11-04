@@ -12,8 +12,8 @@ class AdminSeeder extends DatabaseSeeder {
 		$admin = Sentinel::registerAndActivate(array(
 			'email'       => 'admin@admin.com',
 			'password'    => "admin",
-			'first_name'  => 'John',
-			'last_name'   => 'Doe',
+			'first_name'  => 'Qiwen',
+			'last_name'   => 'Zhu',
 		));
 
         $olga = Sentinel::registerAndActivate(array(
